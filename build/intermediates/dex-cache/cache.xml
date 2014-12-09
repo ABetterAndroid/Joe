@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\Project\orangee\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-d200509062741c24875883afce9dca843b61adf2.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\Android_Location_V1.3.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="2ffeb17da57de5b5e57ec44c6397fb4d682cf0db">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\Android_Location_V1.3.0-df6eff8f6b7c00b56a741a305c61ad26d661b156.jar" />
+    </item>
+    <item
+        jar="D:\Develop\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-70a981dc57a9e0bc63d9f5068b6d85d732ddb404.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\AMap_3DMap_V2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="381dbf3921d167b0dd86e9f3f26e17752cb181c4">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\AMap_3DMap_V2.3.1-6380c596b24581b3b08a9f070d51dbe59ef2b25b.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\httpmime-4.1.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d34b163e52a9727101aced60775d51c5085390a1">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\httpmime-4.1.1-e6700d5a2092bdcef82ff408bf36f84a240c211c.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\build\intermediates\exploded-aar\Project\cardView\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="4b0d376f164bc30d61f5e6dd2794d33e2da51837">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-dea897ff858883e6f11043abfcc02f14a4422b03.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\weibosdkcore.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="94471fb40a1a2175b5993cdf0af0b8e59ed29fb3">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\weibosdkcore-d20c90462c5d5723d2aa93c4079f00184a80d41e.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\ AMap_Services_V2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="88e0195beb745b9f74a11248f61ca6ec00482b8b">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\ AMap_Services_V2.3.1-2f0f3d8a8d289284e3f9e488a94749ae10548023.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.2\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-f84613a1a2c026aa9b430cd8354b7bd100a71d78.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\build\intermediates\exploded-aar\Project\cardView\unspecified\libs\android-support-v7-cardview.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="1ce500acc060628ff356dedd66877b6c8a8a4056">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\android-support-v7-cardview-cb614ac0f8b81641651811abfa43102bf28cd878.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\AndroidPlus 1.0.7.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="5cc0e6ed5601f9c8fe2a9970c78916816766060e">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\AndroidPlus 1.0.7-70b3ebe2f659ab9ac04ea157a1a76df70a04cfd2.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\universal-image-loader-1.9.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-ff6658458bd7cf6dde1b36d64b8d353b2c77f8a0.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\libs\android-support-v7-recyclerview.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="16bc7316bdcb27eb2f9c0c349f8e377ad68a4094">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\android-support-v7-recyclerview-c4760d62f329a905cc4475d7aae2985975acc8bb.jar" />
+    </item>
+    <item
+        jar="D:\Android\Project\orangee\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-a7db5cbf6c39cab377f6509385323a28b8791f33.jar" />
+    </item>
+
+</items>

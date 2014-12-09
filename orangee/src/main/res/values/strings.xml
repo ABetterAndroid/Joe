@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="left_drawer_list">
+        <item>收藏</item>
+        <item>附近的微博</item>
+        <item>我的评论</item>
+        <item>提到我的</item>
+        <item>搜索</item>
+        <item>设置</item>
+    </string-array>
+
+    <string name="app_name">Orangee</string>
+    <string name="title_section1">收藏</string>
+    <string name="title_section2">我的评论</string>
+    <!-- <string name="title_section3">&#064;我的</string> -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome</string>
+    <string name="auth">授权</string>
+    <string name="comment">评论</string>
+    <string name="retweet">转发</string>
+    <string name="send">发送</string>
+    <string name="edit_blank">请输入内容后发送</string>
+    <string name="edit_retweet">同时转发</string>
+    <string name="edit_comment">同时评论</string>
+    <string name="person_follow">关注</string>
+    <string name="person_follower">粉丝</string>
+    <string name="person_status">微博</string>
+    <string name="person_cancel_follow">取消关注</string>
+    <string name="person_following">已关注</string>
+    <string name="person_each_following">相互关注</string>
+    <string name="my_comment_reply">回复</string>
+    <string name="my_comment_source">原微博</string>
+    <string name="my_comment_to_me">收到的评论</string>
+    <string name="my_comment_by_me">发出的评论</string>
+    <string name="mention_weibo">提到我的微博</string>
+    <string name="mention_comment">提到我的评论</string>
+    <string name="back">返回</string>
+    <string name="home_nearby">附近的微博</string>
+    <string name="home">我的首页</string>
+    <string name="refresh">刷新</string>
+    <string name="edit">发微博</string>
+    <string name="web_go">用浏览器打开</string>
+    <string name="pick_done">完成</string>
+    <string name="pick_gallery">所有图片</string>
+    <string name="weibo_send_success">微博发送成功</string>
+    <string name="weibo_send_fail">微博发送失败</string>
+    <string name="no_network">无网络连接…</string>
+    <string name="nearby_list">列表查看</string>
+    <string name="logout_success">退出成功</string>
+    <string name="logout_fail">退出失败</string>
+    <string name="clear_cache_success">缓存已清除</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

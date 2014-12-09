@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="theme_orange">#EF6D00</color>
+    <color name="theme_orange_dark">#E65100</color>
+    <color name="theme_blue">#27408B</color>
+    <color name="card_color">#FFFFFF</color>
+    <color name="retweet_color">#DFE4EA</color>
+    <color name="retweet_color2">#DCDCDC</color>
+    <color name="background">#DADEE1</color>
+    <color name="button_layout">#FAFAFA</color>
+    <color name="button_layout_selected_start">#ECECEC</color>
+    <color name="button_layout_selected_end">#F7FBFE</color>
+    <color name="text_name">#141819</color>
+    <color name="text_sub">#97989A</color>
+    <color name="text_content">#25262A</color>
+    <color name="text_button">#767676</color>
+    <color name="divider">#E8E8E8</color>
+    <color name="black">#000000</color>
+    <color name="drawer">#EEEEEE</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="gray">#bbaaaaaa</color>
+    
+</resources>

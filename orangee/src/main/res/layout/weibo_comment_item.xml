@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/background">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent" 
+	    android:background="@color/card_color"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginTop="5dp"
+	    android:layout_marginBottom="5dp">
+        
+		<ImageView 
+		    android:layout_width="40dp"
+		    android:layout_height="40dp"
+		    android:id="@+id/comment_avatar"
+		    android:scaleType="matrix"
+		    android:layout_margin="10dp"
+		    android:layout_alignParentTop="true"/>
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_marginTop="10dp"
+		    android:layout_marginRight="10dp"
+		    android:layout_marginBottom="10dp"
+		    android:layout_centerVertical="true"
+		    android:layout_toRightOf="@id/comment_avatar">
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/comment_name"
+		        android:textColor="@color/text_name"
+		        android:textSize="15sp"/>
+		    
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal">
+		        
+		        <TextView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/comment_time"
+			        android:textColor="@color/text_sub"
+			        android:textSize="12sp"/>
+		        
+		        <TextView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:id="@+id/comment_source"
+			        android:textSize="12sp"
+			        android:textColor="@color/text_sub"
+			        android:layout_marginLeft="10dp"/>
+		        
+		    </LinearLayout>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/comment_content"
+		        android:textSize="14sp"
+		        android:textColor="@color/text_content"/>
+		    
+		</LinearLayout>
+		
+    </RelativeLayout>
+    
+</RelativeLayout>

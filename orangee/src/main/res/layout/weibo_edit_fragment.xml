@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/background">
+    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/card_color">
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="5dp"
+	        android:background="@color/theme_orange"
+	        android:id="@+id/edit_options_layout"
+	        android:layout_alignParentBottom="true"
+	        android:orientation="horizontal">
+	        
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/edit_add_img"
+	            android:layout_margin="5dp"
+	            android:src="@drawable/ic_action_picture"
+	            />
+	        
+	    </LinearLayout>
+	    
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:id="@+id/edit_divider"
+	        android:background="@drawable/divider"
+	        android:layout_above="@id/edit_options_layout"
+	        android:contentDescription="@string/app_name"/>
+	    
+	    <HorizontalScrollView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:scrollbars="@null"
+	        android:id="@+id/img_scroll"
+	        android:layout_above="@id/edit_divider"
+	        android:layout_marginBottom="10dp">
+	        
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/edit_img_layout"
+		        android:orientation="horizontal"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginRight="5dp">
+		        
+		    </LinearLayout>
+	        
+	    </HorizontalScrollView>
+	    
+	    <EditText 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:id="@+id/weibo_edit"
+	        android:layout_above="@id/img_scroll"
+	        android:padding="10dp"
+	        android:textSize="14sp"
+	        android:background="@null"
+	        android:gravity="start"
+	        android:textColor="@color/text_content"/>
+	    
+	</RelativeLayout>
+    
+</LinearLayout>

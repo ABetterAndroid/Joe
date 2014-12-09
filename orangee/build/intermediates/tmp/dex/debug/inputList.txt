@@ -1,0 +1,15 @@
+D:\Android\Project\orangee\build\intermediates\classes\debug
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-dea897ff858883e6f11043abfcc02f14a4422b03.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-70a981dc57a9e0bc63d9f5068b6d85d732ddb404.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\android-support-v7-cardview-cb614ac0f8b81641651811abfa43102bf28cd878.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\httpmime-4.1.1-e6700d5a2092bdcef82ff408bf36f84a240c211c.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\weibosdkcore-d20c90462c5d5723d2aa93c4079f00184a80d41e.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-ff6658458bd7cf6dde1b36d64b8d353b2c77f8a0.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\AndroidPlus 1.0.7-70b3ebe2f659ab9ac04ea157a1a76df70a04cfd2.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-d200509062741c24875883afce9dca843b61adf2.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\android-support-v7-recyclerview-c4760d62f329a905cc4475d7aae2985975acc8bb.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\Android_Location_V1.3.0-df6eff8f6b7c00b56a741a305c61ad26d661b156.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\ AMap_Services_V2.3.1-2f0f3d8a8d289284e3f9e488a94749ae10548023.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-f84613a1a2c026aa9b430cd8354b7bd100a71d78.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\classes-a7db5cbf6c39cab377f6509385323a28b8791f33.jar
+D:\Android\Project\orangee\build\intermediates\pre-dexed\debug\AMap_3DMap_V2.3.1-6380c596b24581b3b08a9f070d51dbe59ef2b25b.jar

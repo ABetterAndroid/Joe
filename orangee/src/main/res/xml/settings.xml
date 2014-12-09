@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    <!-- Notification -->
+    <PreferenceCategory
+		android:title="账号">
+		
+		<Preference
+		    android:key="logout"
+		    android:title="退出当前账号" />
+		
+	</PreferenceCategory>
+    
+	<!-- Actions -->
+	<PreferenceCategory
+		android:title="通用">
+		
+		<Preference
+		    android:key="clear_cache"
+		    android:title="清除缓存" />
+		
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_orange" >
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_tv"
+        android:text="@string/app_name"
+        android:textSize="60sp"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"/>
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_tv"
+        android:text="@string/auth"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:visibility="invisible"
+        android:background="@drawable/btn_layout_background"
+        android:textColor="@color/theme_orange"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

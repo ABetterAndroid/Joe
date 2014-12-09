@@ -1,0 +1,18 @@
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <objectAnimator
+        android:valueFrom="0"
+        android:valueTo="1500"
+        android:propertyName="Y"
+        android:valueType="floatType"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:duration="@integer/card_flip_time_full" />
+    
+    <objectAnimator
+        android:valueFrom="1.0"
+        android:valueTo="0.0"
+        android:propertyName="alpha"
+        android:startOffset="@integer/card_flip_time_half"
+        android:duration="@integer/card_flip_time_half" />
+    
+</set>

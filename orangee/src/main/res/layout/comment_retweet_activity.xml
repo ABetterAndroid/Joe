@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:id="@+id/content_layout"
+    android:background="@color/background">
+    
+    <include 
+        layout="@layout/tool_bar"/>
+    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_margin="10dp"
+	    android:background="@color/card_color">
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/edit_options_layout"
+	        android:layout_alignParentBottom="true"
+	        android:orientation="horizontal">
+	        
+	        <CheckBox 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/edit_check"
+	            android:layout_margin="10dp"
+	            android:layout_gravity="center_vertical"/>
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:id="@+id/edit_chk_tip"
+	            android:textSize="14sp"
+	            android:layout_gravity="center_vertical"
+	            android:textColor="@color/text_sub"/>
+	        
+	    </LinearLayout>
+	    
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:id="@+id/edit_divider"
+	        android:background="@drawable/divider"
+	        android:layout_above="@id/edit_options_layout"
+	        android:contentDescription="@string/app_name"/>
+	    
+	    <EditText 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:id="@+id/comment_retweet_edit"
+	        android:layout_above="@id/edit_divider"
+	        android:padding="10dp"
+	        android:textSize="14sp"
+	        android:background="@null"
+	        android:gravity="start"
+	        android:textColor="@color/text_content"/>
+	    
+	</RelativeLayout>
+    
+</LinearLayout>

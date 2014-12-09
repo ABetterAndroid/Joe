@@ -1,0 +1,12 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/drawer"
+    android:choiceMode="singleChoice"
+    android:divider="@null"
+    android:scrollbars="@null"
+    tools:context="com.joe.orangee.fragment.drawer.NavigationDrawerFragment" 
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"/>
+

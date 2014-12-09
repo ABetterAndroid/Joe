@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content_layout"
+    android:orientation="vertical"
+    android:background="@color/background">
+    
+    <include 
+        layout="@layout/tool_bar"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+        
+	   <android.support.v4.widget.SwipeRefreshLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:id="@+id/comment_swipe"
+		    android:orientation="vertical">
+	    
+		    <ListView 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:divider="@null"
+		        android:id="@+id/lv_weibo_comment"
+		        android:visibility="visible">
+	           
+		    </ListView>
+		    
+	   	</android.support.v4.widget.SwipeRefreshLayout>
+	   	
+	    <ScrollView 
+	        android:layout_width="wrap_content"
+	   		android:layout_height="wrap_content"
+	   		android:id="@+id/head_scroll"
+	   		android:paddingTop="5dp" >
+	        
+		    <include 
+		        layout="@layout/weibo_item"/>
+	        
+	    </ScrollView>
+	    
+    </RelativeLayout>
+    
+</LinearLayout>

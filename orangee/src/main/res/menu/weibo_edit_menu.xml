@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.joe.orange.activity.my.MyCommentActivity" >
+
+    <item
+        android:id="@+id/action_send_weibo"
+        android:showAsAction="always"
+        android:title="@string/send"
+        android:icon="@drawable/ic_action_send_now"/>
+
+</menu>

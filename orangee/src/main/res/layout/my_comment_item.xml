@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/background">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_color"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        
+	    <RelativeLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/my_comment_info">
+	        
+	        <ImageView 
+		        android:layout_width="40dp"
+		        android:layout_height="40dp"
+		        android:layout_margin="10dp"
+		        android:id="@+id/my_comment_avatar"
+		        android:scaleType="fitXY"
+		        android:contentDescription="@string/app_name"
+		        android:layout_centerVertical="true"/>
+	    
+		    <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+		        android:layout_toRightOf="@id/my_comment_avatar"
+		        android:layout_centerVertical="true">
+		        
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:id="@+id/my_comment_name"
+		            android:textColor="@color/text_name"
+		            android:textSize="14sp"/>
+		        
+		        <LinearLayout 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal">
+		            
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:id="@+id/my_comment_time"
+		                android:textSize="12sp"
+		                android:textColor="@color/text_sub"
+		                android:layout_marginRight="10dp"/>
+		            
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:id="@+id/my_comment_source"
+		                android:textColor="@color/text_sub"
+		                android:textSize="12sp"/>
+		            
+		        </LinearLayout>
+		        
+		    </LinearLayout>
+	        
+	    </RelativeLayout>
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/my_comment_text"
+	        android:layout_below="@id/my_comment_info"
+	        android:textColor="@color/text_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"/>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:layout_below="@id/my_comment_text"
+	        android:id="@+id/replyed_layout"
+	        android:background="@color/retweet_color"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp">
+	    	    
+	        <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/replyed_text"
+                android:textColor="@color/text_content"
+                android:layout_margin="10dp"/>
+	        
+	    </LinearLayout>
+	    
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:layout_marginTop="10dp"
+	        android:id="@+id/status_divider"
+	        android:layout_below="@id/replyed_layout"
+	        android:contentDescription="@string/app_name"
+	        android:background="@drawable/divider"/>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_below="@id/status_divider"
+	        android:id="@+id/my_comment_handle_layout">
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:gravity="center"
+	            android:clickable="true"
+	            android:id="@+id/reply_btn_layout"
+	            android:background="@drawable/btn_layout_background"
+	            android:layout_weight="1">
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:id="@+id/my_comment_bt_text"
+	                android:text="@string/my_comment_reply"
+	                android:textSize="13sp"
+	                android:paddingTop="10dp"
+	                android:paddingBottom="10dp"
+	                android:textColor="@color/text_button"/>
+	            
+	        </LinearLayout>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:gravity="center"
+	            android:clickable="true"
+	            android:id="@+id/source_btn_layout"
+	            android:background="@drawable/btn_layout_background"
+	            android:layout_weight="1">
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:id="@+id/repost_bt_text"
+	                android:text="@string/my_comment_source"
+	                android:textSize="13sp"
+	                android:paddingTop="10dp"
+	                android:paddingBottom="10dp"
+	                android:textColor="@color/text_button"/>
+	            
+	        </LinearLayout>
+	        
+	    </LinearLayout>
+	    
+    </RelativeLayout>
+    
+</RelativeLayout>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:id="@+id/item_layout"
+    android:background="@color/background">
+    
+    <android.support.v7.widget.CardView
+	    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation">
+
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/card_ripple_background"
+	        android:gravity="center_vertical">
+	        
+		    <RelativeLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/weibo_info">
+		        
+		        <ImageView 
+			        android:layout_width="40dp"
+			        android:layout_height="40dp"
+			        android:layout_margin="10dp"
+			        android:id="@+id/weibo_avatar"
+			        android:scaleType="fitXY"
+			        android:contentDescription="@string/app_name"
+			        android:layout_centerVertical="true"/>
+		    
+			    <LinearLayout 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_toRightOf="@id/weibo_avatar"
+			        android:layout_centerVertical="true">
+			        
+			        <TextView 
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:id="@+id/weibo_auther"
+			            android:textColor="@color/text_name"
+			            android:textSize="14sp"/>
+			        
+			        <LinearLayout 
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:orientation="horizontal">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:id="@+id/weibo_time"
+			                android:textSize="12sp"
+			                android:textColor="@color/text_sub"
+			                android:layout_marginRight="10dp"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:id="@+id/weibo_source"
+			                android:textColor="@color/text_sub"
+			                android:textSize="12sp"/>
+			            
+			        </LinearLayout>
+			        
+			    </LinearLayout>
+		        
+		    </RelativeLayout>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:id="@+id/weibo_text"
+		        android:textSize="13sp"
+		        android:focusable="false"
+		        android:layout_below="@id/weibo_info"
+		        android:textColor="@color/text_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"/>
+		    
+	    	<LinearLayout 
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:id="@+id/weibo_pics"
+	    	    android:layout_below="@id/weibo_text"
+	    	    android:layout_marginLeft="10dp"
+	    	    android:layout_marginTop="10dp"
+	    	    android:layout_marginRight="10dp"
+	    	    android:orientation="vertical">
+	    	    
+	    	    <RelativeLayout 
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:orientation="horizontal">
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic1"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic2"
+	    	            android:layout_toRightOf="@id/pic1"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:layout_marginLeft="5dp"
+	    	            android:layout_marginRight="5dp"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic3"
+	    	            android:layout_toRightOf="@id/pic2"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	    </RelativeLayout>
+	    	    
+	    	    <RelativeLayout 
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_marginTop="5dp"
+	    	        android:layout_marginBottom="5dp"
+	    	        android:id="@+id/pic_layout2"
+	    	        android:orientation="horizontal">
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic4"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic5"
+	    	            android:layout_toRightOf="@id/pic4"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:layout_marginLeft="5dp"
+	    	            android:layout_marginRight="5dp"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic6"
+	    	            android:layout_toRightOf="@id/pic5"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	    </RelativeLayout>
+	    	    
+	    	    <RelativeLayout 
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:id="@+id/pic_layout3"
+	    	        android:orientation="horizontal">
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic7"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic8"
+	    	            android:layout_toRightOf="@id/pic7"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:layout_marginLeft="5dp"
+	    	            android:layout_marginRight="5dp"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	        <ImageView 
+	    	            android:layout_width="60dp"
+	    	            android:layout_height="60dp"
+	    	            android:id="@+id/pic9"
+	    	            android:layout_toRightOf="@id/pic8"
+	    	            android:contentDescription="@string/app_name"
+	    	            android:scaleType="centerCrop"/>
+	    	        
+	    	    </RelativeLayout>
+	    	    
+	    	</LinearLayout>
+		    
+	    	<android.support.v7.widget.CardView
+			    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+		        android:id="@+id/retweet_card_view"
+		        android:layout_below="@id/weibo_pics"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        card_view:cardCornerRadius="0sp"
+		        card_view:cardElevation="3dp">
+	    	
+			    <LinearLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:id="@+id/retweet_layout"
+					android:background="@drawable/retweet_ripple_background">
+			    	    
+			        <ImageView 
+			            android:layout_width="0dp"
+			            android:layout_height="0dp"
+			            android:id="@+id/retweet_avatar_mock"/>
+			        
+			        <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:id="@+id/retweet_text"
+		                android:textSize="13sp"
+		                android:focusable="false"
+		                android:textColor="@color/text_content"
+		                android:layout_marginTop="10dp"
+		                android:layout_marginLeft="10dp"
+			        	android:layout_marginRight="10dp"/>
+			        
+			        <RelativeLayout 
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_margin="10dp">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="12sp"
+			                android:textColor="@color/text_sub"
+			                android:layout_marginRight="10dp"
+			                android:id="@+id/retweet_comment"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="12sp"
+			                android:textColor="@color/text_sub"
+			                android:layout_toRightOf="@id/retweet_comment"
+			                android:id="@+id/retweet_repost"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="12sp"
+			                android:textColor="@color/text_sub"
+			                android:id="@+id/retweet_source"
+			                android:layout_alignParentRight="true"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="12sp"
+			                android:textColor="@color/text_sub"
+			                android:layout_marginRight="10dp"
+			                android:layout_toLeftOf="@id/retweet_source"
+			                android:id="@+id/retweet_time"/>
+			            
+			        </RelativeLayout>
+			        
+			        <LinearLayout 
+			    	    android:layout_width="wrap_content"
+			    	    android:layout_height="wrap_content"
+			    	    android:id="@+id/retweet_weibo_pics"
+			    	    android:layout_marginLeft="10dp"
+			    	    android:layout_marginRight="10dp"
+			    	    android:layout_marginBottom="10dp"
+			    	    android:orientation="vertical">
+			    	    
+			    	    <RelativeLayout 
+			    	        android:layout_width="wrap_content"
+			    	        android:layout_height="wrap_content"
+			    	        android:orientation="horizontal">
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:id="@+id/retweet_pic1"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:id="@+id/retweet_pic2"
+			    	            android:layout_toRightOf="@id/retweet_pic1"
+			    	            android:layout_marginLeft="5dp"
+			    	            android:layout_marginRight="5dp"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:layout_toRightOf="@id/retweet_pic2"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:id="@+id/retweet_pic3"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	    </RelativeLayout>
+			    	    
+			    	    <RelativeLayout 
+			    	        android:layout_width="wrap_content"
+			    	        android:layout_height="wrap_content"
+			    	        android:layout_marginTop="5dp"
+			    	        android:layout_marginBottom="5dp"
+			    	        android:id="@+id/retweet_pic_layout2"
+			    	        android:orientation="horizontal">
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:id="@+id/retweet_pic4"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:id="@+id/retweet_pic5"
+			    	            android:layout_marginLeft="5dp"
+			    	            android:layout_marginRight="5dp"
+			    	            android:layout_toRightOf="@id/retweet_pic4"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:id="@+id/retweet_pic6"
+			    	            android:layout_toRightOf="@id/retweet_pic5"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	    </RelativeLayout>
+			    	    
+			    	    <RelativeLayout 
+			    	        android:layout_width="wrap_content"
+			    	        android:layout_height="wrap_content"
+			    	        android:id="@+id/retweet_pic_layout3"
+			    	        android:orientation="horizontal">
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:id="@+id/retweet_pic7"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:id="@+id/retweet_pic8"
+			    	            android:layout_marginLeft="5dp"
+			    	            android:layout_marginRight="5dp"
+			    	            android:layout_toRightOf="@id/retweet_pic7"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	        <ImageView 
+			    	            android:layout_width="60dp"
+			    	            android:layout_height="60dp"
+			    	            android:id="@+id/retweet_pic9"
+			    	            android:layout_toRightOf="@id/retweet_pic8"
+			    	            android:contentDescription="@string/app_name"
+			    	            android:scaleType="centerCrop"/>
+			    	        
+			    	    </RelativeLayout>
+			    	    
+			    	</LinearLayout>
+			        
+			    </LinearLayout>
+			    
+		    </android.support.v7.widget.CardView>
+		    
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:id="@+id/status_location_layout"
+		        android:layout_below="@id/retweet_card_view"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginRight="10dp"
+		        android:gravity="center_vertical">
+		        
+		        <ImageView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/location_white"
+		            android:contentDescription="@string/app_name"/>
+		        
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:id="@+id/status_location"
+		            android:textSize="12sp"
+		            android:textColor="@color/text_sub"
+		            android:singleLine="true"
+		            android:ellipsize="end"/>
+		        
+		    </LinearLayout>
+		    
+		    <ImageView 
+		        android:layout_width="match_parent"
+		        android:layout_height="1dp"
+		        android:layout_marginTop="10dp"
+		        android:id="@+id/status_divider"
+		        android:layout_below="@id/status_location_layout"
+		        android:contentDescription="@string/app_name"
+		        android:background="@drawable/divider"/>
+		    
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:layout_below="@id/status_divider"
+		        android:id="@+id/comment_repost_layout">
+		        
+		        <LinearLayout 
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:gravity="center"
+		            android:clickable="true"
+		            android:id="@+id/comment_btn_layout"
+		            android:background="@drawable/btn_layout_background"
+		            android:layout_weight="1">
+		            
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:id="@+id/comment_bt_text"
+		                android:text="@string/comment"
+		                android:textSize="13sp"
+		                android:paddingTop="10dp"
+		                android:paddingBottom="10dp"
+		                android:textColor="@color/text_button"/>
+		            
+		        </LinearLayout>
+		        
+		        <LinearLayout 
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:gravity="center"
+		            android:clickable="true"
+		            android:id="@+id/retweet_btn_layout"
+		            android:background="@drawable/btn_layout_background"
+		            android:layout_weight="1">
+		            
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:id="@+id/repost_bt_text"
+		                android:text="@string/retweet"
+		                android:textSize="13sp"
+		                android:paddingTop="10dp"
+		                android:paddingBottom="10dp"
+		                android:textColor="@color/text_button"/>
+		            
+		        </LinearLayout>
+		        
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
+	    
+    </android.support.v7.widget.CardView>
+    
+</RelativeLayout>

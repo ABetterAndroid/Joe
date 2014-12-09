@@ -1,0 +1,40 @@
+<resources>
+
+    <style name="AppEditTheme" parent="AppBaseTheme">
+        <item name="android:windowTranslucentNavigation">False</item>
+    </style>
+    
+    <style name="AppTheme_title_small" parent="AppBaseTheme">
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style_title_small</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+    
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@android:color/black</item>
+	    <item name="android:colorPrimary">@color/theme_orange</item>
+	    <!--   darker variant for the status bar and contextual app bars -->
+	    <item name="android:colorPrimaryDark">@color/theme_orange_dark</item>
+	    <!--   theme UI controls like checkboxes and text fields -->
+	    <item name="android:colorAccent">@color/theme_orange</item>
+	    
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- <item name="android:navigationBarColor">@android:color/transparent</item> -->
+       
+        <!-- <item name="android:windowTranslucentStatus">true</item> -->
+        
+         <!-- Set the windowContentTransitions flag to enable Activity scene transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- Set the transitions which are used for the entrance and exit of shared elements -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/transition_test
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/transition_test
+        </item>
+        
+        <!-- <item name="android:colorControlHighlight">@color/theme_orange</item> -->
+        
+    </style>
+    
+</resources>

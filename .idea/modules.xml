@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Project.iml" filepath="$PROJECT_DIR$/Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cardView/cardView.iml" filepath="$PROJECT_DIR$/cardView/cardView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orangee/orangee.iml" filepath="$PROJECT_DIR$/orangee/orangee.iml" />
+    </modules>
+  </component>
+</project>
+

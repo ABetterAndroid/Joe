@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    
+      <gradient 
+          android:startColor="@color/button_layout_selected_end"  
+          android:endColor="@color/button_layout_selected_start"  
+          android:angle="90" />  
+
+</shape>

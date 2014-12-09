@@ -1,0 +1,80 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:textColor">@android:color/black</item>
+        
+    </style>
+
+    <!-- Application theme. -->
+    
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style</item>
+        <!-- <item name="android:windowAnimationStyle">@style/AnimationActivity</item> -->
+    </style>
+    
+    <style name="AppEditTheme" parent="AppBaseTheme">
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style_title_small</item>
+    </style>
+    
+    <style name="AppTheme_welcome" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style</item>
+        <!-- <item name="android:windowAnimationStyle">@style/AnimationActivity</item> -->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+    </style>
+    
+    <style name="AppTheme_title_small" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style_title_small</item>
+        <!-- <item name="android:windowAnimationStyle">@style/AnimationActivity</item>  -->
+    </style>
+    
+    <style name="AppTheme_up_down" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/orangee_actionbar_style_title_small</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity_up_down</item>   
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/enter_sec</item>
+     	<item name="android:activityCloseExitAnimation">@anim/exit_sec</item>   
+    </style>
+    
+    <style name="AnimationActivity_up_down" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/enter_up_down</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/enter_sec</item>
+     	<item name="android:activityCloseExitAnimation">@anim/exit_sec_up_down</item>   
+    </style>
+    
+    <style name="orangee_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar"> 
+    	<item name="android:background">@color/theme_orange</item>
+    	<item name="android:displayOptions">showTitle</item>
+    	<item name="android:titleTextStyle">@style/orangee_titleStyle</item> 
+    </style> 
+    
+    <style name="orangee_actionbar_style_title_small" parent="@android:style/Widget.Holo.Light.ActionBar"> 
+    	<item name="android:background">@color/theme_orange</item>
+    	<item name="android:displayOptions">showTitle</item>
+    	<item name="android:titleTextStyle">@style/orangee_titleStyle_small</item> 
+    </style> 
+    
+    <style name="orangee_titleStyle">  
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">@dimen/actionbar_title_size</item>
+    </style> 
+    
+    <style name="orangee_titleStyle_small">  
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">@dimen/actionbar_title_size_small</item>
+    </style> 
+    
+</resources>

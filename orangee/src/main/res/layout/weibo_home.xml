@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<android.support.v4.widget.SwipeRefreshLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:id="@+id/status_swipe"
+	    android:orientation="vertical" >
+	    
+	    <com.joe.orangee.library.QuickReturnRecyclerView 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:scrollbars="vertical"
+	        android:id="@+id/weibo_list"/>
+	        
+   	</android.support.v4.widget.SwipeRefreshLayout>
+   	
+</RelativeLayout>
+

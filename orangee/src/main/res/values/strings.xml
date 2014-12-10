@@ -10,6 +10,11 @@
         <item>设置</item>
     </string-array>
 
+    <string-array name="search_option">
+        <item>搜人</item>
+        <item>搜微博</item>
+    </string-array>
+
     <string name="app_name">Orangee</string>
     <string name="title_section1">收藏</string>
     <string name="title_section2">我的评论</string>

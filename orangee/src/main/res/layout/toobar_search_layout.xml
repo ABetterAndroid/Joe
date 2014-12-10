@@ -3,10 +3,21 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <Spinner
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:spinnerMode="dropdown"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_option">
+
+    </Spinner>
+
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:id="@+id/search_et"/>
+        android:singleLine="true"
+        android:ems="12"
+        android:id="@+id/search_tv"/>
 
 </LinearLayout>

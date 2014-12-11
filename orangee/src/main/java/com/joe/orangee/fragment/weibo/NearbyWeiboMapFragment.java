@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
 import com.joe.orangee.R;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.util.Constants;
@@ -35,15 +35,15 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
             if (parent != null ) {
                 parent.removeView(view);
             }
-            ivMap= (ImageView) parent.findViewById(R.id.static_map);
             return view;
         }
+
         view = inflater.inflate(R.layout.fragment_nearby_weibo_map, container, false);
-        locationManager = LocationManagerProxy
-                .getInstance(getActivity());
+        ivMap= (ImageView) view.findViewById(R.id.static_map);
+        locationManager = LocationManagerProxy.getInstance(getActivity());
+        locationManager.setGpsEnable(true);
         // API定位采用GPS定位方式，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
-        locationManager.requestLocationUpdates(
-                LocationManagerProxy.GPS_PROVIDER, 10000000, 10, this);
+        locationManager.requestLocationData(LocationProviderProxy.AMapNetwork, 1000000, 10, this);
         return view;
     }
 
@@ -52,25 +52,36 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
     public void onLocationChanged(AMapLocation aMapLocation) {
         String mapImageUrl= Constants.STATIC_MAP_URL+"&markers=mid,,:"+aMapLocation.getLongitude()+","+aMapLocation.getLatitude();
         ImageLoader.getInstance().displayImage(mapImageUrl, ivMap, Utils.getCommonDisplayImageOptions(), new OrangeeImageLoadingListener.LoadingListener());
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.status_list_container, new NearbyWeiboFragment(aMapLocation.getLatitude(), aMapLocation.getLongitude()))
+                .commit();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (locationManager != null) {
+            locationManager.removeUpdates(this);
+            locationManager.destory();
+        }
+        locationManager = null;
+    }
+
 }

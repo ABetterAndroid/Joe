@@ -23,6 +23,7 @@
         android:layout_height="60dp"
         android:id="@+id/map_mock"
         android:scaleType="centerCrop"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"/>

@@ -17,6 +17,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.androidplus.util.StringUtil;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.image.ImageBrowseActivity;
+import com.joe.orangee.activity.person.PersonPageActivity;
 import com.joe.orangee.activity.weibo.WeiboCommentRetweetActivity;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter.MyViewHolder;
@@ -28,19 +29,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class WeiboItemUtil {
 
-	public static void getWeiboItem(final Context context, ImageLoader imageLoader, LoadingListener mListener, ParamsChangeLoadingListener mChangeListener, DisplayImageOptions avatarOptions, 
+	public static void getWeiboItem(final Context context, ImageLoader imageLoader, LoadingListener mListener, ParamsChangeLoadingListener mChangeListener, DisplayImageOptions avatarOptions,
 			DisplayImageOptions picOptions,final int position, final ViewHolder viewHolder, final WeiboStatus weiboStatus) {
 		
 		final OrangeeRecyclerViewAdapter.MyViewHolder holder=(MyViewHolder) viewHolder;
 		imageLoader.displayImage(weiboStatus.getUser().getAvatar(), holder.avatar, avatarOptions, mListener);
 		/*holder.avatar.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(context, PersonPageActivity.class);
-				intent.putExtra(Constants.PERSON_NAME, weiboStatus.getUser().getName());
+                intent.putExtra("User", weiboStatus.getUser());
+                intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
 				context.startActivity(intent);
-				
+
 			}
 		});*/
 		String text=weiboStatus.getPostText();

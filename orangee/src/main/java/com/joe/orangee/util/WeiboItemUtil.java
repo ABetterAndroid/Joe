@@ -17,7 +17,6 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.androidplus.util.StringUtil;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.image.ImageBrowseActivity;
-import com.joe.orangee.activity.person.PersonPageActivity;
 import com.joe.orangee.activity.weibo.WeiboCommentRetweetActivity;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter.MyViewHolder;

@@ -136,7 +136,7 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
 		
 	}
 
-private android.support.v7.widget.RecyclerView.OnScrollListener listener=new android.support.v7.widget.RecyclerView.OnScrollListener() {
+    private android.support.v7.widget.RecyclerView.OnScrollListener listener=new android.support.v7.widget.RecyclerView.OnScrollListener() {
 		
 		private int lastItemIndex;//当前ListView中最后一个Item的索引
 		
@@ -161,12 +161,12 @@ private android.support.v7.widget.RecyclerView.OnScrollListener listener=new and
 		imageLoader.displayImage(user.getAvatar(), ivAvatar, avatarOptions);
 		tvName.setText(user.getName());
 		tvLocation.setText(user.getLocation());
-		if (user.getVerified_reason().equals("")) {
+		if (user.getVerified_reason() ==null || user.getVerified_reason().equals("")) {
 			tvVerifiedReason.setVisibility(View.GONE);
 		}else {
 			tvVerifiedReason.setText(user.getVerified_reason());
 		}
-		if (user.getDescription().equals("")) {
+		if (user.getDescription() ==null || user.getDescription().equals("")) {
 			tvDescription.setVisibility(View.GONE);
 		}else {
 			tvDescription.setText(user.getDescription());

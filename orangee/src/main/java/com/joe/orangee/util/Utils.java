@@ -26,10 +26,10 @@ import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.Projection;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Marker;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.Projection;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
 import com.joe.orangee.R;
 import com.joe.orangee.library.OrangeeClickabSpan;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -65,7 +65,16 @@ public class Utils {
 		return paramMap;
 		
 	}
-	
+
+    public static DisplayImageOptions getNoDefaultImageOptions(){
+        DisplayImageOptions picOptions = new DisplayImageOptions.Builder()
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .build();
+        return picOptions;
+    }
+
 	/**
 	 * 获取
 	 * @return
@@ -88,7 +97,7 @@ public class Utils {
 		DisplayImageOptions  options = new DisplayImageOptions.Builder()
 		.showImageForEmptyUri(R.drawable.pic_default)
 		.showImageOnFail(R.drawable.pic_default)
-		.displayer(new RoundedBitmapDisplayer(1000))
+		.displayer(new RoundedBitmapDisplayer(10000))
 		.showImageOnLoading(R.drawable.pic_default)
 		.cacheInMemory(true)
 		.cacheOnDisk(true)

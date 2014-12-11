@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,7 +34,7 @@ public class SearchActivity extends ActionBarActivity {
         Utils.setActionBarStyle(getSupportActionBar());
         Spinner optionSpinner=(Spinner)searchView.findViewById(R.id.search_option);
 
-        ArrayAdapter mAdapter=new ArrayAdapter<String>(this,R.layout.action_spinner_item,
+        ArrayAdapter mAdapter=new ArrayAdapter<>(this,R.layout.action_spinner_item,
                 getResources().getStringArray(R.array.search_option));
         optionSpinner.setAdapter(mAdapter);
         optionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

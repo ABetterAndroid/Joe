@@ -9,7 +9,6 @@
         <item>搜索</item>
         <item>设置</item>
     </string-array>
-
     <string-array name="search_option">
         <item>搜人</item>
         <item>搜微博</item>
@@ -60,5 +59,7 @@
     <string name="clear_cache_success">缓存已清除</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_nearby_map_weibo">NearbyMapWeiboActivity</string>
 
 </resources>

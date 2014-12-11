@@ -1,12 +1,22 @@
 package com.joe.orangee.fragment.weibo;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -17,12 +27,26 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public class NearbyWeiboMapFragment extends Fragment implements AMapLocationListener {
+public class NearbyWeiboMapFragment extends Fragment implements AMapLocationListener, View.OnClickListener {
 
     private LocationManagerProxy locationManager;
     private View view;
     private ImageView ivMap;
+    int screenWidth;
+    int screenHeigh;
+    ImageView ivMock;
+    int cx;
+    int cy;
+    int finalRadius;
+    AnimatorSet animatorSet;
+    AnimatorSet outAnimatorSet;
+    Animator smallerAnim;
+    Animator biggerAnim;
+    FrameLayout statusLayout;
 
     public NearbyWeiboMapFragment() {
     }
@@ -39,7 +63,16 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
         }
 
         view = inflater.inflate(R.layout.fragment_nearby_weibo_map, container, false);
+        statusLayout = (FrameLayout) view.findViewById(R.id.status_list_container);
         ivMap= (ImageView) view.findViewById(R.id.static_map);
+
+        ivMock = (ImageView)view.findViewById(R.id.map_mock);
+        ivMock.setVisibility(View.INVISIBLE);
+        prepare();
+
+        ivMock.setOnClickListener(this);
+
+
         locationManager = LocationManagerProxy.getInstance(getActivity());
         locationManager.setGpsEnable(true);
         // API定位采用GPS定位方式，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
@@ -47,11 +80,106 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
         return view;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void prepare() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        screenWidth = dm.widthPixels;
+
+        screenHeigh = dm.heightPixels;
+
+        animatorSet = new AnimatorSet();
+        animatorSet.playTogether(
+                ObjectAnimator.ofFloat(ivMock, "scaleX", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300),
+                ObjectAnimator.ofFloat(ivMock, "scaleY", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300)
+        );
+
+
+        outAnimatorSet = new AnimatorSet();
+        outAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(ivMock, "scaleX", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300),
+                ObjectAnimator.ofFloat(ivMock, "scaleY", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300)
+        );
+        outAnimatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                biggerAnim.start();
+                ivMap.setVisibility(View.VISIBLE);
+                ivMock.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-        String mapImageUrl= Constants.STATIC_MAP_URL+"&markers=mid,,:"+aMapLocation.getLongitude()+","+aMapLocation.getLatitude();
-        ImageLoader.getInstance().displayImage(mapImageUrl, ivMap, Utils.getCommonDisplayImageOptions(), new OrangeeImageLoadingListener.LoadingListener());
+        final String mapImageUrl= Constants.STATIC_MAP_URL+"&markers=mid,,:"+aMapLocation.getLongitude()+","+aMapLocation.getLatitude();
+        ImageLoader.getInstance().displayImage(mapImageUrl, ivMap, Utils.getNoDefaultImageOptions(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                if (bitmap != null) {
+                    ImageView imageView = (ImageView) view;
+                    ImageLoader.getInstance().displayImage(mapImageUrl, ivMock, Utils.getRoundedPicDisplayImageOptions());
+                    FadeInBitmapDisplayer.animate(imageView, 800);
+                }
+                view.postDelayed(new Runnable() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void run() {
+
+                        statusLayout.setVisibility(View.VISIBLE);
+                        cx = (ivMock.getLeft() + ivMock.getRight()) / 2;
+                        cy = (ivMock.getTop() + ivMock.getBottom()) / 2;
+
+                        finalRadius = Math.max(ivMap.getWidth(), ivMap.getHeight());
+
+                        smallerAnim = ViewAnimationUtils.createCircularReveal(ivMap, cx, cy, finalRadius, 0);
+
+                        smallerAnim.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                ivMap.setVisibility(View.GONE);
+                                ivMock.setVisibility(View.VISIBLE);
+                                animatorSet.start();
+                            }
+                        });
+                        smallerAnim.start();
+                    }
+                }, 2000);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        });
+
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.status_list_container, new NearbyWeiboFragment(aMapLocation.getLatitude(), aMapLocation.getLongitude()))
@@ -84,4 +212,10 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
         locationManager = null;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onClick(View v) {
+        biggerAnim = ViewAnimationUtils.createCircularReveal(ivMap, cx, cy, 0, finalRadius);
+        outAnimatorSet.start();
+    }
 }

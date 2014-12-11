@@ -6,14 +6,26 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         android:id="@+id/status_list_container">
 
     </FrameLayout>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/static_map"
         android:scaleType="centerCrop"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/map_mock"
+        android:scaleType="centerCrop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/card_ripple_background"
+        android:visibility="invisible"
+        android:layout_margin="20dp"/>
 
 </RelativeLayout>

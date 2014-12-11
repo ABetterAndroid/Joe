@@ -30,6 +30,7 @@ import com.joe.orangee.activity.my.MyMentionActivity;
 import com.joe.orangee.activity.person.PersonPageActivity;
 import com.joe.orangee.activity.search.SearchActivity;
 import com.joe.orangee.activity.settings.SettingsActivity;
+import com.joe.orangee.activity.weibo.NearbyMapWeiboActivity;
 import com.joe.orangee.activity.weibo.NearbyWeiboMapActivity;
 import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
@@ -211,7 +212,7 @@ public class NavigationDrawerFragment extends Fragment {
 					break;
 				case 2:
 //					startActivity(new Intent(getActivity(), NearbyWeiboActivity.class));
-					startActivity(new Intent(getActivity(), NearbyWeiboMapActivity.class));
+					startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class));
 					break;
 				case 3:
 					startActivity(new Intent(getActivity(), MyCommentActivity.class));

@@ -87,7 +87,7 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
-    <orderEntry type="library" exported="" name="AMap_3DMap_V2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="AMap_2DMap_V2.3.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="Android_Location_V1.3.0" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />

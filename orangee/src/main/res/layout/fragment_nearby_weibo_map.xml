@@ -24,7 +24,6 @@
         android:scaleType="centerCrop"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/card_ripple_background"
         android:visibility="invisible"
         android:layout_margin="20dp"/>
 

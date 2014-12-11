@@ -14,8 +14,14 @@ public class Constants {
 	/*"email,direct_messages_read,direct_messages_write,"
 	+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
 	+ "follow_app_official_microblog," + "invitation_write";*/
-	
-	public static final String API_SERVER="https://api.weibo.com/";
+
+    /**
+     * 静态地图
+     */
+    public static final String STATIC_MAP_URL="http://restapi.amap.com/v3/staticmap?zoom=13&size=750*350&key=23753db4988208978153cd216a00de4c";
+
+
+    public static final String API_SERVER="https://api.weibo.com/";
 	public static final String URL_FRIENDS_TIMELINE=API_SERVER+"2/statuses/friends_timeline.json";
 	public static final String URL_COMMENT_SHOW=API_SERVER+"2/comments/show.json";
 	public static final String URL_POST_COMMENT=API_SERVER+"2/comments/create.json";

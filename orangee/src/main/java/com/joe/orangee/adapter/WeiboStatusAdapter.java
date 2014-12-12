@@ -19,6 +19,7 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.LoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingListener;
 import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.util.WeiboListItemUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -147,8 +148,8 @@ public class WeiboStatusAdapter extends BaseAdapter {
 		
 		WeiboStatus weiboStatus=dataList.get(position);
 		
-		/*WeiboItemUtil.getWeiboItem(context, picBrowserLayout, mViewPager, imageLoader, mListener, mChangeListener,  avatarOptions, 
-				picOptions, position, holder, weiboStatus);*/
+		WeiboListItemUtil.getWeiboItem(context, imageLoader, mListener, mChangeListener, avatarOptions,
+                picOptions, position, holder, weiboStatus);
 		
 		holder.retweet_postText.setOnClickListener(new OnClickListener() {
 			

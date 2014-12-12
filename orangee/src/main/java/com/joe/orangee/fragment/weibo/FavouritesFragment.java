@@ -46,11 +46,11 @@ public class FavouritesFragment extends Fragment implements OnRefreshListener {
 			}
 			return view;
 		}
-		view = inflater.inflate(R.layout.weibo_home, container, false);
+		view = inflater.inflate(R.layout.weibo_list_layout, container, false);
 		context=getActivity();
 		lvWeibo = (ListView) view.findViewById(R.id.weibo_list);
 		View headerView=View.inflate(context, R.layout.header_blank_view, null);
-		
+
 		lvWeibo.addHeaderView(headerView);
 		footerView = View.inflate(context, R.layout.footer_view, null);
 		lvWeibo.addFooterView(footerView);
@@ -76,22 +76,22 @@ public class FavouritesFragment extends Fragment implements OnRefreshListener {
 	}
 
 	private OnScrollListener onScrollListener=new OnScrollListener() {
-		
-		private int lastItemIndex;//当前ListView中最后一个Item的索引  
-	     //当ListView不在滚动，并且ListView的最后一项的索引等于adapter的项数减一时则自动加载（因为索引是从0开始的）  
-	     @Override  
-	     public void onScrollStateChanged(AbsListView view, int scrollState) {  
-	         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE  && lastItemIndex > mAdapter.getCount() - 1-5) {  
+
+		private int lastItemIndex;//当前ListView中最后一个Item的索引
+	     //当ListView不在滚动，并且ListView的最后一项的索引等于adapter的项数减一时则自动加载（因为索引是从0开始的）
+	     @Override
+	     public void onScrollStateChanged(AbsListView view, int scrollState) {
+	         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE  && lastItemIndex > mAdapter.getCount() - 1-5) {
 	        	 page+=1;
 	        	 fillData();
-	         }  
-	     }  
-	     @Override  
-	     public void onScroll(AbsListView view, int firstVisibleItem,  
-	             int visibleItemCount, int totalItemCount) {  
-	         //ListView 的FooterView也会算到visibleItemCount中去，所以要再减去一  
-	         lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;  
-	     } 
+	         }
+	     }
+	     @Override
+	     public void onScroll(AbsListView view, int firstVisibleItem,
+	             int visibleItemCount, int totalItemCount) {
+	         //ListView 的FooterView也会算到visibleItemCount中去，所以要再减去一
+	         lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;
+	     }
 	};
 	private SwipeRefreshLayout refreshLayout;
 	private View footerView;

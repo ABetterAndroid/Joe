@@ -21,12 +21,10 @@ import com.joe.orangee.util.Utils;
 public class OrangeeHomeActivity extends ActionBarActivity {
 
 	private NavigationDrawerFragment mNavigationDrawerFragment;
-
 	private CharSequence mTitle;
-
 	private DrawerLayout mDrawerLayout;
-
 	private WeiboStatusFragment statusFragment;
+    public static View hotKey;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +43,24 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 				.findFragmentById(R.id.navigation_drawer);*/
 		mTitle = getTitle();
 
-		// Set up the drawer.
-		mNavigationDrawerFragment=new NavigationDrawerFragment(this);
-		mNavigationDrawerFragment.setUp(mDrawerLayout, toolbar);
-		statusFragment = new WeiboStatusFragment();
-		getSupportFragmentManager()
+        // Set up the drawer.
+        mNavigationDrawerFragment=new NavigationDrawerFragment(this);
+        mNavigationDrawerFragment.setUp(mDrawerLayout, toolbar);
+        statusFragment = new WeiboStatusFragment();
+        getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.container, statusFragment)
 		.replace(R.id.drawer, mNavigationDrawerFragment)
 		.commit();
-	}
+
+        hotKey = findViewById(R.id.hot_key);
+        hotKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusFragment.onRefresh();
+            }
+        });
+    }
 
 	@SuppressWarnings("deprecation")
 	public void restoreActionBar() {
@@ -98,4 +104,11 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 		}
 	}
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (hotKey.getVisibility()==View.INVISIBLE) {
+            Utils.showHotKey(hotKey);
+        }
+    }
 }

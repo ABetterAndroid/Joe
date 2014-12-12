@@ -1,11 +1,13 @@
 package com.joe.orangee.fragment.drawer;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -198,7 +200,8 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 		new Handler().postDelayed(new Runnable() {
 			
-			@Override
+			@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
 			public void run() {
 				
 				switch (position) {

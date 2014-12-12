@@ -23,7 +23,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.joe.orangee.R;
-import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -38,7 +37,7 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
     private ImageView ivMap;
     int screenWidth;
     int screenHeigh;
-    ImageView ivMock;
+    View hotKey;
     int cx;
     int cy;
     int finalRadius;
@@ -47,10 +46,12 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
     Animator smallerAnim;
     Animator biggerAnim;
     FrameLayout statusLayout;
+    public static final String VIEW_NAME="hot_key";
 
     public NearbyWeiboMapFragment() {
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,11 +67,13 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
         statusLayout = (FrameLayout) view.findViewById(R.id.status_list_container);
         ivMap= (ImageView) view.findViewById(R.id.static_map);
 
-        ivMock = (ImageView)view.findViewById(R.id.map_mock);
-        ivMock.setVisibility(View.INVISIBLE);
+        hotKey=view.findViewById(R.id.hot_key);
+        hotKey.setTransitionName(VIEW_NAME);
+        Utils.hideHotKey(hotKey);
+        hotKey.setVisibility(View.INVISIBLE);
         prepare();
 
-        ivMock.setOnClickListener(this);
+        hotKey.setOnClickListener(this);
 
 
         locationManager = LocationManagerProxy.getInstance(getActivity());
@@ -91,15 +94,15 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
 
         animatorSet = new AnimatorSet();
         animatorSet.playTogether(
-                ObjectAnimator.ofFloat(ivMock, "scaleX", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300),
-                ObjectAnimator.ofFloat(ivMock, "scaleY", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300)
+                ObjectAnimator.ofFloat(hotKey, "scaleX", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300),
+                ObjectAnimator.ofFloat(hotKey, "scaleY", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300)
         );
 
 
         outAnimatorSet = new AnimatorSet();
         outAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(ivMock, "scaleX", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300),
-                ObjectAnimator.ofFloat(ivMock, "scaleY", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300)
+                ObjectAnimator.ofFloat(hotKey, "scaleX", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300),
+                ObjectAnimator.ofFloat(hotKey, "scaleY", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300)
         );
         outAnimatorSet.addListener(new Animator.AnimatorListener() {
             @Override
@@ -111,7 +114,7 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
             public void onAnimationEnd(Animator animation) {
                 biggerAnim.start();
                 ivMap.setVisibility(View.VISIBLE);
-                ivMock.setVisibility(View.INVISIBLE);
+                hotKey.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -145,7 +148,6 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                 if (bitmap != null) {
                     ImageView imageView = (ImageView) view;
-                    ImageLoader.getInstance().displayImage(mapImageUrl, ivMock, Utils.getRoundedPicDisplayImageOptions());
                     FadeInBitmapDisplayer.animate(imageView, 800);
                 }
                 view.postDelayed(new Runnable() {
@@ -154,8 +156,8 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
                     public void run() {
 
                         statusLayout.setVisibility(View.VISIBLE);
-                        cx = (ivMock.getLeft() + ivMock.getRight()) / 2;
-                        cy = (ivMock.getTop() + ivMock.getBottom()) / 2;
+                        cx = (hotKey.getLeft() + hotKey.getRight()) / 2;
+                        cy = (hotKey.getTop() + hotKey.getBottom()) / 2;
 
                         finalRadius = Math.max(ivMap.getWidth(), ivMap.getHeight());
 
@@ -165,7 +167,7 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 ivMap.setVisibility(View.GONE);
-                                ivMock.setVisibility(View.VISIBLE);
+                                hotKey.setVisibility(View.VISIBLE);
                                 animatorSet.start();
                             }
                         });

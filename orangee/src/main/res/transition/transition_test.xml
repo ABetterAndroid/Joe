@@ -45,6 +45,13 @@
             <target android:targetId="@id/weibo_avatar" />
         </targets>
     </changeImageTransform>
+
+    <changeBounds>
+        <targets>
+            <target android:targetId="@id/hot_key" />
+            <target android:targetId="@id/hot_key" />
+        </targets>
+    </changeBounds>
     
 </transitionSet>
 

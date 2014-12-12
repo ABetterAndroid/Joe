@@ -323,5 +323,53 @@ public class Utils {
 	public static void setTopPadding(Context context, View view){
 		view.setPadding(0, getStatusBarHeight(context), 0, 0);
 	}
-	
+
+    /**
+     * 显示hotkey
+     * @param hotKey
+     */
+    public static void showHotKey(View hotKey){
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(
+                ObjectAnimator.ofFloat(hotKey, "scaleX", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300),
+                ObjectAnimator.ofFloat(hotKey, "scaleY", 0, 0.5f, 0.8f, 1f, 1.1f, 1f).setDuration(300)
+        );
+        animatorSet.start();
+        hotKey.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 隐藏hotkey
+     * @param hotKey
+     */
+    public static void hideHotKey(final View hotKey){
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(
+                ObjectAnimator.ofFloat(hotKey, "scaleX", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300),
+                ObjectAnimator.ofFloat(hotKey, "scaleY", 1f, 1.1f, 1f, 0.8f, 0.5f, 0f).setDuration(300)
+        );
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                hotKey.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animatorSet.start();
+    }
+
 }

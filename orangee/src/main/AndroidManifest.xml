@@ -72,6 +72,9 @@
             android:name=".activity.weibo.NearbyWeiboMapActivity"
             android:label="@string/app_name" />
         <activity
+            android:name=".activity.weibo.NearbyMapWeiboActivity"
+            android:label="@string/app_name" />
+        <activity
             android:name=".activity.weibo.WeiboEditActivity"
             android:label="@string/app_name"
             android:theme="@style/AppEditTheme"

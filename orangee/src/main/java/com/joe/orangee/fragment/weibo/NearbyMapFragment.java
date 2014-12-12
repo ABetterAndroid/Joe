@@ -20,23 +20,18 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMap.InfoWindowAdapter;
-import com.amap.api.maps.AMap.OnCameraChangeListener;
-import com.amap.api.maps.AMap.OnInfoWindowClickListener;
-import com.amap.api.maps.AMap.OnMapClickListener;
-import com.amap.api.maps.AMap.OnMarkerClickListener;
-import com.amap.api.maps.AMapUtils;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.AMapUtils;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.LocationSource;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps2d.model.MyLocationStyle;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.model.WeiboStatus;
@@ -46,7 +41,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public class NearbyMapFragment extends Fragment implements AMapLocationListener, OnMarkerClickListener, OnInfoWindowClickListener, LocationSource, InfoWindowAdapter {
+public class NearbyMapFragment extends Fragment implements AMapLocationListener, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, LocationSource, AMap.InfoWindowAdapter {
 
 	private View view;
 	private Context context;
@@ -89,7 +84,7 @@ public class NearbyMapFragment extends Fragment implements AMapLocationListener,
 	private void init() {
 		if (aMap == null) {
 			aMap = mapView.getMap();
-			aMap.setOnCameraChangeListener(new OnCameraChangeListener() {
+			aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
 				
 
 				@Override
@@ -102,7 +97,7 @@ public class NearbyMapFragment extends Fragment implements AMapLocationListener,
 						points.add(latLng);
 					}
 					for (int i = 0; i < points.size(); i++) {
-						float distance=AMapUtils.calculateLineDistance(position.target, points.get(i));
+						float distance= AMapUtils.calculateLineDistance(position.target, points.get(i));
 						if (distance<2000) {
 							/*if (i==points.size()-1) {
 								if (position.zoom>15.5) {
@@ -128,7 +123,7 @@ public class NearbyMapFragment extends Fragment implements AMapLocationListener,
 					}
 				}
 			});
-			aMap.setOnMapClickListener(new OnMapClickListener() {
+			aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
 				
 				@Override
 				public void onMapClick(LatLng arg0) {
@@ -148,11 +143,8 @@ public class NearbyMapFragment extends Fragment implements AMapLocationListener,
 			aMap.setLocationSource(this);// 设置定位监听
 			UiSettings mUiSettings=aMap.getUiSettings();
 			mUiSettings.setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
-			mUiSettings.setRotateGesturesEnabled(false);
-			mUiSettings.setTiltGesturesEnabled(false);
 			aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 			//设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种 
-			aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 			aMap.setInfoWindowAdapter(this);
 			
 		}
@@ -271,7 +263,7 @@ public class NearbyMapFragment extends Fragment implements AMapLocationListener,
 			currentLat=latitude = aLocation.getLatitude();
 			currentLng=longitude = aLocation.getLongitude();
 			aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-							new LatLng(latitude, longitude), 15, 0, 0)), 1000, null);
+                    new LatLng(latitude, longitude), 15, 0, 0)), 1000, null);
 			getWeiboList();
 		}
 		

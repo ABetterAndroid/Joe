@@ -13,6 +13,7 @@ import com.joe.orangee.util.Utils;
 
 public class NearbyMapWeiboActivity extends ActionBarActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class NearbyMapWeiboActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Utils.setActionBarStyle(getSupportActionBar());
+
         getFragmentManager()
         .beginTransaction()
         .replace(R.id.map_status_cocntainer, new NearbyWeiboMapFragment())

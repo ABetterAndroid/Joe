@@ -20,11 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.joe.orangee.R;
+import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.LoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingListener;
 import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.util.Utils;
 import com.joe.orangee.util.WeiboItemUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -98,6 +100,7 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 				@SuppressLint("NewApi")
 				@Override
 				public void onClick(View v) {
+                    Utils.hideHotKey(OrangeeHomeActivity.hotKey);
 					Intent intent=new Intent(context, WeiboCommentActivity.class);
 					intent.putExtra("WeiboStatus", weiboStatus);
 					intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
@@ -129,7 +132,6 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 					intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
 					
 
-				        // BEGIN_INCLUDE(start_activity)
 				        /**
 				         * Now create an {@link android.app.ActivityOptions} instance using the
 				         * {@link android.app.ActivityOptions#makeSceneTransitionAnimation(android.app.Activity, android.util.Pair[])} factory method.
@@ -148,9 +150,7 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 				}
 			};
 			((MyViewHolder)holder).card.setOnClickListener(listener);
-//			((MyViewHolder)holder).postText.setOnClickListener(listener);
 			((MyViewHolder)holder).retweet_layout.setOnClickListener(listener);
-//			((MyViewHolder)holder).retweet_postText.setOnClickListener(listener);
 			((MyViewHolder)holder).retweet_layout.setOnLongClickListener(retweetListener);
 			/*AnimatorSet animatorSet=new AnimatorSet();
 			animatorSet.playTogether(ObjectAnimator.ofFloat(((MyViewHolder) holder).view, "translationY", 300, 50, 0).setDuration(600),

@@ -1,6 +1,7 @@
 package com.joe.orangee.fragment.drawer;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.joe.orangee.R;
+import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.activity.my.MyCommentActivity;
 import com.joe.orangee.activity.my.MyMentionActivity;
 import com.joe.orangee.activity.person.PersonPageActivity;
@@ -33,6 +36,8 @@ import com.joe.orangee.activity.settings.SettingsActivity;
 import com.joe.orangee.activity.weibo.NearbyMapWeiboActivity;
 import com.joe.orangee.activity.weibo.NearbyWeiboMapActivity;
 import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
+import com.joe.orangee.activity.weibo.WeiboCommentActivity;
+import com.joe.orangee.fragment.weibo.NearbyWeiboMapFragment;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.User;
 import com.joe.orangee.model.WeiboStatus;
@@ -134,7 +139,6 @@ public class NavigationDrawerFragment extends Fragment {
 	 * Users of this fragment must call this method to set up the navigation
 	 * drawer interactions.
 	 * 
-	 * @param fragmentId
 	 *            The android:id of this fragment in its activity's layout.
 	 * @param drawerLayout
 	 *            The DrawerLayout containing this fragment's UI.
@@ -211,8 +215,14 @@ public class NavigationDrawerFragment extends Fragment {
 					startActivity(new Intent(getActivity(), WeiboCollectionActivity.class));
 					break;
 				case 2:
-//					startActivity(new Intent(getActivity(), NearbyWeiboActivity.class));
-					startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class));
+                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+                            getActivity(),
+
+                            new Pair<View, String>(OrangeeHomeActivity.hotKey, NearbyWeiboMapFragment.VIEW_NAME)
+
+                    );
+
+					getActivity().startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class), activityOptions.toBundle());
 					break;
 				case 3:
 					startActivity(new Intent(getActivity(), MyCommentActivity.class));

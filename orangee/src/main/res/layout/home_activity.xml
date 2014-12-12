@@ -11,21 +11,30 @@
          As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions.
     -->
-	<LinearLayout 
+	<RelativeLayout
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/content_layout"
-        android:orientation="vertical">
+        android:id="@+id/content_layout">
 	    
 	    <include 
 	        layout="@layout/tool_bar"/>
 	    
 	    <FrameLayout
 	        android:id="@+id/container"
+            android:layout_below="@id/toolbar"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent" />
+
+        <include
+            layout="@layout/hot_action_layout"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="50dp"/>
 	    
-	</LinearLayout>
+	</RelativeLayout>
 		    
     <!-- <fragment
         android:name="com.joe.orangee.fragment.weibo.WeiboStatusFragment"

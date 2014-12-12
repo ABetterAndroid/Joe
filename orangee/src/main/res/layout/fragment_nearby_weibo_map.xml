@@ -18,14 +18,13 @@
         android:id="@+id/static_map"
         android:scaleType="centerCrop"/>
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/map_mock"
-        android:scaleType="centerCrop"
-        android:visibility="invisible"
-        android:layout_alignParentBottom="true"
+    <include
+        layout="@layout/hot_action_layout"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="50dp"/>
 
 </RelativeLayout>

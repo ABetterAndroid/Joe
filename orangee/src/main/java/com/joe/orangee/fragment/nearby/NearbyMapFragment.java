@@ -1,7 +1,5 @@
-package com.joe.orangee.fragment.weibo;
+package com.joe.orangee.fragment.nearby;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
@@ -40,6 +39,9 @@ import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NearbyMapFragment extends Fragment implements AMapLocationListener, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, LocationSource, AMap.InfoWindowAdapter {
 

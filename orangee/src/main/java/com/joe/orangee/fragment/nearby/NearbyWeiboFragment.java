@@ -1,6 +1,5 @@
-package com.joe.orangee.fragment.weibo;
+package com.joe.orangee.fragment.nearby;
 
-import java.util.List;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,11 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.WeiboDownloader;
+
+import java.util.List;
 
 public class NearbyWeiboFragment extends Fragment implements OnRefreshListener{
 
@@ -96,7 +98,7 @@ public class NearbyWeiboFragment extends Fragment implements OnRefreshListener{
 		
 	}
 
-	private android.support.v7.widget.RecyclerView.OnScrollListener listener=new android.support.v7.widget.RecyclerView.OnScrollListener() {
+	private RecyclerView.OnScrollListener listener=new RecyclerView.OnScrollListener() {
 		
 		private int lastItemIndex;//当前ListView中最后一个Item的索引
 		

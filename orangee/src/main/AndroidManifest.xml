@@ -66,13 +66,13 @@
             android:name=".activity.web.OrangeeWebActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.weibo.NearbyWeiboActivity"
+            android:name=".activity.nearby.NearbyWeiboActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.weibo.NearbyWeiboMapActivity"
+            android:name=".activity.nearby.NearbyWeiboMapActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.weibo.NearbyMapWeiboActivity"
+            android:name=".activity.nearby.NearbyMapWeiboActivity"
             android:label="@string/app_name" />
         <activity
             android:name=".activity.weibo.WeiboEditActivity"

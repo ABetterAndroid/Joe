@@ -6,11 +6,12 @@
 	android:layout_height="fill_parent">
 	
 	<include
-		layout="@layout/tool_bar"/>
+		layout="@layout/tool_bar"
+        android:id="@+id/toolbar"/>
 	
 	<FrameLayout
 		android:id="@+id/settings"
-		android:layout_below="@+id/toolbar"
+		android:layout_below="@id/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
     

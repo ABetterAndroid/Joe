@@ -35,11 +35,8 @@ import com.joe.orangee.activity.my.MyMentionActivity;
 import com.joe.orangee.activity.person.PersonPageActivity;
 import com.joe.orangee.activity.search.SearchActivity;
 import com.joe.orangee.activity.settings.SettingsActivity;
-import com.joe.orangee.activity.weibo.NearbyMapWeiboActivity;
-import com.joe.orangee.activity.weibo.NearbyWeiboMapActivity;
+import com.joe.orangee.activity.nearby.NearbyMapWeiboActivity;
 import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
-import com.joe.orangee.activity.weibo.WeiboCommentActivity;
-import com.joe.orangee.fragment.weibo.NearbyWeiboMapFragment;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.User;
 import com.joe.orangee.model.WeiboStatus;
@@ -218,14 +215,8 @@ public class NavigationDrawerFragment extends Fragment {
 					startActivity(new Intent(getActivity(), WeiboCollectionActivity.class));
 					break;
 				case 2:
-                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
-                            getActivity(),
 
-                            new Pair<View, String>(OrangeeHomeActivity.hotKey, NearbyWeiboMapFragment.VIEW_NAME)
-
-                    );
-
-					getActivity().startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class), activityOptions.toBundle());
+					startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class));
 					break;
 				case 3:
 					startActivity(new Intent(getActivity(), MyCommentActivity.class));

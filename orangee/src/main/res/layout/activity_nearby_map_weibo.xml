@@ -3,17 +3,16 @@
     android:id="@+id/content_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.joe.orangee.activity.weibo.NearbyMapWeiboActivity">
-
-    <include
-        layout="@layout/tool_bar"/>
+    tools:context="com.joe.orangee.activity.nearby.NearbyMapWeiboActivity">
 
     <FrameLayout
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/map_status_cocntainer">
 
     </FrameLayout>
+
+    <include
+        layout="@layout/tool_bar"/>
 
 </RelativeLayout>

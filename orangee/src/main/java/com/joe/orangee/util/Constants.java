@@ -18,7 +18,7 @@ public class Constants {
     /**
      * 静态地图
      */
-    public static final String STATIC_MAP_URL="http://restapi.amap.com/v3/staticmap?zoom=15&size=500*1000&key=23753db4988208978153cd216a00de4c";
+    public static final String STATIC_MAP_URL="http://restapi.amap.com/v3/staticmap?zoom=15&size=500*300&key=23753db4988208978153cd216a00de4c";
 
 
     public static final String API_SERVER="https://api.weibo.com/";

@@ -46,13 +46,6 @@
         </targets>
     </changeImageTransform>
 
-    <changeBounds>
-        <targets>
-            <target android:targetId="@id/hot_key" />
-            <target android:targetId="@id/hot_key" />
-        </targets>
-    </changeBounds>
-    
 </transitionSet>
 
 

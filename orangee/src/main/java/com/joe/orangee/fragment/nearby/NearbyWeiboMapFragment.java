@@ -1,4 +1,4 @@
-package com.joe.orangee.fragment.weibo;
+package com.joe.orangee.fragment.nearby;
 
 
 import android.animation.Animator;
@@ -6,11 +6,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
@@ -46,7 +47,6 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
     Animator smallerAnim;
     Animator biggerAnim;
     FrameLayout statusLayout;
-    public static final String VIEW_NAME="hot_key";
 
     public NearbyWeiboMapFragment() {
     }
@@ -68,7 +68,6 @@ public class NearbyWeiboMapFragment extends Fragment implements AMapLocationList
         ivMap= (ImageView) view.findViewById(R.id.static_map);
 
         hotKey=view.findViewById(R.id.hot_key);
-        hotKey.setTransitionName(VIEW_NAME);
         Utils.hideHotKey(hotKey);
         hotKey.setVisibility(View.INVISIBLE);
         prepare();

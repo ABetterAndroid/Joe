@@ -1,4 +1,4 @@
-package com.joe.orangee.activity.weibo;
+package com.joe.orangee.activity.nearby;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.joe.orangee.R;
-import com.joe.orangee.fragment.weibo.NearbyWeiboMapFragment;
+import com.joe.orangee.fragment.nearby.NearbyFragment;
 import com.joe.orangee.util.Utils;
 
 public class NearbyMapWeiboActivity extends ActionBarActivity {
@@ -26,7 +26,7 @@ public class NearbyMapWeiboActivity extends ActionBarActivity {
 
         getFragmentManager()
         .beginTransaction()
-        .replace(R.id.map_status_cocntainer, new NearbyWeiboMapFragment())
+        .replace(R.id.map_status_cocntainer, new NearbyFragment())
         .commit();
 
     }

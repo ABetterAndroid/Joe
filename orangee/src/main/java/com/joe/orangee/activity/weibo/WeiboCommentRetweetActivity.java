@@ -39,7 +39,7 @@ public class WeiboCommentRetweetActivity extends ActionBarActivity {
 //		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-		Utils.setActionBarStyle(getSupportActionBar());
+
 		ID = getIntent().getStringExtra("IDstr");
 		type=getIntent().getIntExtra("type", 0);
 		et = (EditText) findViewById(R.id.comment_retweet_edit);
@@ -50,8 +50,10 @@ public class WeiboCommentRetweetActivity extends ActionBarActivity {
 //			tvTip.setText(R.string.edit_retweet);
 			checkBox.setVisibility(View.INVISIBLE);
 		}else if (type==1) {
+            Utils.setActionBarStyle(getSupportActionBar(), R.string.retweet);
 			tvTip.setText(R.string.edit_comment);
 		} else if (type==2) {
+            Utils.setActionBarStyle(getSupportActionBar(), R.string.comment);
 			commentID = getIntent().getStringExtra("cid");
 			checkBox.setVisibility(View.INVISIBLE);
 		}

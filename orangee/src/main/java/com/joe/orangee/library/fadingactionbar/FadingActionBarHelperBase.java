@@ -23,7 +23,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.joe.orangee.R;
 import com.joe.orangee.library.fadingactionbar.view.ObservableScrollView;
 import com.joe.orangee.library.fadingactionbar.view.ObservableWebViewWithHeader;
@@ -46,7 +44,7 @@ import com.joe.orangee.library.fadingactionbar.view.OnScrollChangedCallback;
 public abstract class FadingActionBarHelperBase {
     protected static final String TAG = "FadingActionBarHelper";
     private Drawable mActionBarBackgroundDrawable;
-    private FrameLayout mHeaderContainer;
+    public FrameLayout mHeaderContainer;
     private int mActionBarBackgroundResId;
     private int mHeaderLayoutResId;
     private View mHeaderView;
@@ -60,8 +58,10 @@ public abstract class FadingActionBarHelperBase {
     private int mLastDampedScroll;
     private int mLastHeaderHeight = -1;
     private boolean mFirstGlobalLayoutPerformed;
-    private FrameLayout mMarginView;
+    public FrameLayout mMarginView;
     private View mListViewBackgroundView;
+    private ListView listView;
+
 
     public final <T extends FadingActionBarHelperBase> T actionBarBackground(int drawableResId) {
         mActionBarBackgroundResId = drawableResId;
@@ -132,7 +132,7 @@ public abstract class FadingActionBarHelperBase {
         //
         // See if we are in a ListView, WebView or ScrollView scenario
 
-        ListView listView = (ListView) mContentView.findViewById(android.R.id.list);
+        listView = (ListView) mContentView.findViewById(android.R.id.list);
         View root;
         if (listView != null) {
             root = createListView(listView);
@@ -281,11 +281,12 @@ public abstract class FadingActionBarHelperBase {
         params.height = Utils.getDisplayHeight(listView.getContext());
         mListViewBackgroundView.setLayoutParams(params);
 
-        listView.setOnScrollListener(mOnScrollListener);
+        //原fragment已设置OnScrollListenter
+//        listView.setOnScrollListener(mOnScrollListener);
         return contentContainer;
     }
 
-    private OnScrollListener mOnScrollListener = new OnScrollListener() {
+    /*private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             View topChild = view.getChildAt(0);
@@ -301,26 +302,8 @@ public abstract class FadingActionBarHelperBase {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
         }
-    };
+    };*/
     private int mLastScrollPosition;
-
-    private void onNewScroll(int scrollPosition) {
-        if (isActionBarNull()) {
-            return;
-        }
-
-        int currentHeaderHeight = mHeaderContainer.getHeight();
-        if (currentHeaderHeight != mLastHeaderHeight) {
-            updateHeaderHeight(currentHeaderHeight);
-        }
-
-        int headerHeight = currentHeaderHeight - getActionBarHeight();
-        float ratio = (float) Math.min(Math.max(scrollPosition, 0), headerHeight) / headerHeight;
-        int newAlpha = (int) (ratio * 255);
-        mActionBarBackgroundDrawable.setAlpha(newAlpha);
-
-        addParallaxEffect(scrollPosition);
-    }
 
     private void addParallaxEffect(int scrollPosition) {
         float damping = mUseParallax ? 0.5f : 1.0f;
@@ -337,6 +320,24 @@ public abstract class FadingActionBarHelperBase {
             mLastScrollPosition = scrollPosition;
             mLastDampedScroll = dampedScroll;
         }
+    }
+
+    public void onNewScroll(int scrollPosition) {
+        if (isActionBarNull()) {
+            return;
+        }
+
+        int currentHeaderHeight = mHeaderContainer.getHeight();
+        if (currentHeaderHeight != mLastHeaderHeight) {
+            updateHeaderHeight(currentHeaderHeight);
+        }
+
+        int headerHeight = currentHeaderHeight - getActionBarHeight();
+        float ratio = (float) Math.min(Math.max(scrollPosition, 0), headerHeight) / headerHeight;
+        int newAlpha = (int) (ratio * 255);
+        mActionBarBackgroundDrawable.setAlpha(newAlpha);
+
+        addParallaxEffect(scrollPosition);
     }
 
     private void updateHeaderHeight(int headerHeight) {

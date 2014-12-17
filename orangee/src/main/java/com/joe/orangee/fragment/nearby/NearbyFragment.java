@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.WeiboDownloader;
 import com.joe.orangee.util.Constants;
+import com.joe.orangee.util.ImageAutoPlayUtil;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -33,16 +35,27 @@ import java.util.List;
 public class NearbyFragment extends Fragment implements AMapLocationListener {
 
     private View footerView;
-    private Context context;
-    private int page=1;
+    public Context context;
+    public int page=1;
     private List<WeiboStatus> weiboList;
-    private WeiboStatusAdapter mAdapter;
+    public WeiboStatusAdapter mAdapter;
     private ListView contentView;
     private LocationManagerProxy locationManager;
     private double latitude;
     private double longitude;
     private View headerView;
     private ImageView headerImg;
+    private WeiboDownloader weiboDownloader;
+    private static NearbyFragment nearbyFragment;
+    FadingActionBarHelper mFadingHelper;
+
+    public static NearbyFragment getNearbyFragment(){
+        if (nearbyFragment!=null){
+            return nearbyFragment;
+        }else {
+            return new NearbyFragment();
+        }
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,35 +64,47 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
 
         headerView =View.inflate(getActivity(), R.layout.header_light, null);
         headerImg= (ImageView) headerView.findViewById(R.id.image_header);
+        ImageAutoPlayUtil.startAnimation(headerImg, headerImg);
 
         contentView = (ListView) View.inflate(getActivity(), R.layout.activity_listview, null);
-        FadingActionBarHelper mFadingHelper = new FadingActionBarHelper()
+
+        mFadingHelper = new FadingActionBarHelper()
                 .actionBarBackground(R.drawable.orangee_color_solid)
                 .headerView(headerView)
                 .contentView(contentView)
                 .lightActionBar(true);
+        mFadingHelper.lightActionBar(false);
 
         mFadingHelper.initActionBar((NearbyMapWeiboActivity)context);
 
         footerView = View.inflate(context, R.layout.footer_view, null);
         contentView.addFooterView(footerView);
-        contentView.setOnScrollListener(onScrollListener);
+
+
         locationManager = LocationManagerProxy.getInstance(getActivity());
         locationManager.setGpsEnable(true);
         // API定位采用GPS定位方式，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
         locationManager.requestLocationData(LocationProviderProxy.AMapNetwork, 1000000, 10, this);
-        fillData();
 
+        View view=mFadingHelper.createView(inflater);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                contentView.setOnScrollListener(onScrollListener);
+            }
+        });
 
-		return mFadingHelper.createView(inflater);
+		return view;
 	}
 
-    private void fillData() {
+    public void fillData() {
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                weiboList=new WeiboDownloader(context).getNearbyStatusList(latitude, longitude, 20, page);
+                if (weiboDownloader==null) weiboDownloader=new WeiboDownloader(context);
+
+                weiboList=weiboDownloader.getNearbyStatusList(latitude, longitude, 20, page);
                 return null;
             }
 
@@ -117,6 +142,14 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
                              int visibleItemCount, int totalItemCount) {
             //ListView 的FooterView也会算到visibleItemCount中去，所以要再减去一
             lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;
+            View topChild = view.getChildAt(0);
+            if (topChild == null) {
+                mFadingHelper.onNewScroll(0);
+            } else if (topChild != mFadingHelper.mMarginView) {
+                mFadingHelper.onNewScroll(mFadingHelper.mHeaderContainer.getHeight());
+            } else {
+                mFadingHelper.onNewScroll(-topChild.getTop());
+            }
         }
     };
 
@@ -124,6 +157,8 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
     public void onLocationChanged(AMapLocation aMapLocation) {
         latitude=aMapLocation.getLatitude();
         longitude=aMapLocation.getLongitude();
+        NearbyMapWeiboActivity activity=(NearbyMapWeiboActivity)context;
+        activity.getSupportActionBar().setTitle(aMapLocation.getStreet());
         String mapImageUrl= Constants.STATIC_MAP_URL+"&markers=mid,,:"+longitude+","+latitude;
 
         ImageLoader.getInstance().displayImage(mapImageUrl, headerImg, Utils.getNoDefaultImageOptions(), new OrangeeImageLoadingListener.LoadingListener());
@@ -156,4 +191,9 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
         locationManager = null;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ImageAutoPlayUtil.stopAnimation();
+    }
 }

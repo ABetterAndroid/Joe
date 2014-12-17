@@ -42,8 +42,7 @@ public class OrangeeWebActivity extends ActionBarActivity {
 		Utils.setTopPadding(this, contentView);
 		toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-		Utils.setActionBarStyle(getSupportActionBar());
-		toolbar.setTitle("");
+		Utils.setActionBarStyle(getSupportActionBar(), 0);
 		url = getIntent().getStringExtra(Constants.URL);
 		
 		progressBar = (ProgressBar) findViewById(R.id.progress_bar);

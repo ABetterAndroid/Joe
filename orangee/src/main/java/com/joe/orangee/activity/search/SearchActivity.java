@@ -31,7 +31,7 @@ public class SearchActivity extends ActionBarActivity {
         View searchView=getLayoutInflater().inflate(R.layout.toobar_search_layout, null);
         getSupportActionBar().setCustomView(searchView);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.search);
         Spinner optionSpinner=(Spinner)searchView.findViewById(R.id.search_option);
 
         ArrayAdapter mAdapter=new ArrayAdapter<>(this,R.layout.action_spinner_item,

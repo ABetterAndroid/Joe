@@ -25,7 +25,7 @@ public class MyCommentActivity extends ActionBarActivity {
 		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.my_comment);
 		vpMyComment = (ViewPager) findViewById(R.id.my_comment_vp);
 		vpMyComment.setAdapter(new OrangeeFragmentPagerAdapter(getSupportFragmentManager()));
 		vpMyComment.setOnPageChangeListener(new OnPageChangeListener() {

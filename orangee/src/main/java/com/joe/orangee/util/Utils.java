@@ -49,11 +49,13 @@ public class Utils {
 	 * @since 2014-11-4
 	 * @param actionBar
 	 */
-	public static void setActionBarStyle(ActionBar actionBar) {
+	public static void setActionBarStyle(ActionBar actionBar, int strId) {
 		actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(R.string.back);
+        if (strId!=0){
+            actionBar.setTitle(strId);
+        }
 	}
 	
 	public static HashMap<String, String> getParamMap(Context context){
@@ -107,7 +109,6 @@ public class Utils {
 	
 	/**
 	 * 动画隐藏浏览图片
-	 * @param picBrowserLayout
 	 */
 	public static void hidePicLayout(final View view) {
 //		OrangeeHomeActivity.vpHome.setScrollable(true);

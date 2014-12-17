@@ -27,7 +27,7 @@ public class OrangeeImageLoadingListener {
 		public void onLoadingComplete(String arg0, View view, Bitmap loadedImage) {
 			if (loadedImage != null) {
 				ImageView imageView = (ImageView) view;
-				FadeInBitmapDisplayer.animate(imageView, 300);
+				FadeInBitmapDisplayer.animate(imageView, 800);
 			}
 			
 		}

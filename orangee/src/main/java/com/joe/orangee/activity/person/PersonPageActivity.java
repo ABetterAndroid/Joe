@@ -77,7 +77,7 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
 		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-		Utils.setActionBarStyle(getSupportActionBar());
+		Utils.setActionBarStyle(getSupportActionBar(), R.string.person_page);
 		user = getIntent().getParcelableExtra("User");
 		name = user.getName();
 		

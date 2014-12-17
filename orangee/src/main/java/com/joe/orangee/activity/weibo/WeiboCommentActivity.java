@@ -75,7 +75,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		lvComment.addHeaderView(headerView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.comment_detail);
         
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.comment_swipe);
 		refreshLayout.setColorSchemeResources(R.color.theme_orange);

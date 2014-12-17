@@ -18,7 +18,7 @@ public class SettingsActivity extends ActionBarActivity {
 		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.settings);
 		getFragmentManager().beginTransaction().replace(R.id.settings, new SettingsFragment()).commit();
 	}
 

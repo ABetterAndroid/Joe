@@ -22,11 +22,11 @@ public class NearbyMapWeiboActivity extends ActionBarActivity {
         Utils.setTopPadding(this, contentView);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.status_nearby);
 
         getFragmentManager()
         .beginTransaction()
-        .replace(R.id.map_status_cocntainer, new NearbyFragment())
+        .replace(R.id.map_status_cocntainer, NearbyFragment.getNearbyFragment())
         .commit();
 
     }

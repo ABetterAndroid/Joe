@@ -22,7 +22,7 @@ public class NearbyWeiboMapActivity extends ActionBarActivity {
 		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-		Utils.setActionBarStyle(getSupportActionBar());
+		Utils.setActionBarStyle(getSupportActionBar(), R.string.status_nearby);
 	}
 
 	@Override

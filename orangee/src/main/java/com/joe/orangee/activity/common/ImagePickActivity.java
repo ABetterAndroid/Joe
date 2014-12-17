@@ -61,7 +61,7 @@ public class ImagePickActivity extends ActionBarActivity {
 		Utils.setTopPadding(this, contentView);
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
-        Utils.setActionBarStyle(getSupportActionBar());
+        Utils.setActionBarStyle(getSupportActionBar(), R.string.chose_picture);
 		initView();
 		initData();
 		setListener();

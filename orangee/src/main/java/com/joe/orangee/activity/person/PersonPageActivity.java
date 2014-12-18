@@ -1,7 +1,5 @@
 package com.joe.orangee.activity.person;
 
-import java.util.List;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,13 +24,15 @@ import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.User;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.PersonDownloader;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.PersonDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.util.List;
 
 public class PersonPageActivity extends ActionBarActivity implements OnRefreshListener {
 
@@ -133,7 +133,7 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
 		tvFollower = (TextView) headerView.findViewById(R.id.person_follower);
 		statusLayout = (LinearLayout) headerView.findViewById(R.id.person_status_layout);
 		tvStatus = (TextView) headerView.findViewById(R.id.person_status);
-		
+
 	}
 
     private android.support.v7.widget.RecyclerView.OnScrollListener listener=new android.support.v7.widget.RecyclerView.OnScrollListener() {

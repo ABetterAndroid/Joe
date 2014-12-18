@@ -1,5 +1,6 @@
 package com.joe.orangee.fragment.weibo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -20,10 +21,11 @@ import com.joe.orangee.R;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 
 import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class FavouritesFragment extends Fragment implements OnRefreshListener {
 
 	private ListView lvWeibo;

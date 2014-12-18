@@ -1,4 +1,4 @@
-package com.joe.orangee.net;
+package com.joe.orangee.net.Downloader;
 
 import java.io.IOException;
 import java.io.InputStream;

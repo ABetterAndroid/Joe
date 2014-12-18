@@ -1,5 +1,6 @@
 package com.joe.orangee.fragment.drawer;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -38,11 +39,12 @@ import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.User;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.PersonDownloader;
+import com.joe.orangee.net.Downloader.PersonDownloader;
 import com.joe.orangee.util.PreferencesKeeper;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+@SuppressLint("ValidFragment")
 public class NavigationDrawerFragment extends Fragment {
 
 	private User person;

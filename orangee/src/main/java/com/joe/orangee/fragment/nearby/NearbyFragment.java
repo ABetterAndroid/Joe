@@ -1,5 +1,6 @@
 package com.joe.orangee.fragment.nearby;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.location.Location;
@@ -23,7 +24,7 @@ import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.library.fadingactionbar.FadingActionBarHelper;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.ImageAutoPlayUtil;
 import com.joe.orangee.util.Utils;
@@ -31,7 +32,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-
+@SuppressLint("ValidFragment")
 public class NearbyFragment extends Fragment implements AMapLocationListener {
 
     private View footerView;

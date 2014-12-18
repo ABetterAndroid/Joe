@@ -18,7 +18,8 @@ import android.widget.Toast;
 import com.joe.orangee.R;
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.CommentDownloader;
+import com.joe.orangee.net.Downloader.CommentDownloader;
+import com.joe.orangee.net.Result;
 import com.joe.orangee.util.Utils;
 
 public class WeiboCommentRetweetActivity extends ActionBarActivity {
@@ -153,22 +154,30 @@ public class WeiboCommentRetweetActivity extends ActionBarActivity {
 	protected void sendComment(final String text, final String weiboID ) {
 		new AsyncTask<Void, Void, Void>() {
 
-			private Comment comment;
+			private Result<Comment> commentResult;
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				comment = new CommentDownloader(context).postComment(text, weiboID );
+                commentResult = new CommentDownloader(context).postComment(text, weiboID );
 				return null;
 			}
 
 			@Override
 			protected void onPostExecute(Void result) {
 				super.onPostExecute(result);
-				if (comment!=null) {
-					Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
-				}else {
-					Toast.makeText(context, "评论失败", Toast.LENGTH_SHORT).show();
-				}
+                if (commentResult.getResult()==null){
+                    if (commentResult.getErrorCode()==Result.NETWORK_INVALID){
+                        Toast.makeText(context, "无网络-_-|||", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Comment comment=commentResult.getResult();
+                    if (comment!=null) {
+                        Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "评论失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
 				finish();
 			}
 		}.execute();

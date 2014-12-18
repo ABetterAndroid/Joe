@@ -1,4 +1,4 @@
-package com.joe.orangee.net;
+package com.joe.orangee.net.Downloader;
 
 import java.util.HashMap;
 import org.json.JSONException;
@@ -7,6 +7,7 @@ import com.androidplus.net.HttpRequest;
 import com.androidplus.net.NetworkUtil;
 import com.androidplus.util.StringUtil;
 import com.joe.orangee.model.User;
+import com.joe.orangee.net.Downloader.Downloader;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 

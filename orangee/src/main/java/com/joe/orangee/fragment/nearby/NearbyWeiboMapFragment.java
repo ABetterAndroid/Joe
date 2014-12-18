@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+@SuppressLint("ValidFragment")
 public class NearbyWeiboMapFragment extends Fragment implements AMapLocationListener, View.OnClickListener {
 
     private LocationManagerProxy locationManager;

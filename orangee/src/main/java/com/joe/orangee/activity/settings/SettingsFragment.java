@@ -8,7 +8,7 @@ import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.joe.orangee.R;
-import com.joe.orangee.net.CommonDownloader;
+import com.joe.orangee.net.Downloader.CommonDownloader;
 import com.joe.orangee.util.PreferencesKeeper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;

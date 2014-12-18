@@ -1,7 +1,5 @@
 package com.joe.orangee.fragment.weibo;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -21,13 +19,16 @@ import android.view.ViewGroup;
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 import com.joe.orangee.sql.OrangeeSQLOpenHelper;
 import com.joe.orangee.sql.SQLDataGetterUtils;
 import com.joe.orangee.sql.SQLUtils;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.PreferencesKeeper;
 
+import java.util.List;
+
+@SuppressLint("ValidFragment")
 public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 
 	private List<WeiboStatus> weiboList;

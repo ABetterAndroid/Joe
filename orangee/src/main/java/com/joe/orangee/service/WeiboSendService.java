@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.widget.Toast;
 import com.joe.orangee.R;
 import com.joe.orangee.callbacks.WeiboSendListener;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 
 public class WeiboSendService extends IntentService implements WeiboSendListener{
 

@@ -29,7 +29,7 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener.LoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingListener;
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 import com.joe.orangee.util.Utils;
 import com.joe.orangee.util.WeiboItemUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

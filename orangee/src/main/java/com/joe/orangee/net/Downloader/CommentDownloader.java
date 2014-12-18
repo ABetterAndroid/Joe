@@ -1,4 +1,21 @@
-package com.joe.orangee.net;
+package com.joe.orangee.net.Downloader;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import com.androidplus.net.HttpRequest;
+import com.androidplus.net.NetworkUtil;
+import com.androidplus.util.StringUtil;
+import com.joe.orangee.model.Comment;
+import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.net.Result;
+import com.joe.orangee.util.Constants;
+import com.joe.orangee.util.JSONParseUtils;
+import com.joe.orangee.util.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -8,19 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import com.androidplus.net.HttpRequest;
-import com.androidplus.net.NetworkUtil;
-import com.androidplus.util.StringUtil;
-import com.joe.orangee.model.Comment;
-import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.util.Constants;
-import com.joe.orangee.util.JSONParseUtils;
-import com.joe.orangee.util.Utils;
 
 @SuppressLint("SimpleDateFormat")
 public class CommentDownloader {
@@ -34,11 +38,11 @@ public class CommentDownloader {
 	}
 
 			
-	public Comment postComment(String text, String id )
+	public Result<Comment> postComment(String text, String id )
 	{
 		Comment comment = null;
 		if(NetworkUtil.getInstance(context).getNetworkType() == -1){
-			return comment;
+			return new Result<Comment>(comment, Result.NETWORK_INVALID);
 		}else{
 			 HashMap<String, String> params = Utils.getParamMap(context);
 			 params.put("comment", String.valueOf(text));
@@ -47,7 +51,7 @@ public class CommentDownloader {
 		        
 			String jsonStr = downloader.getJsonContent(Constants.URL_POST_COMMENT, params, HttpRequest.METHOD_POST);
 			if(StringUtil.isNullOrEmpty(jsonStr)){
-				return comment;
+				return new Result<Comment>(comment, Result.JSON_DATA_ERROR);
 			}
 			
 			SimpleDateFormat format=new SimpleDateFormat("EEE MMM d HH:mm:ss Z yyyy", DateFormatSymbols.getInstance(Locale.US));
@@ -65,12 +69,12 @@ public class CommentDownloader {
 				comment.setText(jsonObject.getString("text"));
 				comment.setComment_id(jsonObject.getString("mid"));
 			} catch (JSONException e) {
-				return comment;
+				return new Result<Comment>(null, Result.JSON_PARSE_ERROR);
 			} catch (ParseException e) {
-				return comment;
+                return new Result<Comment>(null, Result.JSON_PARSE_ERROR);
 			}
 		}
-		return comment;
+        return new Result<Comment>(comment, Result.JSON_PARSE_ERROR);
 	}
 	
 	public WeiboStatus postRepost(String text, String id, int is_comment)

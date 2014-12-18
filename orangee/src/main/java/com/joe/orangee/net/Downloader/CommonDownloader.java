@@ -1,9 +1,7 @@
-package com.joe.orangee.net;
+package com.joe.orangee.net.Downloader;
 
-import java.util.HashMap;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Context;
+
 import com.androidplus.net.HttpRequest;
 import com.androidplus.net.NetworkUtil;
 import com.androidplus.util.StringUtil;
@@ -12,6 +10,11 @@ import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.PreferencesKeeper;
 import com.joe.orangee.util.Utils;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class CommonDownloader {
 	private Context context;

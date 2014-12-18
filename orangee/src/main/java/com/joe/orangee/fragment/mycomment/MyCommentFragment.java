@@ -1,7 +1,6 @@
 package com.joe.orangee.fragment.mycomment;
 
-import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,14 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ListView;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.MyCommentAdapter;
 import com.joe.orangee.model.Comment;
-import com.joe.orangee.net.CommentDownloader;
+import com.joe.orangee.net.Downloader.CommentDownloader;
 
+import java.util.List;
+
+@SuppressLint("ValidFragment")
 public class MyCommentFragment extends Fragment implements OnRefreshListener {
 
 	private View view;
@@ -31,14 +33,36 @@ public class MyCommentFragment extends Fragment implements OnRefreshListener {
 	private boolean toMe;
 	private int page=1;
 	private String url;
-	
+
+    public MyCommentFragment(){
+        super();
+    }
+
+    public static MyCommentFragment newInstance(String url, boolean toMe) {
+        MyCommentFragment myFragment = new MyCommentFragment ();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putBoolean("toMe", toMe);
+        myFragment.setArguments(bundle);
+
+        return myFragment;
+    }
+
 	public MyCommentFragment(String url, boolean toMe) {
 		super();
 		this.url=url;
 		this.toMe = toMe;
 	}
 
-	@Override
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.url=getArguments().getString("url");
+        this.toMe = getArguments().getBoolean("toMe");
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		context = getActivity();

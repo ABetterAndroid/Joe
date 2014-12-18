@@ -1,5 +1,6 @@
 package com.joe.orangee.fragment.nearby;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,10 +18,11 @@ import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 
 import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class NearbyWeiboFragment extends Fragment implements OnRefreshListener{
 
 	private Context context;

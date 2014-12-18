@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.model.UnreadMessage;
-import com.joe.orangee.net.CommonDownloader;
+import com.joe.orangee.net.Downloader.CommonDownloader;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;

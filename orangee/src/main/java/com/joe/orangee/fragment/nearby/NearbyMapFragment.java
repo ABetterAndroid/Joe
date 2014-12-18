@@ -34,7 +34,7 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.net.WeiboDownloader;
+import com.joe.orangee.net.Downloader.WeiboDownloader;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -43,6 +43,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class NearbyMapFragment extends Fragment implements AMapLocationListener, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, LocationSource, AMap.InfoWindowAdapter {
 
 	private View view;

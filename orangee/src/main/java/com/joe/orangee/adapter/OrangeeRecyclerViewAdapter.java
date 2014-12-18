@@ -38,7 +38,8 @@ import java.util.List;
 public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 
 	private static final int TYPE_LIST=0;
-	private static final int TYPE_FOOTER=1;
+    private static final int TYPE_HEADER=1;
+	private static final int TYPE_FOOTER=2;
 	private List<WeiboStatus> dataList;
 	private Context context;
 	private ImageLoader imageLoader;
@@ -87,7 +88,11 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 	
 	@Override
 	public int getItemCount() {
-		return dataList.size()+1;
+        if (extendView!=null){
+            return dataList.size()+2;
+        }else{
+            return dataList.size()+1;
+        }
 	}
 
 	@Override
@@ -168,14 +173,14 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 			 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weibo_item, parent, false);
 			 vh = new MyViewHolder(view);
 			break;
-		/*case TYPE_HEADER:
+		case TYPE_HEADER:
 			if (extendView!=null) {
 				vh = new AddViewHolder(extendView);
 			}else {
 				View headerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.header_blank_view, parent, false);
 				vh = new AddViewHolder(headerView);
 			}
-			break;*/
+			break;
 		case TYPE_FOOTER:
 			View footerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_view, parent, false);
 			 vh = new AddViewHolder(footerView);
@@ -189,12 +194,22 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 
 	@Override
 	public int getItemViewType(int position) {
-		
-		if (position==getItemCount()-1) {
-			return TYPE_FOOTER;
-		}else {
-			return TYPE_LIST;
-		}
+        if (extendView!=null){
+            if (position==0){
+                return TYPE_HEADER;
+            }else if (position==getItemCount()-1) {
+                return TYPE_FOOTER;
+            }else {
+                return TYPE_LIST;
+            }
+        }else {
+            if (position==getItemCount()-1) {
+                return TYPE_FOOTER;
+            }else {
+                return TYPE_LIST;
+            }
+        }
+
 	}
 
 	class AddViewHolder extends ViewHolder{

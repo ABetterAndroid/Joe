@@ -1,4 +1,4 @@
-package com.joe.orangee.net;
+package com.joe.orangee.net.Downloader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ import com.androidplus.util.StringUtil;
 import com.joe.orangee.callbacks.WeiboSendListener;
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.net.Downloader.Downloader;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.JSONParseUtils;
 import com.joe.orangee.util.PreferencesKeeper;

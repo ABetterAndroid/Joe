@@ -1,10 +1,6 @@
 package com.joe.orangee.fragment.weibo;
 
-import java.util.List;
-
-import com.joe.orangee.R;
-import com.joe.orangee.activity.common.ImagePickActivity;
-import com.joe.orangee.util.Constants;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
+import com.joe.orangee.R;
+import com.joe.orangee.activity.common.ImagePickActivity;
+import com.joe.orangee.util.Constants;
+
+import java.util.List;
+
+@SuppressLint("ValidFragment")
 public class WeiboEditFragment extends Fragment implements OnClickListener {
 
 	private View view;

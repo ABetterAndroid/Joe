@@ -68,6 +68,7 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
 
         contentView = (ListView) View.inflate(getActivity(), R.layout.activity_listview, null);
 
+
         mFadingHelper = new FadingActionBarHelper()
                 .actionBarBackground(R.drawable.orangee_color_solid)
                 .headerView(headerView)

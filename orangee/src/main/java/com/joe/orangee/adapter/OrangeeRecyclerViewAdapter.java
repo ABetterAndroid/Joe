@@ -1,7 +1,5 @@
 package com.joe.orangee.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -19,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
@@ -33,11 +32,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 
 	private static final int TYPE_LIST=0;
-	private static final int TYPE_HEADER=1;
-	private static final int TYPE_FOOTER=2;
+	private static final int TYPE_FOOTER=1;
 	private List<WeiboStatus> dataList;
 	private Context context;
 	private ImageLoader imageLoader;
@@ -86,13 +87,13 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 	
 	@Override
 	public int getItemCount() {
-		return dataList.size()+2;
+		return dataList.size()+1;
 	}
 
 	@Override
 	public void onBindViewHolder(final ViewHolder holder, int position) {
 		if (holder instanceof MyViewHolder) {
-			final WeiboStatus weiboStatus=dataList.get(position-1);
+			final WeiboStatus weiboStatus=dataList.get(position);
 			WeiboItemUtil.getWeiboItem(context, imageLoader, mListener, mChangeListener,  avatarOptions, 
 					picOptions, position, holder, weiboStatus);
 			OnClickListener listener=new OnClickListener() {
@@ -167,14 +168,14 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 			 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weibo_item, parent, false);
 			 vh = new MyViewHolder(view);
 			break;
-		case TYPE_HEADER:
+		/*case TYPE_HEADER:
 			if (extendView!=null) {
 				vh = new AddViewHolder(extendView);
 			}else {
 				View headerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.header_blank_view, parent, false);
 				vh = new AddViewHolder(headerView);
 			}
-			break;
+			break;*/
 		case TYPE_FOOTER:
 			View footerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_view, parent, false);
 			 vh = new AddViewHolder(footerView);
@@ -189,9 +190,7 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 	@Override
 	public int getItemViewType(int position) {
 		
-		if (position==0) {
-			return TYPE_HEADER;
-		}else if (position==getItemCount()-1) {
+		if (position==getItemCount()-1) {
 			return TYPE_FOOTER;
 		}else {
 			return TYPE_LIST;

@@ -1,7 +1,5 @@
 package com.joe.orangee.fragment.weibo;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,6 +21,8 @@ import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.WeiboDownloader;
+
+import java.util.List;
 
 public class FavouritesFragment extends Fragment implements OnRefreshListener {
 
@@ -49,9 +49,6 @@ public class FavouritesFragment extends Fragment implements OnRefreshListener {
 		view = inflater.inflate(R.layout.weibo_list_layout, container, false);
 		context=getActivity();
 		lvWeibo = (ListView) view.findViewById(R.id.weibo_list);
-		View headerView=View.inflate(context, R.layout.header_blank_view, null);
-
-		lvWeibo.addHeaderView(headerView);
 		footerView = View.inflate(context, R.layout.footer_view, null);
 		lvWeibo.addFooterView(footerView);
 		lvWeibo.setOnScrollListener(onScrollListener);

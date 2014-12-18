@@ -15,9 +15,6 @@
  */
 package com.joe.orangee.library.fadingactionbar;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -31,14 +28,17 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.library.fadingactionbar.view.ObservableScrollView;
 import com.joe.orangee.library.fadingactionbar.view.ObservableWebViewWithHeader;
 import com.joe.orangee.library.fadingactionbar.view.OnScrollChangedCallback;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 @SuppressWarnings("unchecked")
 public abstract class FadingActionBarHelperBase {

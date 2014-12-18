@@ -1,7 +1,12 @@
 <resources>
 
+    <style name="AppHomeTheme" parent="AppBaseTheme">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="AppEditTheme" parent="AppBaseTheme">
-        <item name="android:windowTranslucentNavigation">False</item>
+        <item name="android:windowTranslucentNavigation">false</item>
     </style>
     
     <style name="AppTheme_title_small" parent="AppBaseTheme">
@@ -19,7 +24,7 @@
 	    
         <item name="android:textColorPrimary">@color/white</item>
         <!-- <item name="android:navigationBarColor">@android:color/transparent</item> -->
-       
+
         <!-- <item name="android:windowTranslucentStatus">true</item> -->
         
          <!-- Set the windowContentTransitions flag to enable Activity scene transitions -->

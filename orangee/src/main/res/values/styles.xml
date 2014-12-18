@@ -17,6 +17,9 @@
         <item name="android:actionBarStyle">@style/orangee_actionbar_style</item>
         <!-- <item name="android:windowAnimationStyle">@style/AnimationActivity</item> -->
     </style>
+
+    <style name="AppHomeTheme" parent="AppTheme_title_small">
+    </style>
     
     <style name="AppEditTheme" parent="AppBaseTheme">
         <item name="android:actionBarStyle">@style/orangee_actionbar_style_title_small</item>

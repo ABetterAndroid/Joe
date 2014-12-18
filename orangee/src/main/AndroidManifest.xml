@@ -38,7 +38,8 @@
         </activity>
         <activity
             android:name=".activity.home.OrangeeHomeActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@style/AppHomeTheme"/>
         <activity
             android:name=".activity.common.AuthActivity"
             android:label="@string/app_name" />

@@ -6,7 +6,5 @@
     android:choiceMode="singleChoice"
     android:divider="@null"
     android:scrollbars="@null"
-    tools:context="com.joe.orangee.fragment.drawer.NavigationDrawerFragment" 
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"/>
+    tools:context="com.joe.orangee.fragment.drawer.NavigationDrawerFragment" />
 

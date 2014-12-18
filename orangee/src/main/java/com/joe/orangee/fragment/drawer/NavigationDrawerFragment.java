@@ -2,7 +2,6 @@ package com.joe.orangee.fragment.drawer;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -15,7 +14,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,14 +26,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.joe.orangee.R;
-import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.activity.my.MyCommentActivity;
 import com.joe.orangee.activity.my.MyMentionActivity;
+import com.joe.orangee.activity.nearby.NearbyMapWeiboActivity;
 import com.joe.orangee.activity.person.PersonPageActivity;
 import com.joe.orangee.activity.search.SearchActivity;
 import com.joe.orangee.activity.settings.SettingsActivity;
-import com.joe.orangee.activity.nearby.NearbyMapWeiboActivity;
 import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.User;
@@ -75,7 +73,7 @@ public class NavigationDrawerFragment extends Fragment {
 			Bundle savedInstanceState) {
 		mDrawerListView = (ListView) inflater.inflate(
 				R.layout.fragment_navigation_drawer, container, false);
-		Utils.setTopPadding(getActivity(), mDrawerListView);
+//		Utils.setTopPadding(getActivity(), mDrawerListView);
 		mDrawerListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					@Override

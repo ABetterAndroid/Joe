@@ -104,8 +104,13 @@ public class JSONParseUtils {
 				JSONArray array=jsonObject.getJSONArray("pic_urls");
 				ArrayList<String> picList=new ArrayList<String>();
 				for (int j = 0; j < array.length(); j++) {
-					picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic"));
-//                    picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic").replace("thumbnail", "bmiddle"));
+                    if (array.length()==1){
+                        picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic").replace("thumbnail", "bmiddle"));
+                    }else {
+
+                        picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic"));
+                    }
+
 				}
 				status.setPicList(picList);
 			}else if (jsonObject.has("pic_ids")) {

@@ -1,13 +1,14 @@
 package com.joe.orangee.listener;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.TextView;
+
 import com.joe.orangee.util.Constants;
-import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -87,23 +88,26 @@ public class OrangeeImageLoadingListener {
 	
 	public static class ProgressListener implements ImageLoadingProgressListener{
 
-		private TextView tvProgress;
+		private ProgressBar progressBar;
 		
-		public ProgressListener(TextView tvProgress) {
+		public ProgressListener(ProgressBar progressBar) {
 			super();
-			this.tvProgress = tvProgress;
+			this.progressBar = progressBar;
 			
 		}
 		@Override
 		public void onProgressUpdate(String imageUri, View view, int current, int total) {
-			if (tvProgress!=null) {
-				if (tvProgress.getVisibility()!=View.VISIBLE) {
-					tvProgress.setVisibility(View.VISIBLE);
+            Log.e("progress", (int)((float)current/total*100)+"");
+			if (progressBar!=null) {
+				if (progressBar.getVisibility()!=View.VISIBLE) {
+                    progressBar.setVisibility(View.VISIBLE);
 				}
-				int progress =current/total*100;
-				tvProgress.setText(progress+"%");
-				if (progress==100) {
-					Utils.hidePicLayout(tvProgress);
+				float progress =(float)current/total*100;
+//                int progressSet= Integer.valueOf(progress.split(".")[0]);
+                progressBar.setProgress(100);
+//                progressBar.setProgress((int)progress);
+				if ((int)progress==100) {
+//                    progressBar.setVisibility(View.GONE);
 				}
 				
 			}

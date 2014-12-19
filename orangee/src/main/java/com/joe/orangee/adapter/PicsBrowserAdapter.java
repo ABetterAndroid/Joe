@@ -6,7 +6,7 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.joe.orangee.R;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
@@ -56,8 +56,8 @@ public class PicsBrowserAdapter extends PagerAdapter {
 		View view =View.inflate(context, R.layout.photoview_layout, null);
 //		PhotoView photoView = new PhotoView(container.getContext());
 		PhotoView photoView=(PhotoView) view.findViewById(R.id.pic_photo);
-		TextView tvProgress=(TextView) view.findViewById(R.id.pic_progress);
-		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(tvProgress);
+        ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.progress_bar);
+		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(progressBar);
 		photoView.setOnViewTapListener(new OnViewTapListener() {
 			
 			@Override

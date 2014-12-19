@@ -1,10 +1,11 @@
 package com.joe.orangee.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
@@ -24,6 +26,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("UseSparseArrays")
 public class WeiboStatusAdapter extends BaseAdapter {
@@ -105,6 +110,7 @@ public class WeiboStatusAdapter extends BaseAdapter {
 		}else {
 			view=View.inflate(context, R.layout.weibo_item, null);
 			holder=new ViewHolder();
+            holder.card=view.findViewById(R.id.card_view);
 			holder.avatar=(ImageView) view.findViewById(R.id.weibo_avatar);
 			holder.name=(TextView) view.findViewById(R.id.weibo_auther);
 			holder.time=(TextView) view.findViewById(R.id.weibo_time);
@@ -146,50 +152,34 @@ public class WeiboStatusAdapter extends BaseAdapter {
 			view.setTag(holder);
 		}
 		
-		WeiboStatus weiboStatus=dataList.get(position);
+		final WeiboStatus weiboStatus=dataList.get(position);
 		
 		WeiboListItemUtil.getWeiboItem(context, imageLoader, mListener, mChangeListener, avatarOptions,
                 picOptions, position, holder, weiboStatus);
-		
-		holder.retweet_postText.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				WeiboStatus status=(WeiboStatus) getItem(position);
-				Intent intent=new Intent(context, WeiboCommentActivity.class);
-				intent.putExtra("WeiboStatus", status);
-				intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
-				context.startActivity(intent);
-				
-			}
-		});
-		holder.postText.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				WeiboStatus status=(WeiboStatus) getItem(position);
-				Intent intent=new Intent(context, WeiboCommentActivity.class);
-				intent.putExtra("WeiboStatus", status);
-				intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
-				context.startActivity(intent);
-				
-			}
-		});
-		
-		view.setOnClickListener(new OnClickListener() {
-			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
 
-				WeiboStatus status=(WeiboStatus) getItem(position);
-				Intent intent=new Intent(context, WeiboCommentActivity.class);
-				intent.putExtra("WeiboStatus", status);
-				intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
-				context.startActivity(intent);
-				
-			}
-		});
+        OnClickListener mlistener=new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, WeiboCommentActivity.class);
+                intent.putExtra("WeiboStatus", weiboStatus);
+                intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
+
+                @SuppressWarnings("unchecked")
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+                        (Activity)context,
+
+                        new Pair<View, String>(holder.card, WeiboCommentActivity.CARD_NAME)
+
+                );
+
+                context.startActivity(intent, activityOptions.toBundle());
+            }
+        };
+
+		holder.retweet_postText.setOnClickListener(mlistener);
+		holder.postText.setOnClickListener(mlistener);
+		
+		view.setOnClickListener(mlistener);
 		/*AnimatorSet animatorSet=new AnimatorSet();
 		animatorSet.playTogether(ObjectAnimator.ofFloat(view, "translationY", 300, 100, 0).setDuration(500),
 												ObjectAnimator.ofFloat(view, "rotationX", 20, 0));
@@ -197,7 +187,9 @@ public class WeiboStatusAdapter extends BaseAdapter {
 		return view;
 	}
 
+
 	public static class ViewHolder{
+        public View card;
 		public ImageView avatar;
 		public TextView name;
 		public TextView time;

@@ -1,18 +1,21 @@
 package com.joe.orangee.util;
 
+import android.annotation.SuppressLint;
+
+import com.joe.orangee.model.Comment;
+import com.joe.orangee.model.User;
+import com.joe.orangee.model.WeiboStatus;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.annotation.SuppressLint;
-import com.joe.orangee.model.Comment;
-import com.joe.orangee.model.User;
-import com.joe.orangee.model.WeiboStatus;
 
 @SuppressLint("SimpleDateFormat")
 public class JSONParseUtils {
@@ -23,7 +26,6 @@ public class JSONParseUtils {
 	/**
 	 * 解析comment字段
 	 * @param jsonObject
-	 * @param comment
 	 */
 	public static Comment parseCommentJSONObject(JSONObject jsonObject){
 		
@@ -51,7 +53,6 @@ public class JSONParseUtils {
 	 * @user qiaorongzhu
 	 * @since 2014-10-31
 	 * @param jsonObject
-	 * @param user
 	 */
 	public static User parseUserJSONObject(JSONObject jsonObject){
 		
@@ -59,7 +60,7 @@ public class JSONParseUtils {
 		try {
 			user.setUid(jsonObject.getString("idstr"));
 			user.setName(jsonObject.getString("screen_name"));
-			user.setAvatar(jsonObject.getString("avatar_large"));
+			user.setAvatar(jsonObject.getString("profile_image_url"));
 			user.setLocation(jsonObject.getString("location"));
 			user.setDescription(jsonObject.getString("description"));
 			user.setGender(jsonObject.getString("gender"));
@@ -82,7 +83,6 @@ public class JSONParseUtils {
 	 * @user qiaorongzhu
 	 * @since 2014-10-31
 	 * @param jsonObject
-	 * @param user
 	 * @return
 	 */
 	public static WeiboStatus parseStatusJSONObject(JSONObject jsonObject){
@@ -104,7 +104,8 @@ public class JSONParseUtils {
 				JSONArray array=jsonObject.getJSONArray("pic_urls");
 				ArrayList<String> picList=new ArrayList<String>();
 				for (int j = 0; j < array.length(); j++) {
-					picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic").replace("thumbnail", "bmiddle"));
+					picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic"));
+//                    picList.add(((JSONObject)array.get(j)).getString("thumbnail_pic").replace("thumbnail", "bmiddle"));
 				}
 				status.setPicList(picList);
 			}else if (jsonObject.has("pic_ids")) {

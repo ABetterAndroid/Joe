@@ -8,17 +8,12 @@
     <include 
         layout="@layout/tool_bar"/>
     
-    <ProgressBar
-         android:id="@+id/progress_bar"
-         style="?android:attr/progressBarStyleHorizontal"
-         android:layout_width="match_parent"
-         android:layout_height="2dip"
-         android:max="100"
-         android:progressDrawable="@drawable/progressbar" />
-    
-    <WebView 
+    <FrameLayout
         android:layout_width="match_parent"
-    	android:layout_height="match_parent"
-    	android:id="@+id/web"/>
+        android:layout_height="match_parent"
+        android:id="@+id/web_container">
+
+    </FrameLayout>
+
     
 </LinearLayout>

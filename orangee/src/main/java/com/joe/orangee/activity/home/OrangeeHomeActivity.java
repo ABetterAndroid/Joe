@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.activity.weibo.WeiboEditActivity;
 import com.joe.orangee.fragment.drawer.NavigationDrawerFragment;
@@ -25,6 +27,7 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private WeiboStatusFragment statusFragment;
     public static View hotKey;
+    public static ImageView ivKey;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +57,14 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 		.commit();
 
         hotKey = findViewById(R.id.hot_key);
-        hotKey.setOnClickListener(new View.OnClickListener() {
+        ivKey= (ImageView) findViewById(R.id.key_img);
+        hotKey.setVisibility(View.GONE);
+        /*hotKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 statusFragment.onRefresh();
             }
-        });
+        });*/
     }
 
 	@SuppressWarnings("deprecation")

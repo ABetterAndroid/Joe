@@ -58,6 +58,7 @@ public class NavigationDrawerFragment extends Fragment {
 	private TextView tvStatus;
 	private Activity activity;
 
+    public NavigationDrawerFragment(){}
 	public NavigationDrawerFragment(Activity activity) {
 		this.activity=activity;
 	}

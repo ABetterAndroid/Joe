@@ -1,7 +1,5 @@
 package com.joe.orangee.adapter;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +16,8 @@ import com.joe.orangee.view.photoview.PhotoView;
 import com.joe.orangee.view.photoview.PhotoViewAttacher.OnViewTapListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 public class PicsBrowserAdapter extends PagerAdapter {
 
@@ -68,7 +68,7 @@ public class PicsBrowserAdapter extends PagerAdapter {
 //		LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 //		photoView.setLayoutParams(params);
 //		photoView.setScaleType(ScaleType.FIT_XY);
-		String url=(String) picUrlsList.get(position).replace("bmiddle", "large");
+		String url=(String) picUrlsList.get(position).replace("thumbnail", "bmiddle");
 		imageLoader.displayImage(url, photoView, picOptions, loadingListener, progressListener);
 
 		container.addView(view);

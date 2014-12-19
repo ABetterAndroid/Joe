@@ -1,8 +1,5 @@
 package com.joe.orangee.util;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
@@ -36,6 +33,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+
 public class Utils {
 
 	
@@ -55,6 +55,8 @@ public class Utils {
         actionBar.setHomeButtonEnabled(true);
         if (strId!=0){
             actionBar.setTitle(strId);
+        }else{
+            actionBar.setTitle("");
         }
 	}
 	
@@ -357,7 +359,7 @@ public class Utils {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                hotKey.setVisibility(View.INVISIBLE);
+                hotKey.setVisibility(View.GONE);
             }
 
             @Override

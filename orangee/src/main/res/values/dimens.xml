@@ -14,7 +14,7 @@
     
     <dimen name="actionbar_title_size_small">16sp</dimen>
     
-    <dimen name="card_elevation">1dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     
     <dimen name="card_corner_radius">3sp</dimen>
 

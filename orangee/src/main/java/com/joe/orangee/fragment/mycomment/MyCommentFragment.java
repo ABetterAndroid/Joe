@@ -49,12 +49,6 @@ public class MyCommentFragment extends Fragment implements OnRefreshListener {
         return myFragment;
     }
 
-	public MyCommentFragment(String url, boolean toMe) {
-		super();
-		this.url=url;
-		this.toMe = toMe;
-	}
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

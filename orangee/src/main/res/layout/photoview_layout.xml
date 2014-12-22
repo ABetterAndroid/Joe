@@ -13,7 +13,7 @@
         android:id="@+id/pic_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="29dp"
+        android:layout_height="2dp"
         android:max="100"
         android:progressDrawable="@drawable/progressbar" />
 

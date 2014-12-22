@@ -92,6 +92,10 @@
             android:name=".activity.settings.SettingsActivity"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".activity.pictures.PicturesCollectionActivity"
+            android:label="@string/app_name" />
+
         <service android:name=".service.WeiboSendService" >
         </service>
         <service android:name=".service.MessageListenerService" >

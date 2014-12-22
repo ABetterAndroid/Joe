@@ -3,6 +3,7 @@ package com.joe.orangee.util;
 public class Constants {
 
 	public static final String TABLE_NAME_FRIENDS_TIMELINE="friends_timeline";
+    public static final String TABLE_NAME_COLLECTED_PICS="collected_pics";
 	public static float DENSITY;
 	public static final String PERSON_NAME = "person_name";
 	public static final String PERSON_UID = "person_uid";

@@ -8,7 +8,7 @@ import com.joe.orangee.model.WeiboStatus;
 
 import java.util.List;
 
-public class SQLUtils {
+public class StatusesSQLUtils {
 	
 
 	/**
@@ -19,7 +19,7 @@ public class SQLUtils {
 		for (WeiboStatus status : dataList) {
 			synchronized (mSQLiteDatabase) {
 				try {
-					mSQLiteDatabase.insert(OrangeeSQLOpenHelper.DB_TABLE, OrangeeSQLOpenHelper.KEY_ID, putContentValues(values, status)) ;
+					mSQLiteDatabase.insert(StatusesSQLOpenHelper.DB_TABLE, StatusesSQLOpenHelper.KEY_ID, putContentValues(values, status)) ;
 				} catch (Exception e) {
 				}
 				
@@ -34,7 +34,7 @@ public class SQLUtils {
 		ContentValues values = new ContentValues();
 		for (int i = 0; i < dataList.size(); i++) {
 			WeiboStatus status=dataList.get(i);
-			mSQLiteDatabase.update(OrangeeSQLOpenHelper.DB_TABLE, putContentValues(values, status), OrangeeSQLOpenHelper.KEY_ID + " = " +(i+1), null);
+			mSQLiteDatabase.update(StatusesSQLOpenHelper.DB_TABLE, putContentValues(values, status), StatusesSQLOpenHelper.KEY_ID + " = " +(i+1), null);
 		}
 	}
 	
@@ -44,12 +44,12 @@ public class SQLUtils {
 	 */
 	public static Cursor fetchAllData(SQLiteDatabase mSQLiteDatabase){		
 		
-		return mSQLiteDatabase.query(OrangeeSQLOpenHelper.DB_TABLE, null	, null, null, null, null, null);
+		return mSQLiteDatabase.query(StatusesSQLOpenHelper.DB_TABLE, null	, null, null, null, null, null);
 		
 	}
 	
 	public static void deleteTableData(SQLiteDatabase mSQLiteDatabase){
-		mSQLiteDatabase.delete(OrangeeSQLOpenHelper.DB_TABLE, null, null);
+		mSQLiteDatabase.delete(StatusesSQLOpenHelper.DB_TABLE, null, null);
 	}
 	
 	/**
@@ -59,49 +59,49 @@ public class SQLUtils {
 	 * @return
 	 */
 	private static ContentValues putContentValues(ContentValues values, WeiboStatus status){
-		values.put(OrangeeSQLOpenHelper.KEY_AVATAR, status.getUser().getAvatar());
-		values.put(OrangeeSQLOpenHelper.KEY_NAME, status.getUser().getName());
-		values.put(OrangeeSQLOpenHelper.KEY_UID, status.getUser().getUid());
-		values.put(OrangeeSQLOpenHelper.KEY_TIME, status.getTime());
-		values.put(OrangeeSQLOpenHelper.KEY_SOURCE, status.getSource());
-		values.put(OrangeeSQLOpenHelper.KEY_POSTTEXT, status.getPostText());
+		values.put(StatusesSQLOpenHelper.KEY_AVATAR, status.getUser().getAvatar());
+		values.put(StatusesSQLOpenHelper.KEY_NAME, status.getUser().getName());
+		values.put(StatusesSQLOpenHelper.KEY_UID, status.getUser().getUid());
+		values.put(StatusesSQLOpenHelper.KEY_TIME, status.getTime());
+		values.put(StatusesSQLOpenHelper.KEY_SOURCE, status.getSource());
+		values.put(StatusesSQLOpenHelper.KEY_POSTTEXT, status.getPostText());
 		String picUrls="";
 		for (String string : status.getPicList()) {
 			picUrls=picUrls+string+"_#_";
 		}
-		values.put(OrangeeSQLOpenHelper.KEY_PICLIST,picUrls);
-		values.put(OrangeeSQLOpenHelper.KEY_WEIBOID,status.getWeiboId());
-		values.put(OrangeeSQLOpenHelper.KEY_COMMENT_COUNT, status.getComment_count());
-		values.put(OrangeeSQLOpenHelper.KEY_REPOST_COUNT, status.getRepost_count());
-		values.put(OrangeeSQLOpenHelper.KEY_LOCATION, status.getLocation());
+		values.put(StatusesSQLOpenHelper.KEY_PICLIST,picUrls);
+		values.put(StatusesSQLOpenHelper.KEY_WEIBOID,status.getWeiboId());
+		values.put(StatusesSQLOpenHelper.KEY_COMMENT_COUNT, status.getComment_count());
+		values.put(StatusesSQLOpenHelper.KEY_REPOST_COUNT, status.getRepost_count());
+		values.put(StatusesSQLOpenHelper.KEY_LOCATION, status.getLocation());
 		WeiboStatus retweetStatus=status.getWeiboStatus();
 		if (retweetStatus!=null) {
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_AVATAR,retweetStatus.getUser().getAvatar());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_NAME, retweetStatus.getUser().getName());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_UID, retweetStatus.getUser().getUid());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_TIME, retweetStatus.getTime());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_SOURCE, retweetStatus.getSource());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_POSTTEXT, retweetStatus.getPostText());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_AVATAR,retweetStatus.getUser().getAvatar());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_NAME, retweetStatus.getUser().getName());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_UID, retweetStatus.getUser().getUid());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_TIME, retweetStatus.getTime());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_SOURCE, retweetStatus.getSource());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_POSTTEXT, retweetStatus.getPostText());
 			String retweet_picUrls="";
 			for (String string : retweetStatus.getPicList()) {
 				retweet_picUrls=retweet_picUrls+string+"_#_";
 			}
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_PICLIST, retweet_picUrls);
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_WEIBOID, retweetStatus.getWeiboId());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_COMMENT_COUNT, retweetStatus.getComment_count());
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_REPOST_COUNT, retweetStatus.getRepost_count());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_PICLIST, retweet_picUrls);
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_WEIBOID, retweetStatus.getWeiboId());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_COMMENT_COUNT, retweetStatus.getComment_count());
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_REPOST_COUNT, retweetStatus.getRepost_count());
 			
 		}else {
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_AVATAR, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_NAME, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_UID, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_TIME, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_SOURCE, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_POSTTEXT, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_PICLIST, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_WEIBOID, "");
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_COMMENT_COUNT, -1);
-			values.put(OrangeeSQLOpenHelper.KEY_RETWEET_REPOST_COUNT, -1);
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_AVATAR, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_NAME, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_UID, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_TIME, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_SOURCE, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_POSTTEXT, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_PICLIST, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_WEIBOID, "");
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_COMMENT_COUNT, -1);
+			values.put(StatusesSQLOpenHelper.KEY_RETWEET_REPOST_COUNT, -1);
 		}
 		return values;
 	}

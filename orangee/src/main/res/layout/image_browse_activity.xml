@@ -3,12 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:id="@+id/pic_browser_layout" >
+    android:id="@+id/pic_browser_layout"
+    android:fitsSystemWindows="true">
     
 	<com.joe.orangee.view.photoview.HackyViewPager 
        	android:layout_width="match_parent"
        	android:layout_height="match_parent"
        	android:id="@+id/pic_browser_vp"
        	android:layout_centerInParent="true"/>
+
+    <include
+        layout="@layout/tool_bar"/>
     
 </RelativeLayout>

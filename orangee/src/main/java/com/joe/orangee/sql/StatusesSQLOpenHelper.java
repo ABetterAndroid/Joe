@@ -1,12 +1,12 @@
 package com.joe.orangee.sql;
 
-import com.joe.orangee.util.Constants;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class OrangeeSQLOpenHelper extends SQLiteOpenHelper {
+import com.joe.orangee.util.Constants;
+
+public class StatusesSQLOpenHelper extends SQLiteOpenHelper {
 
 	public static final String DB_NAME = "oragnee.db";
 	public static String DB_TABLE = "";
@@ -42,7 +42,7 @@ public class OrangeeSQLOpenHelper extends SQLiteOpenHelper {
 	
 	private SQLiteDatabase mSqLiteDatabase;
 	
-	public OrangeeSQLOpenHelper(Context context, String tableName) {
+	public StatusesSQLOpenHelper(Context context, String tableName) {
 		super(context, DB_NAME, null, DB_VERSION);
 		DB_TABLE=tableName;
 		if (tableName.equals(Constants.TABLE_NAME_FRIENDS_TIMELINE)) {

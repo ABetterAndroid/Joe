@@ -20,9 +20,9 @@ import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.Downloader.WeiboDownloader;
-import com.joe.orangee.sql.OrangeeSQLOpenHelper;
+import com.joe.orangee.sql.StatusesSQLOpenHelper;
 import com.joe.orangee.sql.SQLDataGetterUtils;
-import com.joe.orangee.sql.SQLUtils;
+import com.joe.orangee.sql.StatusesSQLUtils;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.PreferencesKeeper;
 
@@ -39,7 +39,7 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 	private String url=Constants.URL_FRIENDS_TIMELINE;
 	private long max_id=-1;
 //	private View footerView;
-	private OrangeeSQLOpenHelper mOpenHelper;
+	private StatusesSQLOpenHelper mOpenHelper;
 	private SQLiteDatabase mSQLiteDatabase;
 	private int offsetY;
 	private int currentPosition;
@@ -94,9 +94,9 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 		offsetY=PreferencesKeeper.readOffsetY(context);
 		currentPosition=positionToScroll=PreferencesKeeper.readPosition(context);
 		if (url==Constants.URL_FRIENDS_TIMELINE) {
-			mOpenHelper = new OrangeeSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
+			mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
 			mSQLiteDatabase = mOpenHelper.getReadableDatabase();
-			Cursor mCursor = SQLUtils.fetchAllData(mSQLiteDatabase);
+			Cursor mCursor = StatusesSQLUtils.fetchAllData(mSQLiteDatabase);
 			if (mCursor != null && mCursor.getCount() !=0) {
 				fillDataFromSQL(mCursor);
 			}else {
@@ -208,17 +208,17 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 						
 						@Override
 						public void run() {
-                        mOpenHelper = new OrangeeSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
+                        mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
                         mSQLiteDatabase=mOpenHelper.getWritableDatabase();
 							/*if (page==1 && max_id==0L) {
 								SQLUtils.deleteTableData(mSQLiteDatabase);
 							}
 							SQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);*/
-						Cursor mCursor = SQLUtils.fetchAllData(mSQLiteDatabase);
+						Cursor mCursor = StatusesSQLUtils.fetchAllData(mSQLiteDatabase);
 						if (mCursor != null && mCursor.getCount() != 0) {
-							SQLUtils.updateStatusesData(weiboList, mSQLiteDatabase);
+							StatusesSQLUtils.updateStatusesData(weiboList, mSQLiteDatabase);
 						}else {
-							SQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);
+							StatusesSQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);
 						}
 						mCursor.close();
 						}

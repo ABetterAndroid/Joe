@@ -202,25 +202,25 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 					recyclerAdapter.addData(weiboList);
 					recyclerAdapter.notifyDataSetChanged();
 				}
-				if (url==Constants.URL_FRIENDS_TIMELINE) {
+				if (url==Constants.URL_FRIENDS_TIMELINE && page==1) {
 					
 					new Thread(new Runnable() {
 						
 						@Override
 						public void run() {
-							mOpenHelper = new OrangeeSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
-							mSQLiteDatabase=mOpenHelper.getWritableDatabase();
-							if (page==1 && max_id==0L) {
+                        mOpenHelper = new OrangeeSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
+                        mSQLiteDatabase=mOpenHelper.getWritableDatabase();
+							/*if (page==1 && max_id==0L) {
 								SQLUtils.deleteTableData(mSQLiteDatabase);
 							}
+							SQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);*/
+						Cursor mCursor = SQLUtils.fetchAllData(mSQLiteDatabase);
+						if (mCursor != null && mCursor.getCount() != 0) {
+							SQLUtils.updateStatusesData(weiboList, mSQLiteDatabase);
+						}else {
 							SQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);
-//						Cursor mCursor = SQLUtils.fetchAllData(mSQLiteDatabase);
-//						if (mCursor != null && mCursor.getCount() != 0) {
-//							SQLUtils.updateStatusesData(weiboList, mSQLiteDatabase);
-//						}else {
-//							SQLUtils.insertStatusesData(weiboList, mSQLiteDatabase);
-//						}
-//						mCursor.close();
+						}
+						mCursor.close();
 						}
 					}).start();
 				}

@@ -1,8 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/web_layout"
     android:orientation="vertical">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/web"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -12,9 +17,4 @@
         android:max="100"
         android:progressDrawable="@drawable/progressbar" />
 
-    <!--<WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/web"/>-->
-
-</LinearLayout>
+</RelativeLayout>

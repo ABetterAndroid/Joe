@@ -1,19 +1,18 @@
 package com.joe.orangee.sql;
 
-import java.util.List;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.joe.orangee.model.WeiboStatus;
 
+import java.util.List;
+
 public class SQLUtils {
 	
 
 	/**
 	 * 往数据库里面插入数据 
-	 * @param data
 	 */
 	public static void insertStatusesData(List<WeiboStatus> dataList, SQLiteDatabase mSQLiteDatabase){		
 		ContentValues values = new ContentValues();
@@ -30,7 +29,6 @@ public class SQLUtils {
 
 	/**
 	 * 在数据库里面更新数据 
-	 * @param data
 	 */
 	public static void updateStatusesData(List<WeiboStatus> dataList, SQLiteDatabase mSQLiteDatabase){		
 		ContentValues values = new ContentValues();

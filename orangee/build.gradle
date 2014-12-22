@@ -10,12 +10,25 @@ android {
         targetSdkVersion 21
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            storeFile file("JoeKeystore.jks")
+            storePassword "joe2015&&"
+            keyAlias "orangee"
+            keyPassword "orangee2015&&"
         }
     }
+
+    buildTypes {
+
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 dependencies {

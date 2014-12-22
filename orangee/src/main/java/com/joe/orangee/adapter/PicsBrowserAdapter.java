@@ -56,8 +56,8 @@ public class PicsBrowserAdapter extends PagerAdapter {
 		View view =View.inflate(context, R.layout.photoview_layout, null);
 //		PhotoView photoView = new PhotoView(container.getContext());
 		PhotoView photoView=(PhotoView) view.findViewById(R.id.pic_photo);
-        ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.progress_bar);
-		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(progressBar);
+        ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.pic_progress_bar);
+		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(context, progressBar);
 		photoView.setOnViewTapListener(new OnViewTapListener() {
 			
 			@Override

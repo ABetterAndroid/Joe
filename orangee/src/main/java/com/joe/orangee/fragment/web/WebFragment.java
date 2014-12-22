@@ -9,17 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.joe.orangee.R;
 import com.joe.orangee.library.OrangeeClickabSpan;
+import com.joe.orangee.util.Utils;
 
 public class WebFragment extends Fragment {
     private static final String ARG_PARAM = "url";
@@ -64,16 +63,16 @@ public class WebFragment extends Fragment {
         }
         context=getActivity();
         view=inflater.inflate(R.layout.fragment_web, container, false);
-        LinearLayout webLayout= (LinearLayout) view.findViewById(R.id.web_layout);
+        RelativeLayout webLayout= (RelativeLayout) view.findViewById(R.id.web_layout);
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        webView= (WebView) view.findViewById(R.id.web);
 
-        if (webView==null){
+        /*if (webView==null){
             webView=new WebView(context);
             LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             webView.setLayoutParams(params);
-        }
+        }*/
 
-        webLayout.addView(webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(true);
@@ -94,11 +93,9 @@ public class WebFragment extends Fragment {
         public void onProgressChanged(WebView view, int newProgress) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(newProgress);
-            Log.i("progress", newProgress + "");
+            Log.e("progress", newProgress+"");
             if (newProgress == 100) {
-                Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-                progressBar.startAnimation(fadeOut);
-                progressBar.setVisibility(View.GONE);
+                Utils.fadeOut(context, progressBar);
             }
             super.onProgressChanged(view, newProgress);
         }

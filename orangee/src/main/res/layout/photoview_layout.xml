@@ -10,11 +10,11 @@
 	    android:layout_centerInParent="true"/>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/pic_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="2dip"
+        android:layout_height="29dp"
         android:max="100"
         android:progressDrawable="@drawable/progressbar" />
-    
+
 </RelativeLayout>

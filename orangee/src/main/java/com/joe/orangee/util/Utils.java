@@ -20,6 +20,8 @@ import android.support.v7.app.ActionBar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 
@@ -373,6 +375,28 @@ public class Utils {
             }
         });
         animatorSet.start();
+    }
+
+    /**
+     * fade in
+     * @param context
+     * @param view
+     */
+    public static void fadeIn(Context context, View view){
+        Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        view.startAnimation(fadeIn);
+        view.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * fade out
+     * @param context
+     * @param view
+     */
+    public static void fadeOut(Context context, View view){
+        Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+        view.startAnimation(fadeOut);
+        view.setVisibility(View.INVISIBLE);
     }
 
 }

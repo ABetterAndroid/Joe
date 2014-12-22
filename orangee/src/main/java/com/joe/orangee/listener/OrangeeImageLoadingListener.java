@@ -2,6 +2,7 @@ package com.joe.orangee.listener;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,6 +68,9 @@ public class OrangeeImageLoadingListener {
 					if (loadedImage.getWidth()>600) {
 						width=(int)(220*Constants.DENSITY+0.5f);
 					}
+                    if (loadedImage.getHeight()>4000 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                        loadedImage.setHeight(4000);
+                    }
 					imageView.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
 				}
 				

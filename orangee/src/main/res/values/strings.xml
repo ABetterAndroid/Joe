@@ -73,5 +73,6 @@
     <string name="comment_detail">查看评论</string>
     <string name="weibo_edit">发微博</string>
     <string name="pic_collect">收藏图片</string>
+    <string name="pic_collection">图片收藏</string>
 
 </resources>

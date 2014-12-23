@@ -54,8 +54,9 @@ public class PicsBrowserAdapter extends PagerAdapter {
 	@Override
 	public View instantiateItem(ViewGroup container, int position) {
 		View view =View.inflate(context, R.layout.photoview_layout, null);
-//		PhotoView photoView = new PhotoView(container.getContext());
+        view.setTag(position);
 		PhotoView photoView=(PhotoView) view.findViewById(R.id.pic_photo);
+
         photoView.setTag(picUrlsList.get(position));
         ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.pic_progress_bar);
 		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(context, progressBar);
@@ -66,10 +67,13 @@ public class PicsBrowserAdapter extends PagerAdapter {
 				activity.onBackPressed();
 			}
 		});
-//		LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//		photoView.setLayoutParams(params);
-//		photoView.setScaleType(ScaleType.FIT_XY);
-		String url=(String) picUrlsList.get(position).replace("thumbnail", "bmiddle");
+        String url="";
+        String originalUrl=picUrlsList.get(position);
+        if (originalUrl.contains("thumbnail")){
+            url=originalUrl.replace("thumbnail", "large");
+        }else if (originalUrl.contains("bmiddle")){
+            url=originalUrl.replace("bmiddle", "large");
+        }
 		imageLoader.displayImage(url, photoView, picOptions, loadingListener, progressListener);
 
 		container.addView(view);

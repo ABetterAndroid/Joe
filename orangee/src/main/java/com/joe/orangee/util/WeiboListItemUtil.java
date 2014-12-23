@@ -1,6 +1,5 @@
 package com.joe.orangee.util;
 
-import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+
 import com.androidplus.util.StringUtil;
 import com.joe.orangee.R;
 import com.joe.orangee.activity.image.ImageBrowseActivity;
@@ -22,6 +22,8 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingL
 import com.joe.orangee.model.WeiboStatus;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
 
 public class WeiboListItemUtil {
 
@@ -73,6 +75,7 @@ public class WeiboListItemUtil {
                         Intent intent=new Intent(context, ImageBrowseActivity.class);
                         intent.putStringArrayListExtra("imageList", picList);
                         intent.putExtra("current", current);
+                        intent.putExtra("WeiboStatus", weiboStatus);
 
                         context.startActivity(intent);
 
@@ -127,6 +130,7 @@ public class WeiboListItemUtil {
                             Intent intent=new Intent(context, ImageBrowseActivity.class);
                             intent.putStringArrayListExtra("imageList", retweetPicList);
                             intent.putExtra("current", current);
+                            intent.putExtra("WeiboStatus", weiboStatus);
 
                             context.startActivity(intent);
 

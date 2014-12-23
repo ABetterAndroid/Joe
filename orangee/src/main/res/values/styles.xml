@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
 
         <item name="android:textColor">@android:color/black</item>
         
@@ -18,7 +18,7 @@
         <!-- <item name="android:windowAnimationStyle">@style/AnimationActivity</item> -->
     </style>
 
-    <style name="AppHomeTheme" parent="AppTheme_title_small">
+    <style name="AppHomeTheme" parent="AppBaseTheme">
     </style>
     
     <style name="AppEditTheme" parent="AppBaseTheme">

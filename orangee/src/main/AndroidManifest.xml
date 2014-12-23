@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme_title_small" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="183411c77dffd2fc52311d8d9d75f3f1" />
+            android:value="cda43bea9af6125e4307b8759d7d1107" />
 
         <activity
             android:name=".activity.common.WelcomeActivity"

@@ -2,7 +2,6 @@ package com.joe.orangee.listener;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -11,6 +10,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
+import com.joe.orangee.view.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -29,6 +29,18 @@ public class OrangeeImageLoadingListener {
 		@Override
 		public void onLoadingComplete(String arg0, View view, Bitmap loadedImage) {
 			if (loadedImage != null) {
+                if (loadedImage.getHeight()>1000){
+                    if (view instanceof PhotoView){
+                        PhotoView photoView= (PhotoView) view;
+                        photoView.setMaxScale(30.0f);
+                        photoView.setMidScale(20.0f);
+                        /*photoView.setMinScale(10.0f);
+                        photoView.zoomTo(10.0f, 10.0f, 10.0f);
+                        photoView.scrollTo(0,0);*/
+
+                    }
+
+                }
 				ImageView imageView = (ImageView) view;
 				FadeInBitmapDisplayer.animate(imageView, 800);
 			}
@@ -68,13 +80,22 @@ public class OrangeeImageLoadingListener {
 					if (loadedImage.getWidth()>600) {
 						width=(int)(220*Constants.DENSITY+0.5f);
 					}
-                    if (loadedImage.getHeight()>4000 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-                        loadedImage.setHeight(4000);
+                    if (loadedImage.getHeight()>4000){
+                        width=(int)(100*Constants.DENSITY+0.5f);
+
+                        int i=2;
+
+                        while (loadedImage.getHeight()/i > 4000){
+                            i+=1;
+                        }
+
+                        imageView.setImageBitmap(Bitmap.createScaledBitmap(loadedImage, loadedImage.getWidth()/i, loadedImage.getHeight()/i,true));
+
                     }
 					imageView.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
 				}
 				
-				FadeInBitmapDisplayer.animate(imageView, 300);
+				FadeInBitmapDisplayer.animate(imageView, 800);
 			}
 			
 		}

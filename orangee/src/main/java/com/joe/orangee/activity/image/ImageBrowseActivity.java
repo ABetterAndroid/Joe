@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.joe.orangee.R;
@@ -41,6 +42,8 @@ public class ImageBrowseActivity extends ActionBarActivity {
 //		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.image_browse_activity);
 		context = this;
+        View contentView=findViewById(R.id.pic_browser_layout);
+        Utils.setTopPadding(this, contentView);
 		currentItem = getIntent().getIntExtra("current", 0);
 		ArrayList<String> picList=getIntent().getStringArrayListExtra("imageList");
         status = getIntent().getParcelableExtra("WeiboStatus");
@@ -70,7 +73,7 @@ public class ImageBrowseActivity extends ActionBarActivity {
                 finish();
                 break;
             case R.id.action_collect:
-                String url=(String)mViewPager.getChildAt(mViewPager.getCurrentItem()).findViewById(R.id.pic_photo).getTag();
+                String url=(String)mViewPager.findViewWithTag(mViewPager.getCurrentItem()).findViewById(R.id.pic_photo).getTag();
                 Toast.makeText(this, url,Toast.LENGTH_SHORT).show();
                 final PictureCollection collection=new PictureCollection(url, status);
                 if (mOpenHelper==null){

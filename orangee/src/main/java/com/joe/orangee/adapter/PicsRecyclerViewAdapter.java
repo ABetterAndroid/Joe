@@ -1,17 +1,30 @@
 package com.joe.orangee.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.joe.orangee.R;
+import com.joe.orangee.activity.image.ImageBrowseActivity;
+import com.joe.orangee.activity.weibo.WeiboCommentActivity;
+import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.PictureCollection;
+import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.sql.PicturesSQLOpenHelper;
+import com.joe.orangee.sql.PicturesSQLUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
@@ -20,6 +33,8 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 	private Context context;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions picOptions;
+    private PicturesSQLOpenHelper mOpenHelper;
+    private SQLiteDatabase mSQLiteDatabase;
 
 	public PicsRecyclerViewAdapter(Context context, List<PictureCollection> dataList) {
 		super();
@@ -44,10 +59,73 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 	}
 
 	@Override
-	public void onBindViewHolder(final ViewHolder holder, int position) {
+	public void onBindViewHolder(final ViewHolder holder, final int position) {
 		if (holder instanceof MyViewHolder) {
-			PictureCollection collection=dataList.get(position);
-            imageLoader.displayImage(collection.getUrl(), ((MyViewHolder) holder).ivCollection, picOptions);
+			final PictureCollection collection=dataList.get(position);
+            imageLoader.displayImage(collection.getUrl(), ((MyViewHolder) holder).ivCollection, picOptions,
+                    new OrangeeImageLoadingListener.LoadingListener());
+            ((MyViewHolder) holder).ivDelete.setTag(collection);
+            ((MyViewHolder) holder).ivCollection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    ArrayList<String> url=new ArrayList<String>();
+                    for (PictureCollection collection: dataList){
+                        url.add(collection.getUrl());
+                    }
+                    Intent intent=new Intent(context, ImageBrowseActivity.class);
+                    intent.putStringArrayListExtra("imageList", url);
+                    intent.putExtra("current", position);
+                    intent.putExtra("WeiboStatus", collection.getStatus());
+                    intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
+                    context.startActivity(intent);
+
+                }
+            });
+            ((MyViewHolder) holder).ivCollection.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    Intent intent=new Intent(context, WeiboCommentActivity.class);
+                    intent.putExtra("WeiboStatus", collection.getStatus());
+
+                    intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
+
+                    context.startActivity(intent);
+                    return false;
+                }
+            });
+            ((MyViewHolder) holder).ivDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    new AsyncTask<Void, Void, Void>(){
+                        @Override
+                        protected void onPreExecute() {
+                            mOpenHelper = new PicturesSQLOpenHelper(context);
+                            mSQLiteDatabase = mOpenHelper.getReadableDatabase();
+                            super.onPreExecute();
+                        }
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            PicturesSQLUtils.deleteOneData(mSQLiteDatabase, ((PictureCollection) (((MyViewHolder) holder).ivDelete.getTag())).getId());
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            mOpenHelper.close();
+                            mSQLiteDatabase.close();
+                            PictureCollection pc= (PictureCollection) ((MyViewHolder) holder).ivDelete.getTag();
+                            PicsRecyclerViewAdapter.this.notifyItemRemoved(dataList.indexOf(pc));
+                            Toast.makeText(context, dataList.indexOf(pc)+"", Toast.LENGTH_SHORT).show();
+                            dataList.remove(pc);
+                        }
+                    }.execute();
+                }
+            });
 		}
 	}
 
@@ -60,13 +138,15 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
         return vh;
 	}
 
-	public static class MyViewHolder extends ViewHolder{
-		  
-		public ImageView ivCollection;
+    private static class MyViewHolder extends ViewHolder{
+
+        private ImageView ivCollection;
+        private ImageView ivDelete;
 
 		public MyViewHolder(View view) {
 	        super(view);
             ivCollection= (ImageView) view.findViewById(R.id.col_img);
+            ivDelete= (ImageView) view.findViewById(R.id.col_img_del);
 	    }
 	  
 	}  

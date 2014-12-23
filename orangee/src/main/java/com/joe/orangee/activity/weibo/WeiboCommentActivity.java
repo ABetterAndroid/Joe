@@ -1,6 +1,5 @@
 package com.joe.orangee.activity.weibo;
 
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,10 +15,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ScrollView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter.MyViewHolder;
@@ -36,6 +36,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.util.List;
 
 public class WeiboCommentActivity extends ActionBarActivity implements OnRefreshListener {
 
@@ -82,7 +84,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		refreshLayout.setOnRefreshListener(this);
         
 		initHeader();
-		
+
 		fillData();
 	}
 
@@ -91,8 +93,9 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		View include=findViewById(R.id.item_layout);
 		weiboHeader = View.inflate(context, R.layout.weibo_item, null);
 		weiboHeader.setVisibility(View.INVISIBLE);
-		lvComment.addHeaderView(weiboHeader); 
-		CardView card=(CardView) include.findViewById(R.id.card_view);
+		lvComment.addHeaderView(weiboHeader);
+        weiboHeader.findViewById(R.id.item_layout).setVisibility(View.INVISIBLE);
+        CardView card=(CardView) include.findViewById(R.id.card_view);
 		card.setTransitionName(CARD_NAME);
 		ImageView avatar=(ImageView) include.findViewById(R.id.weibo_avatar);
 		avatar.setTransitionName(IMAGE_NAME);
@@ -163,6 +166,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 			@Override
 			protected void onPostExecute(Void result) {
 				weiboHeader.setVisibility(View.VISIBLE);
+                weiboHeader.findViewById(R.id.item_layout).setVisibility(View.VISIBLE);
 				headScroll.setVisibility(View.GONE);
 				refreshLayout.setRefreshing(false);
 				if (commentList!=null) {

@@ -10,9 +10,9 @@
     -->
     <dimen name="navigation_drawer_width">240dp</dimen>
     
-    <dimen name="actionbar_title_size">20sp</dimen>
+    <dimen name="actionbar_title_size">18sp</dimen>
     
-    <dimen name="actionbar_title_size_small">16sp</dimen>
+    <dimen name="actionbar_title_size_small">15sp</dimen>
     
     <dimen name="card_elevation">2dp</dimen>
     

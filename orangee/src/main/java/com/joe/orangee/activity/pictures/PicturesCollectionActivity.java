@@ -6,9 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.PicsRecyclerViewAdapter;
@@ -35,11 +37,14 @@ public class PicturesCollectionActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pics_collection);
+        View contentView=findViewById(R.id.content_layout);
+        Utils.setTopPadding(this, contentView);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Utils.setActionBarStyle(getSupportActionBar(), R.string.pic_collection);
         picRecyclerView= (RecyclerView) findViewById(R.id.pics_col);
+        picRecyclerView.setItemAnimator(new DefaultItemAnimator());
         GridLayoutManager layoutManager=new GridLayoutManager(this, 3);
         picRecyclerView.setLayoutManager(layoutManager);
         mOpenHelper = new PicturesSQLOpenHelper(this);

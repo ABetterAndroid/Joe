@@ -143,7 +143,10 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 		public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 			if (newState == RecyclerView.SCROLL_STATE_IDLE ) {
 	    		 ViewGroup item = (ViewGroup) recyclerView.getChildAt(0);//此处必须为0
-				offsetY=item.getTop();
+                if (item!=null){
+
+                    offsetY=item.getTop();
+                }
 			}
 			 if (newState == RecyclerView.SCROLL_STATE_IDLE  && lastItemIndex > mLayoutManager.getItemCount() - 1-5) {  
 	        	 page+=1;

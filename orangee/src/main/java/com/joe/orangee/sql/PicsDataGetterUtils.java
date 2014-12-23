@@ -22,6 +22,7 @@ public class PicsDataGetterUtils {
         mCursor.moveToFirst();
         for (int i = 0; i < mCursor.getCount(); i++) {
             PictureCollection collection=new PictureCollection();
+            collection.setId(mCursor.getLong(0));
             collection.setUrl(mCursor.getString(1));
 			WeiboStatus status=new WeiboStatus();
 			User user=new User();

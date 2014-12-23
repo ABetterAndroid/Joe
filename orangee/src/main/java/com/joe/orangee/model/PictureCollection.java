@@ -5,6 +5,7 @@ package com.joe.orangee.model;
  */
 public class PictureCollection {
 
+    private long id;
     private String url;
     private WeiboStatus status;
 
@@ -14,6 +15,14 @@ public class PictureCollection {
     public PictureCollection(String url, WeiboStatus status) {
         this.url = url;
         this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUrl() {

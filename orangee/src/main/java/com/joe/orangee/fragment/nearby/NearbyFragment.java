@@ -88,10 +88,11 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
         // API定位采用GPS定位方式，第一个参数是定位provider，第二个参数时间最短是2000毫秒，第三个参数距离间隔单位是米，第四个参数是定位监听者
         locationManager.requestLocationData(LocationProviderProxy.AMapNetwork, 1000000, 10, this);
 
-        View view=mFadingHelper.createView(inflater);
+        final View view=mFadingHelper.createView(inflater);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 contentView.setOnScrollListener(onScrollListener);
             }
         });

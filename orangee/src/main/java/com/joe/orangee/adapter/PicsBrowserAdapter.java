@@ -6,12 +6,16 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.joe.orangee.R;
+import com.joe.orangee.fragment.web.WebFragment;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
-import com.joe.orangee.listener.OrangeeImageLoadingListener.LoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.ProgressListener;
+import com.joe.orangee.util.Utils;
 import com.joe.orangee.view.photoview.PhotoView;
 import com.joe.orangee.view.photoview.PhotoViewAttacher.OnViewTapListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,7 +28,7 @@ public class PicsBrowserAdapter extends PagerAdapter {
 	private List<String> picUrlsList;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions picOptions;
-	private LoadingListener loadingListener;
+	private OrangeeImageLoadingListener.BrowsePictureLoadingListener loadingListener;
 	private Context context;
 	private Activity activity;
 	
@@ -33,8 +37,7 @@ public class PicsBrowserAdapter extends PagerAdapter {
 		this.context=context;
 		activity = (Activity)context;
 		this.picUrlsList = picUrlsList;
-		loadingListener = new OrangeeImageLoadingListener.LoadingListener();
-		
+
 		imageLoader = ImageLoader.getInstance();
 		picOptions = new DisplayImageOptions.Builder()
 		.showImageForEmptyUri(R.drawable.pic_default)
@@ -55,11 +58,43 @@ public class PicsBrowserAdapter extends PagerAdapter {
 	public View instantiateItem(ViewGroup container, int position) {
 		View view =View.inflate(context, R.layout.photoview_layout, null);
         view.setTag(position);
-		PhotoView photoView=(PhotoView) view.findViewById(R.id.pic_photo);
+		final PhotoView photoView=(PhotoView) view.findViewById(R.id.pic_photo);
+        final WebView picWeb= (WebView) view.findViewById(R.id.pic_web);
+        picWeb.setVisibility(View.INVISIBLE);
+        final ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.pic_progress_bar);
+        WebSettings webSettings = picWeb.getSettings();
+        webSettings.setSupportZoom(false);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setDisplayZoomControls(false);
+        picWeb.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(newProgress);
+                if (newProgress == 100) {
+                    picWeb.setVisibility(View.VISIBLE);
+                    photoView.setVisibility(View.GONE);
+                    Utils.fadeOut(context, progressBar);
+                }
+            }
+        });
+
 
         photoView.setTag(picUrlsList.get(position));
-        ProgressBar progressBar= (ProgressBar) view.findViewById(R.id.pic_progress_bar);
+        picWeb.setTag(picUrlsList.get(position));
+        picWeb.setWebViewClient(new WebFragment.OrangeeWebViewClient());
+        loadingListener = new OrangeeImageLoadingListener.BrowsePictureLoadingListener(photoView, picWeb);
+
 		ProgressListener progressListener = new OrangeeImageLoadingListener.ProgressListener(context, progressBar);
+        picWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onBackPressed();
+            }
+        });
 		photoView.setOnViewTapListener(new OnViewTapListener() {
 			
 			@Override
@@ -67,14 +102,8 @@ public class PicsBrowserAdapter extends PagerAdapter {
 				activity.onBackPressed();
 			}
 		});
-        String url="";
-        String originalUrl=picUrlsList.get(position);
-        if (originalUrl.contains("thumbnail")){
-            url=originalUrl.replace("thumbnail", "large");
-        }else if (originalUrl.contains("bmiddle")){
-            url=originalUrl.replace("bmiddle", "large");
-        }
-		imageLoader.displayImage(url, photoView, picOptions, loadingListener, progressListener);
+
+		imageLoader.displayImage(picUrlsList.get(position).replace("thumbnail", "bmiddle"), photoView, picOptions, loadingListener, progressListener);
 
 		container.addView(view);
 

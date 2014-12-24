@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.joe.orangee.view.photoview;
 
-import java.lang.ref.WeakReference;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Matrix;
@@ -33,6 +31,8 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+
+import java.lang.ref.WeakReference;
 
 public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener, ViewTreeObserver.OnGlobalLayoutListener {
@@ -176,7 +176,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, Vers
      * Clean-up the resources attached to this object. This needs to be called
      * when the ImageView is no longer used. A good example is from
      * {@link android.view.View#onDetachedFromWindow()} or from {@link android.app.Activity#onDestroy()}.
-     * This is automatically called if you are using {@link com.joe.orangee.view.photoview.PhotoView}.
+     * This is automatically called if you are using {@link PhotoView}.
      */
     @SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")

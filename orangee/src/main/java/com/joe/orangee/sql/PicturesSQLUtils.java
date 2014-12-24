@@ -1,6 +1,7 @@
 package com.joe.orangee.sql;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -37,17 +38,20 @@ public class PicturesSQLUtils {
 
     /**
      * 删除一条数据
-     * @param mSQLiteDatabase
      * @param id
      * @return
      */
-    public static boolean deleteOneData(SQLiteDatabase mSQLiteDatabase, long id){
-
-        return mSQLiteDatabase.delete(PicturesSQLOpenHelper.DB_TABLE, PicturesSQLOpenHelper.KEY_ID + "=" + id, null) > 0 ;
+    public static synchronized boolean deleteOneData(Context context, long id){
+        PicturesSQLOpenHelper mOpenHelper = new PicturesSQLOpenHelper(context);
+        SQLiteDatabase mSQLiteDatabase = mOpenHelper.getReadableDatabase();
+        boolean result=mSQLiteDatabase.delete(PicturesSQLOpenHelper.DB_TABLE, PicturesSQLOpenHelper.KEY_ID + "=" + id, null) > 0 ;
+        mOpenHelper.close();
+        mSQLiteDatabase.close();
+        return result;
 
     }
 
-	public static void deleteTableData(SQLiteDatabase mSQLiteDatabase){
+	public static synchronized void deleteTableData(SQLiteDatabase mSQLiteDatabase){
 		mSQLiteDatabase.delete(PicturesSQLOpenHelper.DB_TABLE, null, null);
 	}
 	

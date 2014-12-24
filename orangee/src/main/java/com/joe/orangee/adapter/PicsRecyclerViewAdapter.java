@@ -2,7 +2,6 @@ package com.joe.orangee.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.joe.orangee.R;
 import com.joe.orangee.activity.image.ImageBrowseActivity;
@@ -18,7 +16,6 @@ import com.joe.orangee.activity.weibo.WeiboCommentActivity;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.PictureCollection;
 import com.joe.orangee.model.WeiboStatus;
-import com.joe.orangee.sql.PicturesSQLOpenHelper;
 import com.joe.orangee.sql.PicturesSQLUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,8 +30,6 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 	private Context context;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions picOptions;
-    private PicturesSQLOpenHelper mOpenHelper;
-    private SQLiteDatabase mSQLiteDatabase;
 
 	public PicsRecyclerViewAdapter(Context context, List<PictureCollection> dataList) {
 		super();
@@ -102,25 +97,22 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
                     new AsyncTask<Void, Void, Void>(){
                         @Override
                         protected void onPreExecute() {
-                            mOpenHelper = new PicturesSQLOpenHelper(context);
-                            mSQLiteDatabase = mOpenHelper.getReadableDatabase();
+                            ((MyViewHolder) holder).ivDelete.setClickable(false);
                             super.onPreExecute();
                         }
 
                         @Override
                         protected Void doInBackground(Void... params) {
-                            PicturesSQLUtils.deleteOneData(mSQLiteDatabase, ((PictureCollection) (((MyViewHolder) holder).ivDelete.getTag())).getId());
+                            PicturesSQLUtils.deleteOneData(context, ((PictureCollection) (((MyViewHolder) holder).ivDelete.getTag())).getId());
                             return null;
                         }
 
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
-                            mOpenHelper.close();
-                            mSQLiteDatabase.close();
+                            ((MyViewHolder) holder).ivDelete.setClickable(false);
                             PictureCollection pc= (PictureCollection) ((MyViewHolder) holder).ivDelete.getTag();
                             PicsRecyclerViewAdapter.this.notifyItemRemoved(dataList.indexOf(pc));
-                            Toast.makeText(context, dataList.indexOf(pc)+"", Toast.LENGTH_SHORT).show();
                             dataList.remove(pc);
                         }
                     }.execute();

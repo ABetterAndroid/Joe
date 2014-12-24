@@ -3,6 +3,7 @@ package com.joe.orangee.listener;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -18,9 +19,52 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListe
 
 public class OrangeeImageLoadingListener {
 
+    public static class BrowsePictureLoadingListener implements ImageLoadingListener{
+
+        private PhotoView photoView;
+        private WebView webView;
+
+        public BrowsePictureLoadingListener(PhotoView photoView, WebView webView) {
+            this.photoView = photoView;
+            this.webView = webView;
+        }
+
+        @Override
+        public void onLoadingCancelled(String arg0, View arg1) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onLoadingComplete(String url, View view, Bitmap loadedImage) {
+            if (loadedImage != null) {
+                if (loadedImage.getHeight()/loadedImage.getWidth() > 3 || url.endsWith("gif")){
+                    webView.loadUrl(url);
+
+                }else{
+                    webView.setVisibility(View.GONE);
+                }
+                ImageView imageView = (ImageView) view;
+                FadeInBitmapDisplayer.animate(imageView, 800);
+            }
+
+        }
+
+        @Override
+        public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onLoadingStarted(String arg0, View arg1) {
+            // TODO Auto-generated method stub
+
+        }}
+
 	public static class LoadingListener implements ImageLoadingListener{
 
-		@Override
+        @Override
 		public void onLoadingCancelled(String arg0, View arg1) {
 			// TODO Auto-generated method stub
 			
@@ -29,18 +73,6 @@ public class OrangeeImageLoadingListener {
 		@Override
 		public void onLoadingComplete(String arg0, View view, Bitmap loadedImage) {
 			if (loadedImage != null) {
-                if (loadedImage.getHeight()>1000){
-                    if (view instanceof PhotoView){
-                        PhotoView photoView= (PhotoView) view;
-                        photoView.setMaxScale(30.0f);
-                        photoView.setMidScale(20.0f);
-                        /*photoView.setMinScale(10.0f);
-                        photoView.zoomTo(10.0f, 10.0f, 10.0f);
-                        photoView.scrollTo(0,0);*/
-
-                    }
-
-                }
 				ImageView imageView = (ImageView) view;
 				FadeInBitmapDisplayer.animate(imageView, 800);
 			}
@@ -80,12 +112,12 @@ public class OrangeeImageLoadingListener {
 					if (loadedImage.getWidth()>600) {
 						width=(int)(220*Constants.DENSITY+0.5f);
 					}
-                    if (loadedImage.getHeight()>4000){
+                    if (loadedImage.getHeight()>3000){
                         width=(int)(100*Constants.DENSITY+0.5f);
 
                         int i=2;
 
-                        while (loadedImage.getHeight()/i > 4000){
+                        while (loadedImage.getHeight()/i > 3000){
                             i+=1;
                         }
 

@@ -93,7 +93,6 @@ public class WebFragment extends Fragment {
         public void onProgressChanged(WebView view, int newProgress) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(newProgress);
-            Log.e("progress", newProgress+"");
             if (newProgress == 100) {
                 Utils.fadeOut(context, progressBar);
             }
@@ -110,7 +109,7 @@ public class WebFragment extends Fragment {
 
     }
 
-    private class OrangeeWebViewClient extends WebViewClient {
+    public static class OrangeeWebViewClient extends WebViewClient {
         @Override
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

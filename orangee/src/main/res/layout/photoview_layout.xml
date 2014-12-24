@@ -9,6 +9,15 @@
 	    android:id="@+id/pic_photo"
 	    android:layout_centerInParent="true"/>
 
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pic_web"
+        android:layout_centerInParent="true"
+        android:background="@color/black">
+
+    </WebView>
+
     <ProgressBar
         android:id="@+id/pic_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"

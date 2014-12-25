@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBarActivity;
@@ -12,8 +11,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
@@ -30,6 +27,7 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingL
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.Downloader.WeiboDownloader;
+import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 import com.joe.orangee.util.WeiboItemUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -59,6 +57,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	public static final String CARD_NAME="transform_card";
 	public static final String IMAGE_NAME="transform_avatar";
 	public static final String TEXT_NAME="transform_text";
+    private Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		lvComment.addFooterView(footerView);
 		View headerView=View.inflate(context, R.layout.header_blank_view, null);
 		lvComment.addHeaderView(headerView);
-		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
+		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
         Utils.setActionBarStyle(getSupportActionBar(), R.string.comment_detail);
         
@@ -135,9 +134,14 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	private OnScrollListener onScrollListener=new OnScrollListener() {
 		
 		private int lastItemIndex;//当前ListView中最后一个Item的索引  
-	     //当ListView不在滚动，并且ListView的最后一项的索引等于adapter的项数减一时则自动加载（因为索引是从0开始的）  
+	     //当ListView不在滚动，并且ListView的最后一项的索引等于adapter的项数减一时则自动加载（因为索引是从0开始的）
+        private int firstVisibleIndex;
+
 	     @Override  
-	     public void onScrollStateChanged(AbsListView view, int scrollState) {  
+	     public void onScrollStateChanged(AbsListView view, int scrollState) {
+             if (scrollState==SCROLL_STATE_TOUCH_SCROLL || scrollState==SCROLL_STATE_FLING){
+                 firstVisibleIndex=view.getFirstVisiblePosition();
+             }
 	         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE  && lastItemIndex > mAdapter.getCount() - 1-5) {  
 	        	 page+=1;
 	        	 fillData();
@@ -147,7 +151,20 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	     public void onScroll(AbsListView view, int firstVisibleItem,  
 	             int visibleItemCount, int totalItemCount) {  
 	         //ListView 的FooterView也会算到visibleItemCount中去，所以要再减去一  
-	         lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;  
+	         lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;
+             View firstVisibleView=view.getChildAt(0);
+             if (firstVisibleIndex > firstVisibleItem && toolbar.getY()==-toolbar.getHeight()){
+                 if (toolbar.getY()<0.0f){
+
+                     toolbar.setY(firstVisibleView.getHeight()+firstVisibleView.getTop());
+                 }
+             }else if (firstVisibleIndex < firstVisibleItem && toolbar.getY()==0.0f){
+                 if (toolbar.getY()>-toolbar.getHeight()){
+                     toolbar.setY(firstVisibleView.getTop());
+
+                 }
+                getSupportActionBar().hide();
+             }
 	     } 
 	};
 	private View footerView;
@@ -212,25 +229,15 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	public void onBackPressed() {
 		if (lvComment.getFirstVisiblePosition()>1) {
 			headScroll.setVisibility(View.VISIBLE);
-			Animation animation=AnimationUtils.loadAnimation(context, R.anim.scroll_head_in);
-			headScroll.startAnimation(animation);
-			new Handler().postDelayed(new Runnable() {
-				
-				@Override
-				public void run() {
-					onBack();
-				}
-			}, 310);
+            headScroll.setY(-headScroll.getHeight()-getSupportActionBar().getHeight()-Utils.getStatusBarHeight(this));
+            onBack();
 		}else {
-			lvComment.smoothScrollToPosition(0);
-			new Handler().postDelayed(new Runnable() {
-				
-				@Override
-				public void run() {
-					headScroll.setVisibility(View.VISIBLE);
-					onBack();
-				}
-			}, 310);
+            if (lvComment.getChildAt(0).getTop()!=0){
+
+                headScroll.setY(lvComment.getChildAt(0).getTop() - 5*Constants.DENSITY - 0.5f);
+            }
+            headScroll.setVisibility(View.VISIBLE);
+            onBack();
 		}
 	}
 

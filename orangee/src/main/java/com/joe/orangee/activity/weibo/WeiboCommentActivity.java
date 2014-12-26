@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
@@ -58,6 +59,8 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	public static final String IMAGE_NAME="transform_avatar";
 	public static final String TEXT_NAME="transform_text";
     private Toolbar toolbar;
+    private CardView card;
+    private LinearLayout commentRetweetLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		status = getIntent().getParcelableExtra("WeiboStatus");
 		weiboID = status.getWeiboId();
 		setContentView(R.layout.weibo_comment);
+
 		View contentView=findViewById(R.id.content_layout);
 		Utils.setTopPadding(this, contentView);
 		lvComment = (ListView) findViewById(R.id.lv_weibo_comment);
@@ -74,8 +78,10 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		lvComment.addFooterView(footerView);
 		View headerView=View.inflate(context, R.layout.header_blank_view, null);
 		lvComment.addHeaderView(headerView);
+
 		toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
         Utils.setActionBarStyle(getSupportActionBar(), R.string.comment_detail);
         
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.comment_swipe);
@@ -94,8 +100,10 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		weiboHeader.setVisibility(View.INVISIBLE);
 		lvComment.addHeaderView(weiboHeader);
         weiboHeader.findViewById(R.id.item_layout).setVisibility(View.INVISIBLE);
-        CardView card=(CardView) include.findViewById(R.id.card_view);
+        card=(CardView) include.findViewById(R.id.card_view);
 		card.setTransitionName(CARD_NAME);
+        commentRetweetLayout= (LinearLayout) include.findViewById(R.id.comment_repost_layout);
+
 		ImageView avatar=(ImageView) include.findViewById(R.id.weibo_avatar);
 		avatar.setTransitionName(IMAGE_NAME);
 		headScroll = (ScrollView) findViewById(R.id.head_scroll);
@@ -135,14 +143,10 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 		
 		private int lastItemIndex;//当前ListView中最后一个Item的索引  
 	     //当ListView不在滚动，并且ListView的最后一项的索引等于adapter的项数减一时则自动加载（因为索引是从0开始的）
-        private int firstVisibleIndex;
 
 	     @Override  
 	     public void onScrollStateChanged(AbsListView view, int scrollState) {
-             if (scrollState==SCROLL_STATE_TOUCH_SCROLL || scrollState==SCROLL_STATE_FLING){
-                 firstVisibleIndex=view.getFirstVisiblePosition();
-             }
-	         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE  && lastItemIndex > mAdapter.getCount() - 1-5) {  
+	         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE  && lastItemIndex > mAdapter.getCount() - 1-5) {
 	        	 page+=1;
 	        	 fillData();
 	         }  
@@ -152,20 +156,7 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	             int visibleItemCount, int totalItemCount) {  
 	         //ListView 的FooterView也会算到visibleItemCount中去，所以要再减去一  
 	         lastItemIndex = firstVisibleItem + visibleItemCount - 1 -1;
-             View firstVisibleView=view.getChildAt(0);
-             if (firstVisibleIndex > firstVisibleItem && toolbar.getY()==-toolbar.getHeight()){
-                 if (toolbar.getY()<0.0f){
-
-                     toolbar.setY(firstVisibleView.getHeight()+firstVisibleView.getTop());
-                 }
-             }else if (firstVisibleIndex < firstVisibleItem && toolbar.getY()==0.0f){
-                 if (toolbar.getY()>-toolbar.getHeight()){
-                     toolbar.setY(firstVisibleView.getTop());
-
-                 }
-                getSupportActionBar().hide();
-             }
-	     } 
+	     }
 	};
 	private View footerView;
 	private ScrollView headScroll;
@@ -228,18 +219,21 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 	@Override
 	public void onBackPressed() {
 		if (lvComment.getFirstVisiblePosition()>1) {
-			headScroll.setVisibility(View.VISIBLE);
             headScroll.setY(-headScroll.getHeight()-getSupportActionBar().getHeight()-Utils.getStatusBarHeight(this));
-            onBack();
-		}else {
-            if (lvComment.getChildAt(0).getTop()!=0){
+		}else if (lvComment.getFirstVisiblePosition()==1){
+            if (lvComment.getChildAt(0)!=null){
 
                 headScroll.setY(lvComment.getChildAt(0).getTop() - 5*Constants.DENSITY - 0.5f);
             }
-            headScroll.setVisibility(View.VISIBLE);
-            onBack();
-		}
-	}
+		}else{
+            if (lvComment.getChildAt(0)!=null){
+
+                headScroll.setY(headScroll.getY()+lvComment.getChildAt(0).getTop());
+            }
+        }
+        headScroll.setVisibility(View.VISIBLE);
+        onBack();
+    }
 
 	private void onBack() {
 		try {

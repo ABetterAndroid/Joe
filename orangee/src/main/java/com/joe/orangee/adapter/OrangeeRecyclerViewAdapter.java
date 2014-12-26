@@ -245,6 +245,7 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 		public CardView card;
 		public CardView retweetCard;
 		public ImageView avatarMock;
+        public LinearLayout comment_retweet_layout;
 
 		public MyViewHolder(View view) {  
 	        super(view); 
@@ -291,6 +292,7 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 			retweet_repost_count = (TextView) view.findViewById(R.id.retweet_repost);
 			locationLayout = (LinearLayout) view.findViewById(R.id.status_location_layout);
 			location = (TextView) view.findViewById(R.id.status_location);
+            comment_retweet_layout= (LinearLayout) view.findViewById(R.id.comment_repost_layout);
 	    }  
 	  
 	}  

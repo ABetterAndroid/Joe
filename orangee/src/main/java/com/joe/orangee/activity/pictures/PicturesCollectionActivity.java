@@ -32,6 +32,7 @@ public class PicturesCollectionActivity extends ActionBarActivity{
     private List<PictureCollection> collectionList;
     private PicsRecyclerViewAdapter mAdapter;
     private RecyclerView picRecyclerView;
+    private View floatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +44,20 @@ public class PicturesCollectionActivity extends ActionBarActivity{
         setSupportActionBar(toolbar);
 
         Utils.setActionBarStyle(getSupportActionBar(), R.string.pic_collection);
+
+        floatView=findViewById(R.id.item_layout);
+        floatView.setVisibility(View.GONE);
+
         picRecyclerView= (RecyclerView) findViewById(R.id.pics_col);
         picRecyclerView.setItemAnimator(new DefaultItemAnimator());
         GridLayoutManager layoutManager=new GridLayoutManager(this, 3);
         picRecyclerView.setLayoutManager(layoutManager);
+
         mOpenHelper = new PicturesSQLOpenHelper(this);
         mSQLiteDatabase = mOpenHelper.getReadableDatabase();
         Cursor mCursor = PicturesSQLUtils.fetchAllData(mSQLiteDatabase);
         if (mCursor != null && mCursor.getCount() !=0) {
             fillDataFromSQL(mCursor);
-        }else {
         }
 
     }
@@ -72,7 +77,7 @@ public class PicturesCollectionActivity extends ActionBarActivity{
                 mCursor.close();
 				mSQLiteDatabase.close();
 				mOpenHelper.close();
-                mAdapter=new PicsRecyclerViewAdapter(PicturesCollectionActivity.this, collectionList);
+                mAdapter=new PicsRecyclerViewAdapter(PicturesCollectionActivity.this, collectionList, floatView, picRecyclerView);
                 picRecyclerView.setAdapter(mAdapter);
                 super.onPostExecute(result);
             }}.execute();

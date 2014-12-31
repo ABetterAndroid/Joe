@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/content_layout"
+    android:fitsSystemWindows="true"
     android:background="@color/background">
 
     <include
@@ -18,12 +19,6 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:id="@+id/pics_col"/>
-
-        <include
-            layout="@layout/weibo_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 

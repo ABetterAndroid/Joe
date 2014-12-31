@@ -15,6 +15,16 @@
         <item>搜微博</item>
     </string-array>
 
+    <string-array name="my_comment">
+        <item>收到的评论</item>
+        <item>发出的评论</item>
+    </string-array>
+
+    <string-array name="my_mention">
+        <item>提到我的微博</item>
+        <item>提到我的评论</item>
+    </string-array>
+
     <string name="app_name">Orangee</string>
     <string name="title_section1">收藏</string>
     <string name="title_section2">我的评论</string>
@@ -74,5 +84,7 @@
     <string name="weibo_edit">发微博</string>
     <string name="pic_collect">收藏图片</string>
     <string name="pic_collection">图片收藏</string>
+    <string name="collection_edit">编辑</string>
+    <string name="pic_collection_mode_delete">删除</string>
 
 </resources>

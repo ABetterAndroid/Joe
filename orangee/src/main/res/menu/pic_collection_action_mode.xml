@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.joe.orange.activity.weibo.WeiboCommentRetweetActivity" >
+
+    <item
+        android:id="@+id/mode_collection_delete"
+        android:title="@string/pic_collection_mode_delete"/>
+
+</menu>

@@ -6,11 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.PicsRecyclerViewAdapter;
@@ -32,21 +35,17 @@ public class PicturesCollectionActivity extends ActionBarActivity{
     private List<PictureCollection> collectionList;
     private PicsRecyclerViewAdapter mAdapter;
     private RecyclerView picRecyclerView;
-    private View floatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pics_collection);
-        View contentView=findViewById(R.id.content_layout);
-        Utils.setTopPadding(this, contentView);
+//        View contentView=findViewById(R.id.content_layout);
+//        Utils.setTopPadding(this, contentView);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Utils.setActionBarStyle(getSupportActionBar(), R.string.pic_collection);
-
-        floatView=findViewById(R.id.item_layout);
-        floatView.setVisibility(View.GONE);
 
         picRecyclerView= (RecyclerView) findViewById(R.id.pics_col);
         picRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -77,9 +76,62 @@ public class PicturesCollectionActivity extends ActionBarActivity{
                 mCursor.close();
 				mSQLiteDatabase.close();
 				mOpenHelper.close();
-                mAdapter=new PicsRecyclerViewAdapter(PicturesCollectionActivity.this, collectionList, floatView, picRecyclerView);
+                mAdapter=new PicsRecyclerViewAdapter(PicturesCollectionActivity.this, collectionList, picRecyclerView);
                 picRecyclerView.setAdapter(mAdapter);
                 super.onPostExecute(result);
             }}.execute();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pic_collection, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.action_collection_edit:
+                startSupportActionMode(mCallback);
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private ActionMode.Callback mCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.pic_collection_action_mode, menu);
+
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            boolean ret = false;
+            if (item.getItemId() == R.id.mode_collection_delete) {
+                mode.finish();
+                ret = true;
+            }
+            return ret;
+        }
+    };
 }

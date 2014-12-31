@@ -10,9 +10,12 @@ import com.joe.orangee.util.Constants;
 
 public class MyMentionFragmentPagerAdapter extends FragmentPagerAdapter{
 
+    private String[] titleArray;
 	
-	public MyMentionFragmentPagerAdapter(FragmentManager fm ) {
-		super(fm);
+	public MyMentionFragmentPagerAdapter(FragmentManager fm, String[] titleArray) {
+
+        super(fm);
+        this.titleArray=titleArray;
 	}
 
 	@Override
@@ -25,5 +28,10 @@ public class MyMentionFragmentPagerAdapter extends FragmentPagerAdapter{
 	public int getCount() {
 		return 2;
 	}
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titleArray[position];
+    }
 
 }

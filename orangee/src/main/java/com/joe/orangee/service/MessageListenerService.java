@@ -1,13 +1,5 @@
 package com.joe.orangee.service;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.joe.orangee.R;
-import com.joe.orangee.activity.home.OrangeeHomeActivity;
-import com.joe.orangee.model.UnreadMessage;
-import com.joe.orangee.net.Downloader.CommonDownloader;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,7 +11,14 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
+
+import com.joe.orangee.R;
+import com.joe.orangee.activity.home.OrangeeHomeActivity;
+import com.joe.orangee.model.UnreadMessage;
+import com.joe.orangee.net.Downloader.CommonDownloader;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MessageListenerService extends Service {
 
@@ -33,7 +32,7 @@ public class MessageListenerService extends Service {
 
 	@Override
 	public void onCreate() {
-		Log.e("MessageService", "------------service create-----------");
+//		Log.e("MessageService", "------------service create-----------");
 		timer = new Timer();
 		messageTask = new GetMessageTask();
 		context=this;
@@ -42,7 +41,7 @@ public class MessageListenerService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.e("MessageService", "------------service start-----------");
+//		Log.e("MessageService", "------------service start-----------");
 		messageTask.cancel();
 		messageTask=null;
 		messageTask=new GetMessageTask();
@@ -80,7 +79,7 @@ public class MessageListenerService extends Service {
 
 		@Override
 		public void run() {
-			Log.e("MessageService", "------------service task-----------");
+//			Log.e("MessageService", "------------service task-----------");
 			unreadMessage = new CommonDownloader(context).getUnreadMessage();
 			if (unreadMessage!=null) {
 				showMessageHandler.sendEmptyMessage(0);

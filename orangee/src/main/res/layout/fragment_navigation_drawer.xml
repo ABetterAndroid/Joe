@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/drawer"
+    android:background="@color/card_color"
     android:choiceMode="singleChoice"
     android:divider="@null"
     android:scrollbars="@null"

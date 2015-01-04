@@ -2,8 +2,7 @@
 <resources>
 
     <string-array name="left_drawer_list">
-        <item>收藏的微博</item>
-        <item>收藏的图片</item>
+        <item>收藏</item>
         <item>附近的微博</item>
         <item>我的评论</item>
         <item>提到我的</item>

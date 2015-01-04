@@ -1,20 +1,19 @@
 package com.joe.orangee.fragment.drawer;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import com.joe.orangee.activity.pictures.PicturesCollectionActivity;
 import com.joe.orangee.activity.search.SearchActivity;
 import com.joe.orangee.activity.settings.SettingsActivity;
 import com.joe.orangee.activity.weibo.WeiboCollectionActivity;
+import com.joe.orangee.library.ViewExpandAnimation;
 import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.model.User;
 import com.joe.orangee.model.WeiboStatus;
@@ -44,6 +46,9 @@ import com.joe.orangee.net.Downloader.PersonDownloader;
 import com.joe.orangee.util.PreferencesKeeper;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class NavigationDrawerFragment extends Fragment {
@@ -78,26 +83,29 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerListView = (ListView) inflater.inflate(
 				R.layout.fragment_navigation_drawer, container, false);
 //		Utils.setTopPadding(getActivity(), mDrawerListView);
-		mDrawerListView
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						selectItem(position);
-					}
-				});
-		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.left_drawer_list)));
-		View headerView=View.inflate(getActivity(), R.layout.drawer_left_header, null);
-		ivAvatar = (ImageView) headerView.findViewById(R.id.user_avatar);
-		tvName = (TextView) headerView.findViewById(R.id.user_name);
-		tvFollow = (TextView) headerView.findViewById(R.id.user_follow);
-		tvFollower = (TextView) headerView.findViewById(R.id.user_follower);
-		tvStatus = (TextView) headerView.findViewById(R.id.user_status);
-		
-		fillLeftDrawer();
-		mDrawerListView.addHeaderView(headerView);
-		
+        View headerView=View.inflate(getActivity(), R.layout.drawer_left_header, null);
+        ivAvatar = (ImageView) headerView.findViewById(R.id.user_avatar);
+        tvName = (TextView) headerView.findViewById(R.id.user_name);
+        tvFollow = (TextView) headerView.findViewById(R.id.user_follow);
+        tvFollower = (TextView) headerView.findViewById(R.id.user_follower);
+        tvStatus = (TextView) headerView.findViewById(R.id.user_status);
+
+        fillLeftDrawer();
+        mDrawerListView.addHeaderView(headerView);
+//		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(),
+//				android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.left_drawer_list)));
+
+        mDrawerListView.setAdapter(new CategoryAdapter());
+        mDrawerListView
+                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        selectItem(position);
+                    }
+                });
+
+
 		return mDrawerListView;
 	}
 
@@ -194,53 +202,45 @@ public class NavigationDrawerFragment extends Fragment {
 	}
 
 	private void selectItem(final int position) {
-		if (mDrawerLayout != null) {
-			mDrawerLayout.closeDrawer(Gravity.START);
-		}
-		new Handler().postDelayed(new Runnable() {
-			
-			@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @Override
-			public void run() {
-				
-				switch (position) {
-				case 0:
-					if (PreferencesKeeper.readUserInfo(getActivity())!=null) {
-						Intent intent=new Intent(getActivity(), PersonPageActivity.class);
-						intent.putExtra("User", PreferencesKeeper.readUserInfo(getActivity()));
-						intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
-						getActivity().startActivity(intent);
-					}
-					
-					break;
-				case 1:
-					startActivity(new Intent(getActivity(), WeiboCollectionActivity.class));
-					break;
-                case 2:
+        switch (position) {
+            case 0:
+                if (PreferencesKeeper.readUserInfo(getActivity())!=null) {
+                    Intent intent=new Intent(getActivity(), PersonPageActivity.class);
+                    intent.putExtra("User", PreferencesKeeper.readUserInfo(getActivity()));
+                    intent.setExtrasClassLoader(WeiboStatus.class.getClassLoader());
+                    getActivity().startActivity(intent);
+                }
 
-                    startActivity(new Intent(getActivity(), PicturesCollectionActivity.class));
-                    break;
-				case 3:
+                break;
+            case 1:
+                HeaderViewListAdapter ha = (HeaderViewListAdapter) mDrawerListView.getAdapter();
+                View expandView=((CategoryAdapter)ha.getWrappedAdapter()).getExpandView(0);
+                expandView.startAnimation(new ViewExpandAnimation(expandView));
+                break;
+            case 2:
+                closeDrawerDelayed();
 
-					startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class));
-					break;
-				case 4:
-					startActivity(new Intent(getActivity(), MyCommentActivity.class));
-					break;
-				case 5:
-					startActivity(new Intent(getActivity(), MyMentionActivity.class));
-					break;
-				case 6:
-                    startActivity(new Intent(getActivity(), SearchActivity.class));
-					break;
-				case 7:
-					startActivity(new Intent(getActivity(), SettingsActivity.class));
-					break;
-				default:
-					break;
-				}
-			}
-		}, 200);
+                startActivity(new Intent(getActivity(), NearbyMapWeiboActivity.class));
+                break;
+            case 3:
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), MyCommentActivity.class));
+                break;
+            case 4:
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), MyMentionActivity.class));
+                break;
+            case 5:
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+            case 6:
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                break;
+            default:
+                break;
+        }
 	}
 
 /*	@Override
@@ -281,8 +281,95 @@ public class NavigationDrawerFragment extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/*private ActionBar getActionBar() {
-		return getActivity().getActionBar();
-	}*/
+    private class CategoryAdapter extends BaseAdapter implements View.OnClickListener {
+
+        List<View> expandViews=new ArrayList<View>();
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int mLcdWidth = dm.widthPixels;
+        float mDensity = dm.density;
+        String[] categoryArray=getResources().getStringArray(R.array.left_drawer_list);
+        String[] collectionArray={"收藏的微博", "收藏的图片"};
+
+        public View getExpandView(int position){
+            return expandViews.get(position);
+        }
+        @Override
+        public int getCount() {
+            return categoryArray.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return categoryArray[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View view=View.inflate(getActivity(), R.layout.item_drawer, null);
+            TextView tvCategory= (TextView) view.findViewById(R.id.category);
+            tvCategory.setText(categoryArray[position]);
+            LinearLayout expandLayout= (LinearLayout) view.findViewById(R.id.drawer_expand);
+            for (int i=0; i<collectionArray.length; i++) {
+                TextView tv=new TextView(getActivity());
+                tv.setText(collectionArray[i]);
+                tv.setPadding((int) (20 * mDensity), (int) (10 * mDensity), (int) (20 * mDensity), (int) (10 * mDensity));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                tv.setClickable(true);
+                tv.setBackgroundResource(R.drawable.dark_color_ripple_background);
+                tv.setOnClickListener(this);
+                expandLayout.addView(tv);
+            }
+
+
+            expandLayout.setVisibility(View.GONE);
+            if (expandViews.size()< getCount()){
+
+                expandViews.add(expandLayout);
+            }
+            int widthSpec = View.MeasureSpec.makeMeasureSpec((int) (mLcdWidth - 10 * mDensity), View.MeasureSpec.EXACTLY);
+            expandLayout.measure(widthSpec, 0);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) expandLayout.getLayoutParams();
+            params.bottomMargin = -expandLayout.getMeasuredHeight();
+            expandLayout.setVisibility(View.GONE);
+
+            tvCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectItem(position+1);
+                }
+            });
+
+            return view;
+        }
+
+        @Override
+        public void onClick(View v) {
+            String text=((TextView)v).getText().toString();
+            if (text.equals(collectionArray[0])){
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), WeiboCollectionActivity.class));
+            }else if (text.equals(collectionArray[1])) {
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), PicturesCollectionActivity.class));
+            }
+            HeaderViewListAdapter ha = (HeaderViewListAdapter) mDrawerListView.getAdapter();
+            View expandView=((CategoryAdapter)ha.getWrappedAdapter()).getExpandView(0);
+            expandView.startAnimation(new ViewExpandAnimation(expandView));
+        }
+    }
+
+    private void closeDrawerDelayed() {
+        mDrawerLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDrawerLayout.closeDrawer(Gravity.START);
+            }
+        }, 300);
+    }
 
 }

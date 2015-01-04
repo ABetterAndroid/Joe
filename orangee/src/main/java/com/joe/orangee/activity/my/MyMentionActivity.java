@@ -31,7 +31,7 @@ public class MyMentionActivity extends ActionBarActivity {
             getResources().getStringArray(R.array.my_mention)));
         SlidingTabLayout mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(vpMyComment);
-        mSlidingTabLayout.setSelectedIndicatorColors(Color.CYAN, Color.parseColor("#ffff0000"));
+        mSlidingTabLayout.setSelectedIndicatorColors(Color.parseColor("#128d4a"), Color.parseColor("#ffff0000"));
 	}
 
 

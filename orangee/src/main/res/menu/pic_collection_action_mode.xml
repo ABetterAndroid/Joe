@@ -4,6 +4,17 @@
 
     <item
         android:id="@+id/mode_collection_delete"
+        android:icon="@drawable/ic_action_cancel"
         android:title="@string/pic_collection_mode_delete"/>
+
+    <item
+        android:id="@+id/mode_collection_clear"
+        android:icon="@drawable/ic_action_clear"
+        android:title="@string/pic_collection_mode_clear"/>
+
+    <item
+        android:id="@+id/mode_collection_done"
+        android:icon="@drawable/ic_action_tick"
+        android:title="@string/pick_done"/>
 
 </menu>

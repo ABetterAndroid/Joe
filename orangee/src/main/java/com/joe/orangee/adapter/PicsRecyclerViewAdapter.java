@@ -51,6 +51,10 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 	}
 
 
+    public void clearDataList(){
+        dataList.clear();
+    }
+
 	@Override
 	public int getItemCount() {
         return dataList.size();

@@ -1,6 +1,7 @@
 package com.joe.orangee.activity.pictures;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.PicsRecyclerViewAdapter;
@@ -35,11 +37,13 @@ public class PicturesCollectionActivity extends ActionBarActivity{
     private List<PictureCollection> collectionList;
     private PicsRecyclerViewAdapter mAdapter;
     private RecyclerView picRecyclerView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pics_collection);
+        context = this;
 //        View contentView=findViewById(R.id.content_layout);
 //        Utils.setTopPadding(this, contentView);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -113,7 +117,10 @@ public class PicturesCollectionActivity extends ActionBarActivity{
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            // TODO Auto-generated method stub
+            for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
+
+                picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -125,11 +132,45 @@ public class PicturesCollectionActivity extends ActionBarActivity{
         }
 
         @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
             boolean ret = false;
-            if (item.getItemId() == R.id.mode_collection_delete) {
-                mode.finish();
-                ret = true;
+            switch (item.getItemId()){
+                case R.id.mode_collection_delete:
+                    for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
+                        picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).setVisibility(View.VISIBLE);
+                    }
+
+                    ret = true;
+                    break;
+                case R.id.mode_collection_clear:
+                    new AsyncTask<Void, Void, Void>(){
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
+
+                                PictureCollection collection=(PictureCollection)picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).getTag();
+                                PicturesSQLUtils.deleteOneData(context, collection.getId());
+                            }
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+
+                            ((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).clearDataList();
+                            picRecyclerView.getAdapter().notifyDataSetChanged();
+                            mode.finish();
+
+                        }
+                    }.execute();
+                    ret = true;
+                    break;
+                case R.id.mode_collection_done:
+                    mode.finish();
+                    ret = true;
+                    break;
             }
             return ret;
         }

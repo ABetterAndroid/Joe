@@ -161,39 +161,21 @@ public class Utils {
 		if (text.contains("@")) {
 			String[] names=text.split("@");
 			int formerIndex=0;
-			for (int i = 0; i < names.length; i++) {
+            String[] endSingals={")", "）", ":", "：", ",", "，", ".", "。"};
+
+            for (int i = 0; i < names.length; i++) {
 				if (i > 0) {
 					String nameRaw=names[i];
 					String name;
-					int blankIndex=nameRaw.indexOf(' ');
-					int bracketsDoubleIndex=nameRaw.indexOf("）");
-					int bracketsSingleIndex=nameRaw.indexOf(")");
-					int doubleColonIndex=nameRaw.indexOf("：");
-					int singleColonIndex=nameRaw.indexOf(":");
-					int colonIndex = -1;
-					if ((bracketsDoubleIndex<bracketsSingleIndex && bracketsDoubleIndex<blankIndex) || (bracketsSingleIndex==-1 && blankIndex==-1)) {
-						blankIndex=bracketsDoubleIndex;
-					}else if ((bracketsSingleIndex<blankIndex && bracketsSingleIndex<bracketsDoubleIndex) || (blankIndex==1&&bracketsDoubleIndex==-1)) {
-						blankIndex=bracketsSingleIndex;
-					}
-					if (doubleColonIndex != -1 && singleColonIndex!= -1) {
-						colonIndex=singleColonIndex<doubleColonIndex? singleColonIndex: doubleColonIndex;
-					}else {
-						colonIndex=singleColonIndex!=-1? singleColonIndex: doubleColonIndex;
-					}
-					if ((blankIndex< colonIndex && blankIndex!=-1) || (blankIndex!=-1 && colonIndex==-1) ) {
-						name = "@"+nameRaw.substring(0, blankIndex);
-					}else if ((colonIndex< blankIndex && colonIndex!=-1) || (colonIndex!=-1 && blankIndex==-1) ) {
-						if (doubleColonIndex != -1 && singleColonIndex!= -1) {
-							String name1 = "@"+nameRaw.substring(0, doubleColonIndex);
-							String name2 = "@"+nameRaw.substring(0, singleColonIndex);
-							name=name1.length()>name2.length()? name2:name1;
-						}else {
-							name=singleColonIndex!=-1? "@"+nameRaw.substring(0, singleColonIndex): "@"+nameRaw.substring(0, doubleColonIndex);
-						}
-					}else {
-						name = "@"+nameRaw.substring(0, nameRaw.length());
-					}
+                    int index=nameRaw.indexOf(' ')==-1? nameRaw.length():nameRaw.indexOf(' ');
+                    for (int j=0; j< endSingals.length; j++) {
+                        int newIndex=nameRaw.indexOf(endSingals[j]);
+                        if (newIndex!=-1){
+                            index=index<newIndex? index: newIndex;
+                        }
+                    }
+                    name = "@"+nameRaw.substring(0, index);
+
 					int start=text.indexOf(name, formerIndex);
 					int end=text.indexOf(name, formerIndex)+name.length();
 //					postText.setSpan(new ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

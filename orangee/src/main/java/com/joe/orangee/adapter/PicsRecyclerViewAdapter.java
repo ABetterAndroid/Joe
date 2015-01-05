@@ -32,6 +32,8 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 	private DisplayImageOptions picOptions;
     RecyclerView mRecyclerView;
     OrangeeImageLoadingListener.LoadingListener mListener;
+    private List<ImageView> delViews = new ArrayList<ImageView>();
+    public boolean delFlag;
 
 	public PicsRecyclerViewAdapter(Context context, List<PictureCollection> dataList, RecyclerView mRecyclerView) {
 		super();
@@ -50,6 +52,14 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 			.build();
 	}
 
+    public List<ImageView> getDelViews() {
+
+        return delViews;
+    }
+
+    public List<PictureCollection> getDataList(){
+        return dataList;
+    }
 
     public void clearDataList(){
         dataList.clear();
@@ -68,6 +78,12 @@ public class PicsRecyclerViewAdapter extends Adapter<ViewHolder> {
 //            OrangeeRecyclerViewAdapter.MyViewHolder statushHolder = new OrangeeRecyclerViewAdapter.MyViewHolder(((MyViewHolder) holder).statusView);
 //            WeiboItemUtil.getWeiboItem(context, imageLoader, mListener, new OrangeeImageLoadingListener.ParamsChangeLoadingListener(), picOptions, picOptions, 0, statushHolder, collection.getStatus());
             ((MyViewHolder) holder).ivDelete.setTag(collection);
+            if (delFlag){
+                ((MyViewHolder) holder).ivDelete.setVisibility(View.VISIBLE);
+            }
+            if (!delViews.contains(((MyViewHolder) holder).ivDelete)){
+                delViews.add(((MyViewHolder) holder).ivDelete);
+            }
             ((MyViewHolder) holder).ivCollection.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

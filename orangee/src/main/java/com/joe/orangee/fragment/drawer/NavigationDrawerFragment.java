@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
@@ -215,6 +216,14 @@ public class NavigationDrawerFragment extends Fragment {
             case 1:
                 HeaderViewListAdapter ha = (HeaderViewListAdapter) mDrawerListView.getAdapter();
                 View expandView=((CategoryAdapter)ha.getWrappedAdapter()).getExpandView(0);
+                ImageView arrowView=((CategoryAdapter)ha.getWrappedAdapter()).getArrowView(0);
+                ViewPropertyAnimator propertyAnimator = null;
+                if (expandView.getVisibility()==View.VISIBLE) {
+                    propertyAnimator = arrowView.animate().rotation(0.0f).setDuration(300);
+                }else if (expandView.getVisibility()==View.GONE) {
+                    propertyAnimator = arrowView.animate().rotation(90.0f).setDuration(300);
+                }
+                propertyAnimator.start();
                 expandView.startAnimation(new ViewExpandAnimation(expandView));
                 break;
             case 2:
@@ -284,6 +293,7 @@ public class NavigationDrawerFragment extends Fragment {
     private class CategoryAdapter extends BaseAdapter implements View.OnClickListener {
 
         List<View> expandViews=new ArrayList<View>();
+        List<ImageView> arrows=new ArrayList<ImageView>();
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int mLcdWidth = dm.widthPixels;
         float mDensity = dm.density;
@@ -293,6 +303,11 @@ public class NavigationDrawerFragment extends Fragment {
         public View getExpandView(int position){
             return expandViews.get(position);
         }
+
+        public ImageView getArrowView(int position){
+            return arrows.get(position);
+        }
+
         @Override
         public int getCount() {
             return categoryArray.length;
@@ -312,17 +327,23 @@ public class NavigationDrawerFragment extends Fragment {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view=View.inflate(getActivity(), R.layout.item_drawer, null);
             TextView tvCategory= (TextView) view.findViewById(R.id.category);
+            ImageView ivArrow= (ImageView) view.findViewById(R.id.category_arrow);
             tvCategory.setText(categoryArray[position]);
             LinearLayout expandLayout= (LinearLayout) view.findViewById(R.id.drawer_expand);
-            for (int i=0; i<collectionArray.length; i++) {
-                TextView tv=new TextView(getActivity());
-                tv.setText(collectionArray[i]);
-                tv.setPadding((int) (20 * mDensity), (int) (10 * mDensity), (int) (20 * mDensity), (int) (10 * mDensity));
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                tv.setClickable(true);
-                tv.setBackgroundResource(R.drawable.dark_color_ripple_background);
-                tv.setOnClickListener(this);
-                expandLayout.addView(tv);
+            if (position == 0) {
+                for (int i = 0; i < collectionArray.length; i++) {
+                    TextView tv = new TextView(getActivity());
+                    tv.setText(collectionArray[i]);
+                    tv.setPadding((int) (20 * mDensity), (int) (10 * mDensity), (int) (20 * mDensity), (int) (10 * mDensity));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    tv.setClickable(true);
+                    tv.setBackgroundResource(R.drawable.dark_color_ripple_background);
+                    tv.setOnClickListener(this);
+                    expandLayout.addView(tv);
+                }
+                ivArrow.setVisibility(View.VISIBLE);
+            } else {
+                ivArrow.setVisibility(View.INVISIBLE);
             }
 
 
@@ -330,6 +351,8 @@ public class NavigationDrawerFragment extends Fragment {
             if (expandViews.size()< getCount()){
 
                 expandViews.add(expandLayout);
+                arrows.add(ivArrow);
+
             }
             int widthSpec = View.MeasureSpec.makeMeasureSpec((int) (mLcdWidth - 10 * mDensity), View.MeasureSpec.EXACTLY);
             expandLayout.measure(widthSpec, 0);
@@ -360,6 +383,7 @@ public class NavigationDrawerFragment extends Fragment {
             HeaderViewListAdapter ha = (HeaderViewListAdapter) mDrawerListView.getAdapter();
             View expandView=((CategoryAdapter)ha.getWrappedAdapter()).getExpandView(0);
             expandView.startAnimation(new ViewExpandAnimation(expandView));
+            ((CategoryAdapter)ha.getWrappedAdapter()).getArrowView(0).setRotation(0.0f);
         }
     }
 

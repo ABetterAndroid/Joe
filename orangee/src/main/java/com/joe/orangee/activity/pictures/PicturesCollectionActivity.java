@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.PicsRecyclerViewAdapter;
@@ -117,9 +118,14 @@ public class PicturesCollectionActivity extends ActionBarActivity{
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
+            if (picRecyclerView.getAdapter()==null){
+                return;
+            }
+            List<ImageView> delViews=((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).getDelViews();
+            ((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).delFlag=false;
+            for (int i=0; i<delViews.size();i++){
 
-                picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).setVisibility(View.GONE);
+                delViews.get(i).setVisibility(View.GONE);
             }
         }
 
@@ -136,20 +142,30 @@ public class PicturesCollectionActivity extends ActionBarActivity{
             boolean ret = false;
             switch (item.getItemId()){
                 case R.id.mode_collection_delete:
-                    for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
-                        picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).setVisibility(View.VISIBLE);
+                    if (picRecyclerView.getAdapter()==null) {
+                        break;
+                    }
+                    List<ImageView> delViews=((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).getDelViews();
+                    ((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).delFlag=true;
+                    for (int i=0; i<delViews.size();i++){
+                        delViews.get(i).setVisibility(View.VISIBLE);
                     }
 
                     ret = true;
                     break;
                 case R.id.mode_collection_clear:
+                    if (picRecyclerView.getAdapter()==null) {
+                        break;
+                    }
                     new AsyncTask<Void, Void, Void>(){
 
                         @Override
                         protected Void doInBackground(Void... params) {
-                            for (int i=0; i<picRecyclerView.getAdapter().getItemCount();i++){
+                            List<PictureCollection> dataList=((PicsRecyclerViewAdapter)picRecyclerView.getAdapter()).getDataList();
+                            for (int i=0; i<dataList.size();i++){
 
-                                PictureCollection collection=(PictureCollection)picRecyclerView.getChildAt(i).findViewById(R.id.col_img_del).getTag();
+                                PictureCollection collection= dataList.get(i);
+
                                 PicturesSQLUtils.deleteOneData(context, collection.getId());
                             }
                             return null;

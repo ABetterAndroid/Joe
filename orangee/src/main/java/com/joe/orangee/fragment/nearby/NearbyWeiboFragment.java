@@ -87,7 +87,7 @@ public class NearbyWeiboFragment extends Fragment implements OnRefreshListener{
 				if (statusList!=null) {
 					refreshLayout.setRefreshing(false);
 					if (recyclerAdapter==null) {
-						recyclerAdapter=new OrangeeRecyclerViewAdapter(statusList, context, null);
+						recyclerAdapter=new OrangeeRecyclerViewAdapter(statusList, context, null, null);
 						mRecyclerView.setAdapter(recyclerAdapter);
 					}else {
 						recyclerAdapter.addData(statusList);

@@ -67,15 +67,16 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
     private LinearLayoutManager mLayoutManager;
     private View headerView;
     private User user;
-	
-	@Override
+    private Toolbar toolbar;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context=this;
 		setContentView(R.layout.person_page_activity);
 		View contentView=findViewById(R.id.content_layout);
 		Utils.setTopPadding(this, contentView);
-		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		Utils.setActionBarStyle(getSupportActionBar(), R.string.person_page);
 		user = getIntent().getParcelableExtra("User");
@@ -190,7 +191,7 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
 			protected void onPostExecute(Void result) {
 				refreshLayout.setRefreshing(false);
 				if (recyclerAdapter==null) {
-					recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, headerView);
+					recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, headerView, toolbar);
 					mRecyclerView.setAdapter(recyclerAdapter);
 				}else {
 					recyclerAdapter.addData(weiboList);

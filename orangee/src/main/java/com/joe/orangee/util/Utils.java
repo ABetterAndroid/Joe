@@ -299,7 +299,7 @@ public class Utils {
 	       }
 	       return result;
 	 }
-	
+
 	/**
 	 * 设置Padding状态栏高度
 	 * @user qiaorongzhu

@@ -49,7 +49,7 @@ public class OrangeeHomeActivity extends ActionBarActivity {
         // Set up the drawer.
         mNavigationDrawerFragment=new NavigationDrawerFragment(this);
         mNavigationDrawerFragment.setUp(mDrawerLayout, toolbar);
-        statusFragment = new WeiboStatusFragment();
+        statusFragment = new WeiboStatusFragment(toolbar);
         getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.container, statusFragment)

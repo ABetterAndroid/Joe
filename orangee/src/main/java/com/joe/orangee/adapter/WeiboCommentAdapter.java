@@ -1,6 +1,7 @@
 package com.joe.orangee.adapter;
 
-import java.util.List;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.method.LinkMovementMethod;
@@ -10,12 +11,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.joe.orangee.R;
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.util.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("UseSparseArrays")
 public class WeiboCommentAdapter extends BaseAdapter {
@@ -24,6 +29,7 @@ public class WeiboCommentAdapter extends BaseAdapter {
 	private Context context;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
+    private List<Integer> animatedPositions=new ArrayList<Integer>();
 	
 	public WeiboCommentAdapter(List<Comment> dataList, Context context) {
 		super();
@@ -81,6 +87,8 @@ public class WeiboCommentAdapter extends BaseAdapter {
 			holder.content=(TextView) view.findViewById(R.id.comment_content);
 			view.setTag(holder);
 		}
+
+        startInAnimation(view, position);
 		final Comment comment=dataList.get(position);
 		imageLoader.displayImage(comment.getUser().getAvatar(), holder.avatar, options);
 		/*holder.avatar.setOnClickListener(new OnClickListener() {
@@ -101,7 +109,21 @@ public class WeiboCommentAdapter extends BaseAdapter {
 		return view;
 	}
 
-	private class ViewHolder{
+    private void startInAnimation(View view, int position) {
+
+        if (animatedPositions.contains(position)) {
+            return;
+        }
+        animatedPositions.add(position);
+        AnimatorSet animatorSet=new AnimatorSet();
+        animatorSet.playTogether(ObjectAnimator.ofFloat(view, "translationY", 300.0f, 200.0f, 100.0f, 50.0f, 25.0f, 0.0f).setDuration(500),
+                ObjectAnimator.ofFloat(view, "rotationX", 20.0f, 10.0f, 5.0f, 0.0f).setDuration(400),
+                ObjectAnimator.ofFloat(view, "alpha", 0.0f, 1.0f).setDuration(200));
+        animatorSet.start();
+
+    }
+
+    private class ViewHolder{
 		ImageView avatar;
 		TextView name;
 		TextView time;

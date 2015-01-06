@@ -12,16 +12,18 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.Downloader.WeiboDownloader;
-import com.joe.orangee.sql.StatusesSQLOpenHelper;
 import com.joe.orangee.sql.SQLDataGetterUtils;
+import com.joe.orangee.sql.StatusesSQLOpenHelper;
 import com.joe.orangee.sql.StatusesSQLUtils;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.PreferencesKeeper;
@@ -48,9 +50,17 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 	private RecyclerView mRecyclerView;
 	private OrangeeRecyclerViewAdapter recyclerAdapter;
     private LinearLayoutManager mLayoutManager;
-	
-	public WeiboStatusFragment() {
+    private Toolbar toolbar;
+    private int mtoobarHeight = 0;
+    private int mTranslationY = 0;
+
+    public WeiboStatusFragment() {
+        super();
+    }
+
+	public WeiboStatusFragment(Toolbar toolbar) {
 		super();
+        this.toolbar=toolbar;
 	}
 
 	public WeiboStatusFragment(String url) {
@@ -93,20 +103,34 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 		
 		offsetY=PreferencesKeeper.readOffsetY(context);
 		currentPosition=positionToScroll=PreferencesKeeper.readPosition(context);
-		if (url==Constants.URL_FRIENDS_TIMELINE) {
-			mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
-			mSQLiteDatabase = mOpenHelper.getReadableDatabase();
-			Cursor mCursor = StatusesSQLUtils.fetchAllData(mSQLiteDatabase);
-			if (mCursor != null && mCursor.getCount() !=0) {
-				fillDataFromSQL(mCursor);
-			}else {
-				max_id=0L;
-				fillData();
-			}
-		}else {
-			max_id=0L;
-			fillData();
-		}
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Constants.TOOLBAR_HEIGHT = mtoobarHeight = toolbar.getHeight();
+                refreshLayout.setProgressViewOffset(false, 0, (int) (mtoobarHeight * 1.2));
+                refreshLayout.invalidate();
+
+                if (url==Constants.URL_FRIENDS_TIMELINE) {
+                    mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
+                    mSQLiteDatabase = mOpenHelper.getReadableDatabase();
+                    Cursor mCursor = StatusesSQLUtils.fetchAllData(mSQLiteDatabase);
+                    if (mCursor != null && mCursor.getCount() !=0) {
+                        fillDataFromSQL(mCursor);
+                    }else {
+                        max_id=0L;
+                        fillData();
+                    }
+                }else {
+                    max_id=0L;
+                    fillData();
+                }
+
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+            }
+        });
+
 		return view;
 	}
 
@@ -124,13 +148,12 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 			@Override
 			protected void onPostExecute(Void result) {
 				mCursor.close();
-//				mSQLiteDatabase.close();
-//				mOpenHelper.close();
 				refreshLayout.setRefreshing(false);
 				max_id=Long.valueOf(weiboList.get(weiboList.size()-1).getWeiboId())-1;
-				recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, null);
+				recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, null, toolbar);
 				mRecyclerView.setAdapter(recyclerAdapter);
 				mLayoutManager.scrollToPositionWithOffset(positionToScroll, offsetY);
+
 				super.onPostExecute(result);
 			}}.execute();
 	}
@@ -162,6 +185,20 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 	        firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();*/
 	        lastItemIndex = mLayoutManager.findFirstVisibleItemPosition() + mRecyclerView.getChildCount() - 1;  
 	        currentPosition=mLayoutManager.findFirstVisibleItemPosition();
+
+            int deltaY = -dy;
+            if ((mTranslationY > -mtoobarHeight && deltaY < 0) || (mTranslationY < 0 && deltaY > 0)) {
+
+                mTranslationY += deltaY;
+            }
+
+            if (mTranslationY < -mtoobarHeight) {
+                mTranslationY = -mtoobarHeight;
+            } else if (mTranslationY > 0) {
+                mTranslationY = 0;
+            }
+            toolbar.setTranslationY(mTranslationY);
+
 			super.onScrolled(recyclerView, dx, dy);
 		}
 	};
@@ -199,7 +236,7 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 					
 				}
 				if (recyclerAdapter==null) {
-					recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, null);
+					recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, null, toolbar);
 					mRecyclerView.setAdapter(recyclerAdapter);
 				}else {
 					recyclerAdapter.addData(weiboList);

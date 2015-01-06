@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.joe.orangee.listener.OrangeeImageLoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.LoadingListener;
 import com.joe.orangee.listener.OrangeeImageLoadingListener.ParamsChangeLoadingListener;
 import com.joe.orangee.model.WeiboStatus;
+import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.Utils;
 import com.joe.orangee.util.WeiboItemUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -47,14 +49,16 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 	private DisplayImageOptions picOptions;
 	private LoadingListener mListener;
 	private ParamsChangeLoadingListener mChangeListener;
-	private View extendView;
+    private Toolbar toolbar;
+    private View extendView;
 	
-	public OrangeeRecyclerViewAdapter(List<WeiboStatus> dataList, Context context, View extendView) {
+	public OrangeeRecyclerViewAdapter(List<WeiboStatus> dataList, Context context, View extendView, Toolbar toolbar) {
 		super();
 		imageLoader = ImageLoader.getInstance();
 		this.dataList = dataList;
 		this.context=context;
-		this.extendView=extendView;
+		this.toolbar=toolbar;
+        this.extendView=extendView;
 		
 		mListener = new OrangeeImageLoadingListener.LoadingListener();
 		mChangeListener = new OrangeeImageLoadingListener.ParamsChangeLoadingListener();
@@ -78,6 +82,10 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 			.build();
 	}
 
+    public List<WeiboStatus> getDataList() {
+        return this.dataList;
+    }
+
 	public void addData(List<WeiboStatus> addList){
 		dataList.addAll(addList);
 	}
@@ -85,20 +93,17 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 	public void clearData(){
 		dataList.clear();
 	}
-	
+
 	@Override
 	public int getItemCount() {
-        if (extendView!=null){
-            return dataList.size()+2;
-        }else{
-            return dataList.size()+1;
-        }
-	}
+
+        return dataList.size()+2;
+    }
 
 	@Override
 	public void onBindViewHolder(final ViewHolder holder, int position) {
 		if (holder instanceof MyViewHolder) {
-			final WeiboStatus weiboStatus=dataList.get(position);
+			final WeiboStatus weiboStatus=dataList.get(position-1);
 			WeiboItemUtil.getWeiboItem(context, imageLoader, mListener, mChangeListener,  avatarOptions, 
 					picOptions, position, holder, weiboStatus);
 			OnClickListener listener=new OnClickListener() {
@@ -174,13 +179,19 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 			 vh = new MyViewHolder(view);
 			break;
 		case TYPE_HEADER:
-			if (extendView!=null) {
-				vh = new AddViewHolder(extendView);
-			}else {
-				View headerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.header_blank_view, parent, false);
-				vh = new AddViewHolder(headerView);
-			}
-			break;
+            if (extendView!=null){
+                vh = new AddViewHolder(extendView);
+            }else{
+
+                View headerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.header_blank_view, parent, false);
+                if (toolbar!=null){
+
+                    int height=(int)(5* Constants.DENSITY+0.5f)+toolbar.getHeight();
+                    headerView.getLayoutParams().height=height;
+                }
+                vh = new AddViewHolder(headerView);
+            }
+            break;
 		case TYPE_FOOTER:
 			View footerView=LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_view, parent, false);
 			 vh = new AddViewHolder(footerView);
@@ -194,20 +205,12 @@ public class OrangeeRecyclerViewAdapter extends Adapter<ViewHolder> {
 
 	@Override
 	public int getItemViewType(int position) {
-        if (extendView!=null){
-            if (position==0){
-                return TYPE_HEADER;
-            }else if (position==getItemCount()-1) {
-                return TYPE_FOOTER;
-            }else {
-                return TYPE_LIST;
-            }
+        if (position==0){
+            return TYPE_HEADER;
+        }else if (position==getItemCount()-1) {
+            return TYPE_FOOTER;
         }else {
-            if (position==getItemCount()-1) {
-                return TYPE_FOOTER;
-            }else {
-                return TYPE_LIST;
-            }
+            return TYPE_LIST;
         }
 
 	}

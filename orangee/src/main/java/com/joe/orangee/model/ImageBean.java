@@ -31,5 +31,5 @@ public class ImageBean{
 	public void setFa_filepath(String fa_filepath) {
 		this.fa_filepath = fa_filepath;
 	}
-	
+
 }

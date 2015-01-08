@@ -1,20 +1,22 @@
 package com.joe.orangee.activity.weibo;
 
-import java.io.File;
-import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.fragment.weibo.WeiboEditFragment;
 import com.joe.orangee.service.WeiboSendService;
 import com.joe.orangee.util.Utils;
 
-public class WeiboEditActivity extends ActionBarActivity {
+import java.io.File;
+import java.util.ArrayList;
+
+public class WeiboEditActivity extends BaseActivity {
 
 	public static ArrayList<String> mPicList;
 	public static String CAMERA_PATH = Environment
@@ -71,14 +73,17 @@ public class WeiboEditActivity extends ActionBarActivity {
 			finish();
 			break;
 		case R.id.action_send_weibo:
-			Intent intent=new Intent(this, WeiboSendService.class);
-			if (mPicList.size()>0) {
-				intent.putExtra("pic", mPicList.get(0));
-				
-			}
-			intent.putExtra("status", editFragment.etWeibo.getText().toString());
-			startService(intent);
-			finish();
+            if (isNetworkOK()){
+
+                Intent intent=new Intent(this, WeiboSendService.class);
+                if (mPicList.size()>0) {
+                    intent.putExtra("pic", mPicList.get(0));
+
+                }
+                intent.putExtra("status", editFragment.etWeibo.getText().toString());
+                startService(intent);
+                finish();
+            }
 			break;
 		default:
 			break;

@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.adapter.PicsBrowserAdapter;
 import com.joe.orangee.model.PictureCollection;
 import com.joe.orangee.model.WeiboStatus;
@@ -26,7 +26,7 @@ import com.joe.orangee.view.photoview.HackyViewPager;
 
 import java.util.ArrayList;
 
-public class ImageBrowseActivity extends ActionBarActivity {
+public class ImageBrowseActivity extends BaseActivity {
 
 	private Context context;
 	private HackyViewPager mViewPager;
@@ -43,6 +43,9 @@ public class ImageBrowseActivity extends ActionBarActivity {
 //		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.image_browse_activity);
 		context = this;
+
+        isNetworkOK();
+
         View contentView=findViewById(R.id.pic_browser_layout);
         Utils.setTopPadding(this, contentView);
 		currentItem = getIntent().getIntExtra("current", 0);

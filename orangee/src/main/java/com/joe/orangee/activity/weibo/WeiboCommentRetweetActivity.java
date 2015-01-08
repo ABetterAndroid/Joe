@@ -3,7 +3,6 @@ package com.joe.orangee.activity.weibo;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.model.Comment;
 import com.joe.orangee.model.WeiboStatus;
 import com.joe.orangee.net.Downloader.CommentDownloader;
 import com.joe.orangee.net.Result;
 import com.joe.orangee.util.Utils;
 
-public class WeiboCommentRetweetActivity extends ActionBarActivity {
+public class WeiboCommentRetweetActivity extends BaseActivity {
 
 	private Context context;
 	private String ID;
@@ -84,22 +84,24 @@ public class WeiboCommentRetweetActivity extends ActionBarActivity {
 		if (id==android.R.id.home) {
 			finish();
 		}else if (id == R.id.action_send) {
-			String edittedText=et.getText().toString().trim();
-			if (type==0) {
-				if (!edittedText.equals("")) {
-					sendComment(edittedText, ID);
-				}else {
-					Toast.makeText(context, R.string.edit_blank, Toast.LENGTH_SHORT).show();
-				}
-			}else if(type==1) {
-				sendRepost(edittedText, ID, checkBox.isChecked()? 1: 0);
-			}else if (type==2) {
-				sendReply(edittedText, ID);
-			}
-			
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+            if (isNetworkOK()) {
+                String edittedText = et.getText().toString().trim();
+                if (type == 0) {
+                    if (!edittedText.equals("")) {
+                        sendComment(edittedText, ID);
+                    } else {
+                        Toast.makeText(context, R.string.edit_blank, Toast.LENGTH_SHORT).show();
+                    }
+                } else if (type == 1) {
+                    sendRepost(edittedText, ID, checkBox.isChecked() ? 1 : 0);
+                } else if (type == 2) {
+                    sendReply(edittedText, ID);
+                }
+            }
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 	}
 	
 	private void sendReply(final String text, final String weiboID) {

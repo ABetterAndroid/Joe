@@ -17,7 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
+import com.androidplus.net.NetworkUtil;
 import com.joe.orangee.R;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.model.WeiboStatus;
@@ -107,22 +109,25 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                Constants.TOOLBAR_HEIGHT = mtoobarHeight = toolbar.getHeight();
+                if (toolbar != null) {
+
+                    Constants.TOOLBAR_HEIGHT = mtoobarHeight = toolbar.getHeight();
+                }
                 refreshLayout.setProgressViewOffset(false, 0, (int) (mtoobarHeight * 1.2));
                 refreshLayout.invalidate();
 
-                if (url==Constants.URL_FRIENDS_TIMELINE) {
+                if (url == Constants.URL_FRIENDS_TIMELINE) {
                     mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
                     mSQLiteDatabase = mOpenHelper.getReadableDatabase();
                     Cursor mCursor = StatusesSQLUtils.fetchAllData(mSQLiteDatabase);
-                    if (mCursor != null && mCursor.getCount() !=0) {
+                    if (mCursor != null && mCursor.getCount() != 0) {
                         fillDataFromSQL(mCursor);
-                    }else {
-                        max_id=0L;
+                    } else {
+                        max_id = 0L;
                         fillData();
                     }
-                }else {
-                    max_id=0L;
+                } else {
+                    max_id = 0L;
                     fillData();
                 }
 
@@ -186,18 +191,21 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 	        lastItemIndex = mLayoutManager.findFirstVisibleItemPosition() + mRecyclerView.getChildCount() - 1;  
 	        currentPosition=mLayoutManager.findFirstVisibleItemPosition();
 
-            int deltaY = -dy;
-            if ((mTranslationY > -mtoobarHeight && deltaY < 0) || (mTranslationY < 0 && deltaY > 0)) {
+            if (toolbar != null) {
 
-                mTranslationY += deltaY;
-            }
+                int deltaY = -dy;
+                if ((mTranslationY > -mtoobarHeight && deltaY < 0) || (mTranslationY < 0 && deltaY > 0)) {
 
-            if (mTranslationY < -mtoobarHeight) {
-                mTranslationY = -mtoobarHeight;
-            } else if (mTranslationY > 0) {
-                mTranslationY = 0;
+                    mTranslationY += deltaY;
+                }
+
+                if (mTranslationY < -mtoobarHeight) {
+                    mTranslationY = -mtoobarHeight;
+                } else if (mTranslationY > 0) {
+                    mTranslationY = 0;
+                }
+                toolbar.setTranslationY(mTranslationY);
             }
-            toolbar.setTranslationY(mTranslationY);
 
 			super.onScrolled(recyclerView, dx, dy);
 		}
@@ -205,15 +213,20 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 	
 	
 	private void fillData() {
+
+        if (NetworkUtil.getInstance(context).getNetworkType() == -1) {
+            Toast.makeText(context, R.string.no_network, Toast.LENGTH_SHORT).show();
+            return;
+        }
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
 			protected Void doInBackground(Void... params) {
 				if (max_id==0L) {
 					weiboList=new WeiboDownloader(context).getWeiboList(url, null, 0L, 0L, 20, page, 0, 0, 0, 0);
-					
+
 				}else {
-					
+
 					weiboList=new WeiboDownloader(context).getWeiboList(url, null, 0L, max_id, 20, 1, 0, 0, 0, 0);
 				}
 				return null;
@@ -227,13 +240,13 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 				}else {
 					if (max_id!=0L) {
 						max_id=Long.valueOf(weiboList.get(weiboList.size()-1).getWeiboId())-1;
-						
+
 					}
 				}
 				if (isRefresh) {
 					recyclerAdapter.clearData();
 					isRefresh=false;
-					
+
 				}
 				if (recyclerAdapter==null) {
 					recyclerAdapter=new OrangeeRecyclerViewAdapter(weiboList, context, null, toolbar);
@@ -243,9 +256,9 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 					recyclerAdapter.notifyDataSetChanged();
 				}
 				if (url==Constants.URL_FRIENDS_TIMELINE && page==1) {
-					
+
 					new Thread(new Runnable() {
-						
+
 						@Override
 						public void run() {
                         mOpenHelper = new StatusesSQLOpenHelper(context, Constants.TABLE_NAME_FRIENDS_TIMELINE);
@@ -267,7 +280,7 @@ public class WeiboStatusFragment extends Fragment implements OnRefreshListener {
 				super.onPostExecute(result);
 			}
 		}.execute();
-		
+
 	}
 
 	@Override

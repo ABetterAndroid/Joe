@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.adapter.PicsRecyclerViewAdapter;
 import com.joe.orangee.model.PictureCollection;
 import com.joe.orangee.sql.PicsDataGetterUtils;
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Created by qiaorongzhu on 2014/12/22.
  */
-public class PicturesCollectionActivity extends ActionBarActivity{
+public class PicturesCollectionActivity extends BaseActivity{
 
     private PicturesSQLOpenHelper mOpenHelper;
     private SQLiteDatabase mSQLiteDatabase;
@@ -63,6 +63,7 @@ public class PicturesCollectionActivity extends ActionBarActivity{
         if (mCursor != null && mCursor.getCount() !=0) {
             fillDataFromSQL(mCursor);
         }
+        isNetworkOK();
 
     }
 

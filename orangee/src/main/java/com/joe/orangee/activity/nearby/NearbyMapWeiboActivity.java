@@ -1,6 +1,5 @@
 package com.joe.orangee.activity.nearby;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -8,10 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.fragment.nearby.NearbyFragment;
 import com.joe.orangee.util.Utils;
 
-public class NearbyMapWeiboActivity extends ActionBarActivity {
+public class NearbyMapWeiboActivity extends BaseActivity {
 
 
     @Override
@@ -24,10 +24,12 @@ public class NearbyMapWeiboActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         Utils.setActionBarStyle(getSupportActionBar(), R.string.status_nearby);
 
-        getFragmentManager()
-        .beginTransaction()
-        .replace(R.id.map_status_cocntainer, NearbyFragment.getNearbyFragment())
-        .commit();
+        if (isNetworkOK()) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_status_cocntainer, NearbyFragment.getNearbyFragment())
+                    .commit();
+        }
 
     }
 

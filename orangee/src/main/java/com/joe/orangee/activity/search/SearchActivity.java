@@ -16,9 +16,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.util.Utils;
 
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,16 +1,16 @@
 package com.joe.orangee.activity.weibo;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.fragment.weibo.FavouritesFragment;
 import com.joe.orangee.util.Utils;
 
-public class WeiboCollectionActivity extends ActionBarActivity {
+public class WeiboCollectionActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +21,12 @@ public class WeiboCollectionActivity extends ActionBarActivity {
 		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
 		setSupportActionBar(toolbar);
 		Utils.setActionBarStyle(getSupportActionBar(), R.string.my_favourite);
-		
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.collection_container, new FavouritesFragment())
-		.commit();
+        if (isNetworkOK()) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.collection_container, new FavouritesFragment())
+                    .commit();
+        }
 	}
 
 	@Override

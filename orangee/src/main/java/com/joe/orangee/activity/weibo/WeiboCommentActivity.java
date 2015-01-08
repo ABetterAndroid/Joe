@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter.MyViewHolder;
 import com.joe.orangee.adapter.WeiboCommentAdapter;
 import com.joe.orangee.library.ComputeYListView;
@@ -38,7 +38,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
-public class WeiboCommentActivity extends ActionBarActivity implements OnRefreshListener {
+public class WeiboCommentActivity extends BaseActivity implements OnRefreshListener {
 
     private ComputeYListView lvComment;
     private Context context;
@@ -92,7 +92,9 @@ public class WeiboCommentActivity extends ActionBarActivity implements OnRefresh
 
         initHeader();
 
-        fillData();
+        if (isNetworkOK()) {
+            fillData();
+        }
 
     }
 

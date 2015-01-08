@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.adapter.OrangeeRecyclerViewAdapter;
 import com.joe.orangee.adapter.WeiboStatusAdapter;
 import com.joe.orangee.model.User;
@@ -34,7 +34,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
-public class PersonPageActivity extends ActionBarActivity implements OnRefreshListener {
+public class PersonPageActivity extends BaseActivity implements OnRefreshListener {
 
 	private Context context;
 	private String name;
@@ -102,7 +102,9 @@ public class PersonPageActivity extends ActionBarActivity implements OnRefreshLi
 		.build();
 		
 		refreshLayout.setRefreshing(true);
-		fillData();
+        if (isNetworkOK()) {
+            fillData();
+        }
 	}
 
 	private void initViews() {

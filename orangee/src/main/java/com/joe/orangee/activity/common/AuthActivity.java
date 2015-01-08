@@ -1,6 +1,5 @@
 package com.joe.orangee.activity.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.joe.orangee.R;
+import com.joe.orangee.activity.base.BaseActivity;
 import com.joe.orangee.activity.home.OrangeeHomeActivity;
 import com.joe.orangee.util.Constants;
 import com.joe.orangee.util.PreferencesKeeper;
@@ -17,7 +17,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 
-public class AuthActivity extends Activity {
+public class AuthActivity extends BaseActivity {
 
 	private SsoHandler mSsoHandler;
 	
@@ -32,11 +32,12 @@ public class AuthActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
-				mSsoHandler.authorize(new AuthListener());
-				
-			}
-		});
+                if (isNetworkOK()) {
+                    mSsoHandler.authorize(new AuthListener());
+                }
+
+            }
+        });
 	}
 
 	@Override

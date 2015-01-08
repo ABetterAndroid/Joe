@@ -138,7 +138,10 @@ public class MyCommentFragment extends Fragment implements OnRefreshListener {
 	@Override
 	public void onRefresh() {
 		page=1;
-		mAdapter.clearDataList();
+        if (mAdapter != null) {
+
+            mAdapter.clearDataList();
+        }
 		fillData();
 		
 	}

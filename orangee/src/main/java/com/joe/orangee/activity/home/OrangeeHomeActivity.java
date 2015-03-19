@@ -1,7 +1,10 @@
 package com.joe.orangee.activity.home;
 
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.MenuCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -33,14 +36,14 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_activity);
-		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);  
+		Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		Intent intent=new Intent(this, MessageListenerService.class);
 		startService(intent);
-		
+
 		View contentView=findViewById(R.id.content_layout);
 		Utils.setTopPadding(this, contentView);
-		
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		/*mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);*/
@@ -65,6 +68,7 @@ public class OrangeeHomeActivity extends ActionBarActivity {
                 statusFragment.onRefresh();
             }
         });*/
+        registerReceiver(new FinishReceiver(), new IntentFilter("com.joe.orangee.finish"));
     }
 
 	@SuppressWarnings("deprecation")
@@ -79,7 +83,7 @@ public class OrangeeHomeActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.orangee_home_menu, menu);
-		
+
 	    MenuCompat.setShowAsAction(menu.findItem(R.id.action_home_refresh), MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    MenuCompat.setShowAsAction(menu.findItem(R.id.action_home_edit), MenuItem.SHOW_AS_ACTION_ALWAYS);
 		return super.onCreateOptionsMenu(menu);
@@ -116,4 +120,14 @@ public class OrangeeHomeActivity extends ActionBarActivity {
             Utils.showHotKey(hotKey);
         }
     }
+
+    class FinishReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() == "com.joe.orangee.finish") {
+                finish();
+            }
+        }
+    }
+
 }

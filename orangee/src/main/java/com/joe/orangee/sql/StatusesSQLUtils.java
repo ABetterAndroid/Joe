@@ -48,11 +48,14 @@ public class StatusesSQLUtils {
 		
 	}
 	
-	public static void deleteTableData(SQLiteDatabase mSQLiteDatabase){
-		mSQLiteDatabase.delete(StatusesSQLOpenHelper.DB_TABLE, null, null);
-	}
-	
-	/**
+	public static void deleteTableData(SQLiteDatabase mSQLiteDatabase) {
+        synchronized (mSQLiteDatabase) {
+
+            mSQLiteDatabase.delete(StatusesSQLOpenHelper.DB_TABLE, null, null);
+        }
+    }
+
+    /**
 	 * ContentValues 放入数据
 	 * @param values
 	 * @param status

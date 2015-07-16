@@ -79,7 +79,7 @@ public class ImageBrowseActivity extends BaseActivity {
                 break;
             case R.id.action_collect:
                 String url=(String)mViewPager.findViewWithTag(mViewPager.getCurrentItem()).findViewById(R.id.pic_photo).getTag();
-                Toast.makeText(this, url,Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "ͼƬ�ղسɹ�",Toast.LENGTH_SHORT).show();
                 final PictureCollection collection=new PictureCollection(url, status);
                 if (mOpenHelper==null){
 

@@ -6,7 +6,7 @@
         <item>附近的微博</item>
         <item>我的评论</item>
         <item>提到我的</item>
-        <item>搜索</item>
+        <!--<item>搜索</item>-->
         <item>设置</item>
     </string-array>
     <string-array name="search_option">

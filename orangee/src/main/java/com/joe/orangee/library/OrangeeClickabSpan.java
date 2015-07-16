@@ -51,14 +51,15 @@ public class OrangeeClickabSpan extends ClickableSpan {
 			break;
 		case "http":
             startFlag=false;
-            if (context instanceof OrangeeHomeActivity){
+            webView = new WebView(context);
+            if (context instanceof OrangeeHomeActivity) {
                 Utils.showHotKey(OrangeeHomeActivity.hotKey);
                 OrangeeHomeActivity.hotKey.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!startFlag){
+                        if (!startFlag) {
                             startWeb();
-                            startFlag=true;
+                            startFlag = true;
                         }
                     }
                 });
@@ -69,13 +70,14 @@ public class OrangeeClickabSpan extends ClickableSpan {
                 );
                 animatorSet.start();*/
 
-                webView = new WebView(context);
-                LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                 webView.setLayoutParams(params);
                 webView.setWebViewClient(new OrangeeWebViewClient());
                 webView.setWebChromeClient(new OrangeeWebChromeClient());
                 webView.loadUrl(text);
 
+            } else {
+                startWeb();
             }
 
 			break;
@@ -118,14 +120,17 @@ public class OrangeeClickabSpan extends ClickableSpan {
     }
 
     private void startWeb() {
-        Utils.hideHotKey(OrangeeHomeActivity.hotKey);
+        if (context instanceof OrangeeHomeActivity) {
+
+            Utils.hideHotKey(OrangeeHomeActivity.hotKey);
+        }
         webView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent webIntent=new Intent(context, OrangeeWebActivity.class);
+                Intent webIntent = new Intent(context, OrangeeWebActivity.class);
                 webIntent.putExtra(Constants.URL, text);
                 context.startActivity(webIntent);
-                ((Activity)context).overridePendingTransition(R.anim.enter_up_down, R.anim.exit);
+                ((Activity) context).overridePendingTransition(R.anim.enter_up_down, R.anim.exit);
             }
         }, 300);
     }

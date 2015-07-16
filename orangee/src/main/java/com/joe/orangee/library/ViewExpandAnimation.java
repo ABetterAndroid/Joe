@@ -1,5 +1,6 @@
 package com.joe.orangee.library;
 
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -32,8 +33,9 @@ public class ViewExpandAnimation extends Animation {
 	@Override
 	protected void applyTransformation(float interpolatedTime, Transformation t) {
 		super.applyTransformation(interpolatedTime, t);
-		
-		if(interpolatedTime < 1.0f){
+        Log.i("time", interpolatedTime+"");
+
+        if(interpolatedTime < 1.0f){
 			mViewLayoutParams.bottomMargin = mStart + (int) ((mEnd - mStart) * interpolatedTime);
 			// invalidate
 			mAnimationView.requestLayout();

@@ -241,12 +241,13 @@ public class NavigationDrawerFragment extends Fragment {
                 break;
             case 5:
                 closeDrawerDelayed();
-                startActivity(new Intent(getActivity(), SearchActivity.class));
-                break;
-            case 6:
-                closeDrawerDelayed();
+//                startActivity(new Intent(getActivity(), SearchActivity.class));
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 break;
+            /*case 6:
+                closeDrawerDelayed();
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                break;*/
             default:
                 break;
         }

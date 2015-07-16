@@ -77,7 +77,7 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
                 .lightActionBar(true);
         mFadingHelper.lightActionBar(false);
 
-        mFadingHelper.initActionBar((NearbyMapWeiboActivity)context);
+        mFadingHelper.initActionBar((NearbyMapWeiboActivity) context);
 
         footerView = View.inflate(context, R.layout.footer_view, null);
         contentView.addFooterView(footerView);
@@ -158,11 +158,14 @@ public class NearbyFragment extends Fragment implements AMapLocationListener {
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-        latitude=aMapLocation.getLatitude();
-        longitude=aMapLocation.getLongitude();
-        NearbyMapWeiboActivity activity=(NearbyMapWeiboActivity)context;
+        if (aMapLocation == null) {
+            return;
+        }
+        latitude = aMapLocation.getLatitude();
+        longitude = aMapLocation.getLongitude();
+        NearbyMapWeiboActivity activity = (NearbyMapWeiboActivity) context;
         activity.getSupportActionBar().setTitle(aMapLocation.getStreet());
-        String mapImageUrl= Constants.STATIC_MAP_URL+"&markers=mid,,:"+longitude+","+latitude;
+        String mapImageUrl = Constants.STATIC_MAP_URL + "&markers=mid,,:" + longitude + "," + latitude;
 
         ImageLoader.getInstance().displayImage(mapImageUrl, headerImg, Utils.getNoDefaultImageOptions(), new OrangeeImageLoadingListener.LoadingListener());
         fillData();
